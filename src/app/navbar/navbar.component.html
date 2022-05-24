@@ -1,0 +1,24 @@
+<div class="navbar-content">
+    <div class="navbar-inner">
+        <div class="navbar-title">
+            SHIPPING - FREE IN BC + AB ON ORDERS OVER $125 AND THE REST OF CANADA OVER $150 / USA FLAT RATE $24.99
+        </div>
+        <div class="navbar-navigation">
+            <button mat-button [routerLink]="['/home']"> Home </button>
+            <button mat-button [routerLink]="['/about']"> About</button>
+            <button mat-button [matMenuTriggerFor]="menu">Products</button>
+            <mat-menu  #menu="matMenu">
+                <div class="product-menu">
+                    <button  mat-menu-item [routerLink]="['/deck']">Deck</button>
+                    <button mat-menu-item [routerLink]="['/wheel']">Wheels</button>
+                    <button mat-menu-item [routerLink]="['/truck']">Trucks</button>
+                    <button mat-menu-item [routerLink]="['/complete']">Completes</button    >
+                </div>
+         
+            </mat-menu>
+            <button mat-button [routerLink]="['/sale']">Sale</button>
+            <button mat-button [routerLink]="['/contact']"> Contact</button>
+        </div>
+    </div>
+</div>
+

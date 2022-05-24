@@ -1,0 +1,27 @@
+
+
+.navbar-inner{
+    text-align: center;
+
+}
+.navbar-title{
+    background-color: rgb(82, 85, 84);
+    color: white;
+    padding: 5px;
+}
+.navbar-navigation{
+    padding: 20px;
+}
+.navbar-navigation button{
+    margin-left: 8px;
+    color: #282C33;
+    font-weight: bold;
+}
+.navbar-navigation button:hover{
+  background-color: #5a606c;
+  color: white;
+}
+
+.product-menu{
+    width: 250px;
+}
