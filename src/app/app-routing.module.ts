@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'wheel', loadChildren: () => import('./components/products/wheel/wheel.module').then(m => m.WheelModule) },
   { path: 'contact', loadChildren: () => import('./components/contact/contact.module').then(m => m.ContactModule) },
   { path: 'truck', loadChildren: () => import('./components/products/truck/truck.module').then(m => m.TruckModule) },
-  { path: 'complete', loadChildren: () => import('./components/products/complete/complete.module').then(m => m.CompleteModule) }
+  { path: 'complete', loadChildren: () => import('./components/products/complete/complete.module').then(m => m.CompleteModule) },
+  { path: 'gallery', loadChildren: () => import('./components/gallery/gallery.module').then(m => m.GalleryModule) }
 
 ];
 

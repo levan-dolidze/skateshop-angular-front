@@ -1,3 +1,4 @@
+import { Button } from './../shared/buttons';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  button:Button=new Button();
 
   constructor() { }
 

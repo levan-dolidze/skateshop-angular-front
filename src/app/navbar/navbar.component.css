@@ -1,21 +1,26 @@
 
 
 .navbar-inner{
-    text-align: center;
+    /* text-align: center; */
 
 }
 .navbar-title{
     background-color: rgb(82, 85, 84);
     color: white;
     padding: 5px;
+    text-align: center;
 }
 .navbar-navigation{
     padding: 20px;
+    display: flex;
+    width: 100%;
+    
 }
 .navbar-navigation button{
     margin-left: 8px;
     color: #282C33;
     font-weight: bold;
+    
 }
 .navbar-navigation button:hover{
   background-color: #5a606c;
@@ -25,3 +30,23 @@
 .product-menu{
     width: 250px;
 }
+.search{
+    width:25%;
+    display: flex;
+    position: relative;
+}
+/* .search i{
+    position: absolute;
+} */
+.fa-solid {
+    position: absolute;
+    margin:12px 0px 0px 90%;
+    cursor: pointer;
+
+
+}
+
+
+
+
+ 
