@@ -46,6 +46,15 @@
 
 }
 
+.borderError{
+    border: 1px dashed #EB293E;
+}
+
+.form-control:focus.ng-invalid { 
+    outline: none !important;
+    border: 1px dashed #EB293E;
+    box-shadow: 0 0 0px #EB293E;
+}
 
 
 

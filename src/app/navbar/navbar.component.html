@@ -3,12 +3,19 @@
         <div class="navbar-title">
             SHIPPING - FREE IN BC + AB ON ORDERS OVER $125 AND THE REST OF CANADA OVER $150 / USA FLAT RATE $24.99
         </div>
+        <form >
         <div class="navbar-navigation">
             <div class="search">
-                <input class="form-control" type="text">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <input [(ngModel)]="search"  [ngModelOptions]="{standalone: true}" 
+                       #searchInput="ngModel"
+                       pattern="[a-zA-Z ]*"
+                       [class.borderError]="searchInput.touched&&searchInput.errors?.pattern"
+                       class="form-control" 
+                       type="text">
+                <i type="submit" (click)="searchItem(searchInput)" class="fa-solid fa-magnifying-glass"></i>
             </div>
 
+        
             <button mat-button [routerLink]="['/home']"> {{button.home}} </button>
             <button mat-button [routerLink]="['/about']"> {{button.about}}</button>
             <button mat-button [matMenuTriggerFor]="menu">{{button.products}}</button>
@@ -25,5 +32,8 @@
             <button mat-button [routerLink]="['/gallery']">{{button.gallery}}</button>
             <button mat-button [routerLink]="['/contact']"> {{button.contact}}</button>
         </div>
+
+
+    </form>
     </div>
 </div>

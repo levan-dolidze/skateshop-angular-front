@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div class="item-content">
+ <div *ngIf="itemArr$" class="item-filter-inner">
+    <div *ngFor="let item of (itemArr$|async)">
+        <div class="item">
+            {{item.id}}
+            {{item.name}}
+            <img [src]="item.image">
+            {{item.price}}
+            {{item.type}}
+        </div>
+    </div>
+ </div>
+
+</div>
+
+

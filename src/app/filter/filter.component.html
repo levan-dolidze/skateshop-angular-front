@@ -1,30 +1,22 @@
 <div *ngIf="showFilter" class="filter-content">
-<mat-icon style="cursor:pointer;" aria-hidden="false" aria-label="Example home icon" [matMenuTriggerFor]="filter">
-    filter
-</mat-icon>
+    <mat-icon style="cursor:pointer;" aria-hidden="false" aria-label="Example home icon" [matMenuTriggerFor]="filter">
+        filter
+    </mat-icon>
 
-<mat-menu #filter="matMenu" yPosition="below">
-    <section style="padding:10px 10px 0px 10px" class="example-section">
-        <p>
-            <mat-checkbox >
-                         Decks
+    <mat-menu #filter="matMenu" yPosition="below">
+        <section style="padding:10px 10px 0px 10px" class="example-section">
+            <mat-checkbox *ngFor="let brand of brands" 
+                           [(ngModel)]="chousenBrand"
+                           name="brandName" 
+                           #brandN ='ngModel'
+                          (change)="changeTiems(brand.name)">
+                {{brand.name}}
             </mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox >
-                         Wheels
-            </mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox >
-                         Trucks
-            </mat-checkbox>
-        </p>
-        <p>
-            <mat-checkbox >
-                         Completes
-            </mat-checkbox>
-        </p>
-    </section>
-</mat-menu>
+        </section>
+    </mat-menu>
+
+
+
 </div>
+
+
