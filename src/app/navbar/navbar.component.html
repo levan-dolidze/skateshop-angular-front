@@ -16,24 +16,31 @@
             </div>
 
         
-            <button mat-button [routerLink]="['/home']"> {{button.home}} </button>
-            <button mat-button [routerLink]="['/about']"> {{button.about}}</button>
-            <button mat-button [matMenuTriggerFor]="menu">{{button.products}}</button>
+            <button mat-button [routerLink]="['/home']"> {{"home"|translate}} </button>
+            <button mat-button [routerLink]="['/about']"> {{"about"|translate}}</button>
+            <button mat-button [matMenuTriggerFor]="menu">{{"products"|translate}}</button>
             <mat-menu #menu="matMenu">
                 <div class="product-menu">
-                    <button mat-menu-item [routerLink]="['/deck']">{{button.deck}}</button>
-                    <button mat-menu-item [routerLink]="['/wheel']">{{button.wheels}}</button>
-                    <button mat-menu-item [routerLink]="['/truck']">{{button.trucks}}</button>
-                    <button mat-menu-item [routerLink]="['/complete']">{{button.completes}}</button>
+                    <button mat-menu-item [routerLink]="['/deck']">{{"decks"|translate}}</button>
+                    <button mat-menu-item [routerLink]="['/wheel']">{{"wheels"|translate}}</button>
+                    <button mat-menu-item [routerLink]="['/truck']">{{"trucks"|translate}}</button>
+                    <button mat-menu-item [routerLink]="['/complete']">{{"complete"|translate}}</button>
                 </div>
 
             </mat-menu>
-            <button mat-button [routerLink]="['/sale']">{{button.sale}}</button>
-            <button mat-button [routerLink]="['/gallery']">{{button.gallery}}</button>
-            <button mat-button [routerLink]="['/contact']"> {{button.contact}}</button>
+            <button mat-button [routerLink]="['/sale']">{{"sale"|translate}}</button>
+            <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
+            <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
+            
+            <select (change)="changeLang($event.target)">
+                <option value="ka" [selected]="lang =='ka'">KA</option>
+                <option value="en" [selected]="lang =='en'"> ENG</option>
+             </select>
         </div>
 
 
     </form>
     </div>
+
 </div>
+
