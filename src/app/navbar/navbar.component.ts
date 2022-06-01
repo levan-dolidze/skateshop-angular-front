@@ -14,11 +14,16 @@ export class NavbarComponent implements OnInit {
   lang: any;
 
   constructor(private http: HttpService, private translate: TranslateService) {
-    translate.setDefaultLang('ka');
+    // translate.setDefaultLang('ka');
 
   }
 
   ngOnInit(): void {
+    this.languageControl();
+
+  };
+
+  languageControl() {
     this.lang = localStorage.getItem('lang');
     this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
   };

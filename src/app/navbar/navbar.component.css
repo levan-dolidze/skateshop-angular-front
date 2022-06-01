@@ -1,9 +1,5 @@
 
 
-.navbar-inner{
-    /* text-align: center; */
-
-}
 .navbar-title{
     background-color: rgb(82, 85, 84);
     color: white;
@@ -13,6 +9,7 @@
 .navbar-navigation{
     padding: 20px;
     display: flex;
+    /* justify-content: center; */
     width: 100%;
     
 }
@@ -30,21 +27,8 @@
 .product-menu{
     width: 250px;
 }
-.search{
-    width:25%;
-    display: flex;
-    position: relative;
-}
-/* .search i{
-    position: absolute;
-} */
-.fa-solid {
-    position: absolute;
-    margin:12px 0px 0px 90%;
-    cursor: pointer;
 
 
-}
 
 .borderError{
     border: 1px dashed #EB293E;
@@ -56,12 +40,39 @@
     box-shadow: 0 0 0px #EB293E;
 }
 
-select{
-position: absolute;
-cursor: pointer;
-margin-left: 90%;
-margin-top: 10px;
 
+ .navbar-navigation{
+     width: 100%;
+     display: flex;
+     justify-content: center;
+
+ }
+
+ .search-inner{
+    width:20%;
 }
 
- 
+.navigation-inner{
+   width: 50%;
+   display: flex;
+   justify-content: center;
+}
+.language-inner{
+    width: 20%;
+    display: flex;
+    justify-content: end;
+}
+.language-inner select{
+    height: 60%;
+    margin-top: 8px;
+    cursor: pointer;
+    border-color:rgb(208, 210, 209);
+    border-radius: 5px;
+
+}
+.fa-solid{
+    position: absolute;
+    cursor: pointer;
+    margin:12px 0px 0px 17%
+}
+

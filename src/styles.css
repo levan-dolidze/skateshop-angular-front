@@ -58,7 +58,13 @@ html{
   }
   
   .item {
-      width: 250px;
-      height: 200px;
-      margin-top: 20px;
+      width: 200px;
+      height: 250px;
+     margin:20px 10px 0px 0px;
+  }
+
+  .item img{
+    width: 100%;
+    object-fit: cover;
+  
   }
