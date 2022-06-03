@@ -1,0 +1,40 @@
+
+.detail-content{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    
+}
+.detail-inner{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.productDetail{
+    width: 20%;
+    padding: 20px;
+    height: 400px;
+margin-left: 10px;
+
+
+
+}
+.product-info{
+    width: 20%;
+    height: 400px;
+ 
+    padding: 20px;
+}
+
+.productDetail img{
+    width: 100%;
+    height: 100%;
+}
+.buy{
+    width:20%;
+    height: 600px;
+
+
+}

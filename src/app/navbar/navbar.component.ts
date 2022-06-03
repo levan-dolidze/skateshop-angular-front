@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
 
   search: string;
   lang: any;
+  quantity: number = 0
 
   constructor(private http: HttpService, private translate: TranslateService) {
     // translate.setDefaultLang('ka');
@@ -20,6 +21,22 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageControl();
+    this.http.addItemToCartEvent.subscribe((QTY) => {
+      let item = localStorage.getItem('items');
+      if (item) {
+        this.quantity = JSON.parse(item)
+      }
+      this.quantity = QTY
+      localStorage.setItem('items', JSON.stringify(this.quantity))
+
+
+    })
+    let item = localStorage.getItem('items');
+    if (item) {
+      this.quantity = JSON.parse(item)
+    }
+
+
 
   };
 
@@ -40,6 +57,12 @@ export class NavbarComponent implements OnInit {
   changeLang(lang: any) {
     localStorage.setItem('lang', lang.value);
     this.translate.use(lang.value);
+    this.http.changeLanguage.next();
+  }
+
+  clearCart() {
+    localStorage.clear();
+    this.quantity = 0;
   }
 
 };

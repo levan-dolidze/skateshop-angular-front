@@ -1,13 +1,15 @@
 <div class="item-content">
  <div *ngIf="itemArr$" class="item-filter-inner">
-    <div *ngFor="let item of (itemArr$|async)">
-        <div class="item">
+    <div *ngFor="let item of (itemArr$|async);let i =index">
+
+     <div  [routerLink]="['/view-details',item.id]" routerLinkActive="router-link-active" class="item">
             {{item.id}}
             {{item.name}}
             <img [src]="item.image">
             {{item.price}}
             {{item.type}}
         </div>
+  
     </div>
  </div>
 

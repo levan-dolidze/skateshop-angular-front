@@ -34,6 +34,12 @@
                 <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
                 <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
             </div>
+
+
+            <div class="cart">
+                <span [matBadge]="quantity" >{{"cart"|translate}}</span>
+            </div>
+            <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
         
             <div class="language-inner" >
             <select (change)="changeLang($event.target)">
@@ -41,6 +47,10 @@
                 <option value="en" [selected]="lang =='en'"> ENG</option>
              </select>
             </div>
+
+      
+
+       
         </div>
         </form>
     </div>

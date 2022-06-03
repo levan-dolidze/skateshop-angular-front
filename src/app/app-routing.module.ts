@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'contact', loadChildren: () => import('./components/contact/contact.module').then(m => m.ContactModule) },
   { path: 'truck', loadChildren: () => import('./components/products/truck/truck.module').then(m => m.TruckModule) },
   { path: 'complete', loadChildren: () => import('./components/products/complete/complete.module').then(m => m.CompleteModule) },
-  { path: 'gallery', loadChildren: () => import('./components/gallery/gallery.module').then(m => m.GalleryModule) }
+  { path: 'gallery', loadChildren: () => import('./components/gallery/gallery.module').then(m => m.GalleryModule) },
+  { path: 'view-details/:id', loadChildren: () => import('./components/view-details/view-details.module').then(m => m.ViewDetailsModule) }
 
 ];
 

@@ -1,7 +1,6 @@
-import { FilterComponent } from './../filter/filter.component';
 import { ItemArray } from './../models/url';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,8 @@ export class HttpService {
   private subject = new Subject<any>()
 
   showNumSub = new Subject<any>();
-
+  changeLanguage:Subject<any>=new Subject();
+  addItemToCartEvent:Subject<number>=new Subject();
 
 
   sendClickEvent() {

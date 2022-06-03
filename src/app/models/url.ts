@@ -5,7 +5,7 @@ export interface Url {
 }
 
 export interface ItemArray {
-    id: number,
+    id: string|number,
     name: string,
     price: number,
     type: string,
