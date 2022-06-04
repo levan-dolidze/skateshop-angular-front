@@ -1,0 +1,35 @@
+<div class="login-content">
+    <form (ngSubmit)="signIn(signInForm)" #signInForm="ngForm">
+        <h1 mat-dialog-title>{{"Authorization"|translate}}</h1>
+        <input [(ngModel)]="email" 
+               [ngModelOptions]="{standalone: true}" 
+               #userEmail="ngModel"    
+               pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" class="form-control"
+            placeholder="Username" autocomplete="off" type="text">
+
+            <div class="text-danger f-12 m-t-8"  *ngIf="signInForm.submitted&&userEmail.errors?.pattern">
+                არასწორი ფორმატი
+            </div>
+        <input style="margin-top:10px" 
+              [(ngModel)]="password" 
+              [ngModelOptions]="{standalone: true}"
+              #userPassword="ngModel" 
+              required
+              [class.borderError]="signInForm.submitted&&userPassword.errors?.pattern" class="form-control"
+              placeholder="Password" 
+              autocomplete="off" type="text">
+      
+            <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userPassword.errors?.required">
+                შეიყვანეთ პაროლი
+            </div>
+
+
+        <div mat-dialog-content>დარეგისტრირდი</div>
+        <button class="enterBtn" mat-raised-button color="primary">{{"enter"|translate}}</button>
+
+        <div mat-dialog-actions>
+            <button type="submit" mat-button mat-dialog-close>Close</button>
+        </div>
+    </form>
+</div>

@@ -13,16 +13,7 @@
     width: 100%;
     
 }
-.navbar-navigation button{
-    margin-left: 8px;
-    color: #282C33;
-    font-weight: bold;
-    
-}
-.navbar-navigation button:hover{
-  background-color: #5a606c;
-  color: white;
-}
+
 
 .product-menu{
     width: 250px;
@@ -30,9 +21,7 @@
 
 
 
-.borderError{
-    border: 1px dashed #EB293E;
-}
+
 
 .form-control:focus.ng-invalid { 
     outline: none !important;
@@ -75,4 +64,6 @@
     cursor: pointer;
     margin:12px 0px 0px 17%
 }
+.login{
 
+}

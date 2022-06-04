@@ -69,3 +69,7 @@ html{
     object-fit: cover;
   
   }
+
+  .borderError{
+    border: 1px dashed #EB293E;
+}

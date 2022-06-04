@@ -1,57 +1,59 @@
 <div class="navbar-content">
     <div class="navbar-inner">
         <div class="navbar-title">
-        {{"title" | translate}}
+            {{"title" | translate}}
         </div>
-        <form >
-        <div class="navbar-navigation">
-            <div class="search-inner">
-                <i type="submit" (click)="searchItem(searchInput)" class="fa-solid fa-magnifying-glass"></i> 
-                <input [(ngModel)]="search"  [ngModelOptions]="{standalone: true}" 
-                       #searchInput="ngModel"
-                       pattern="[a-zA-Z ]*"
-                       [class.borderError]="searchInput.touched&&searchInput.errors?.pattern"
-                       class="form-control" 
-                       placeholder="search"
-                       autocomplete="off"
-                       type="text">
+        <form>
+            <div class="navbar-navigation">
+                <div class="search-inner">
+                    <i type="submit" (click)="searchItem(searchInput)" class="fa-solid fa-magnifying-glass"></i>
+                    <input [(ngModel)]="search" [ngModelOptions]="{standalone: true}" #searchInput="ngModel"
+                        pattern="[a-zA-Z ]*" [class.borderError]="searchInput.touched&&searchInput.errors?.pattern"
+                        class="form-control" placeholder="search" autocomplete="off" type="text">
+                </div>
+
+                <div class="navigation-inner">
+                    <button routerLinkActive="active" mat-button [routerLink]="['/home']"> {{"home"|translate}}
+                    </button>
+                    <button mat-button [routerLink]="['/about']"> {{"about"|translate}}</button>
+                    <button mat-button [matMenuTriggerFor]="menu">{{"products"|translate}}</button>
+                    <mat-menu #menu="matMenu">
+                        <div class="product-menu">
+                            <button mat-menu-item [routerLink]="['/deck']">{{"decks"|translate}}</button>
+                            <button mat-menu-item [routerLink]="['/wheel']">{{"wheels"|translate}}</button>
+                            <button mat-menu-item [routerLink]="['/truck']">{{"trucks"|translate}}</button>
+                            <button mat-menu-item [routerLink]="['/complete']">{{"complete"|translate}}</button>
+                        </div>
+
+                    </mat-menu>
+                    <button mat-button [routerLink]="['/sale']">{{"sale"|translate}}</button>
+                    <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
+                    <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
+                </div>
+
+
+                <div class="cart">
+                    <span [matBadge]="quantity">{{"cart"|translate}}</span>
+                </div>
+                <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
+
+
+
+
+                <div class="language-inner">
+                    <select (change)="changeLang($event.target)">
+                        <option value="ka" [selected]="lang =='ka'">KA</option>
+                        <option value="en" [selected]="lang =='en'"> ENG</option>
+                    </select>
+                </div>
+                <button (click)="openDialog()" id="login" mat-stroked-button color="primary">
+                    {{"login"|translate}}
+                    <span class="material-icons">login</span>
+                </button>
+              
             </div>
 
-            <div class="navigation-inner">
-                <button mat-button [routerLink]="['/home']"> {{"home"|translate}} </button>
-                <button mat-button [routerLink]="['/about']"> {{"about"|translate}}</button>
-                <button mat-button [matMenuTriggerFor]="menu">{{"products"|translate}}</button>
-                <mat-menu #menu="matMenu">
-                    <div class="product-menu">
-                        <button mat-menu-item [routerLink]="['/deck']">{{"decks"|translate}}</button>
-                        <button mat-menu-item [routerLink]="['/wheel']">{{"wheels"|translate}}</button>
-                        <button mat-menu-item [routerLink]="['/truck']">{{"trucks"|translate}}</button>
-                        <button mat-menu-item [routerLink]="['/complete']">{{"complete"|translate}}</button>
-                    </div>
-    
-                </mat-menu>
-                <button mat-button [routerLink]="['/sale']">{{"sale"|translate}}</button>
-                <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
-                <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
-            </div>
 
-
-            <div class="cart">
-                <span [matBadge]="quantity" >{{"cart"|translate}}</span>
-            </div>
-            <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
-        
-            <div class="language-inner" >
-            <select (change)="changeLang($event.target)">
-                <option value="ka" [selected]="lang =='ka'">KA</option>
-                <option value="en" [selected]="lang =='en'"> ENG</option>
-             </select>
-            </div>
-
-      
-
-       
-        </div>
         </form>
     </div>
 </div>

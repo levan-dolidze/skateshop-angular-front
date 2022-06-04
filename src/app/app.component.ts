@@ -8,6 +8,7 @@ import PSPDFKit from 'pspdfkit';
 })
 export class AppComponent {
   title = 'skateshop-angular';
+
   // isSigned: boolean=true;
 
   // ngAfterViewInit() {

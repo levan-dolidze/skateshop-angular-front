@@ -19,7 +19,8 @@ export class ViewDetailsComponent implements OnInit {
   detaledProduct$: Observable<ItemArray[]>;
   product: ItemArray;
   lang: any;
-  quantity: number = 0
+  quantity: number = 0;
+ 
   ngOnInit(): void {
 
     this.http.changeLanguage.subscribe(() => {

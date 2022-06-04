@@ -1,7 +1,10 @@
+
+
 import { HttpService } from './../servises/http.service';
-import { Button } from './../shared/buttons';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +17,12 @@ export class NavbarComponent implements OnInit {
   lang: any;
   quantity: number = 0
 
-  constructor(private http: HttpService, private translate: TranslateService) {
+  constructor(private http: HttpService, private translate: TranslateService, public dialog: MatDialog) {
     // translate.setDefaultLang('ka');
 
+  }
+  openDialog() {
+    this.dialog.open(LoginModalComponent);
   }
 
   ngOnInit(): void {
@@ -66,3 +72,5 @@ export class NavbarComponent implements OnInit {
   }
 
 };
+
+

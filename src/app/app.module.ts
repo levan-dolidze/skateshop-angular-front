@@ -15,12 +15,17 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatDialogModule} from '@angular/material/dialog';
+import { LoginModalComponent } from './components/login-modal/login-modal.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FilterComponent,
+    LoginModalComponent,
+
 
   ],
   imports: [
@@ -35,6 +40,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     FormsModule,
     HttpClientModule,
     MatBadgeModule,
+    MatDialogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

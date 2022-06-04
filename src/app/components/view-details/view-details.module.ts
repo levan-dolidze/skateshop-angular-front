@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ViewDetailsRoutingModule } from './view-details-routing.module';
 import { ViewDetailsComponent } from './view-details.component';
 import {MatButtonModule} from '@angular/material/button';
