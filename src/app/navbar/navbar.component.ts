@@ -1,3 +1,4 @@
+import { AuthService } from './../servises/auth.service';
 
 
 import { HttpService } from './../servises/http.service';
@@ -15,9 +16,15 @@ export class NavbarComponent implements OnInit {
 
   search: string;
   lang: any;
-  quantity: number = 0
+  quantity: number = 0;
+  userLoginMode: string;
+  authStatus:string='login'
+  authStatusIsLogedin:boolean;
 
-  constructor(private http: HttpService, private translate: TranslateService, public dialog: MatDialog) {
+  constructor(private http: HttpService, 
+             private translate: TranslateService, 
+             public dialog: MatDialog, 
+             private authService: AuthService) {
     // translate.setDefaultLang('ka');
 
   }
@@ -32,19 +39,24 @@ export class NavbarComponent implements OnInit {
       if (item) {
         this.quantity = JSON.parse(item)
       }
-      this.quantity = QTY
+      this.quantity = QTY;
       localStorage.setItem('items', JSON.stringify(this.quantity))
-
-
     })
     let item = localStorage.getItem('items');
     if (item) {
       this.quantity = JSON.parse(item)
     }
-
-
-
   };
+
+  get loginMode():string|boolean{
+    this.authService.userIsLogedin.subscribe((isLogedIn) => {
+      this.authStatusIsLogedin=isLogedIn;
+      //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
+      this.authStatusIsLogedin? this.authStatus ='levani':false;
+    })
+    return this.authStatus
+  };
+
 
   languageControl() {
     this.lang = localStorage.getItem('lang');

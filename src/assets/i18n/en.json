@@ -15,7 +15,14 @@
     "cart":"Cart",
     "login":"Login",
     "authorization":"Authorization",
-    "enter":"Enter"
+    "register":"Registration",
+    "registration":"Registracion",
+    "enter":"Enter",
+    "confirm":"Confirm",
+    "confirmEmail":"Confirm Email",
+    "resendCode":"Resend code",
+    "confirmText":"The confirmation code is sent to your email:"
+
 }
 
 

@@ -47,8 +47,8 @@
                     </select>
                 </div>
                 <button (click)="openDialog()" id="login" mat-stroked-button color="primary">
-                    {{"login"|translate}}
-                    <span class="material-icons">login</span>
+                    {{loginMode}}
+                    <span class="material-icons">{{authStatusIsLogedin?"login":"logout"}}</span>
                 </button>
               
             </div>

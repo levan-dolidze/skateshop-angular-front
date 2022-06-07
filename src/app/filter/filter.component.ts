@@ -1,6 +1,5 @@
 import { HttpService } from './../servises/http.service';
 import { ItemArray, ProductUrl, Products } from './../models/url';
-import { Button } from './../shared/buttons';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, shareReplay } from 'rxjs/operators';
@@ -12,7 +11,6 @@ import { from, Observable, Subscription } from 'rxjs';
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
-  button: Button = new Button();
   currentUrl: any;
   showFilter: boolean;
   itemArr$: Observable<ItemArray[]>
