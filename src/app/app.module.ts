@@ -17,6 +17,8 @@ import {TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatDialogModule} from '@angular/material/dialog';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -41,6 +43,9 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
     HttpClientModule,
     MatBadgeModule,
     MatDialogModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

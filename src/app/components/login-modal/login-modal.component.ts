@@ -21,7 +21,7 @@ export class LoginModalComponent implements OnInit {
   registrationModal: boolean;
   confirmAuthModal: boolean;
   Emailconfirmed: boolean;
-
+  filteredBanks:Array<any>=["levani","dolidze"]
 
   constructor(private authServise: AuthService, public dialog: MatDialog,private router:Router) { }
 

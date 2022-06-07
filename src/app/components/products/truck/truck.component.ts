@@ -29,7 +29,7 @@ export class TruckComponent implements OnInit {
   };
   controlByBrands() {
     this.http.filterSubject.subscribe((res) => {
-      this.brands = res
+      this.brands = res;
     })
   };
   controlByType() {

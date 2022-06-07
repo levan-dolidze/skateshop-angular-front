@@ -18,19 +18,20 @@ export class NavbarComponent implements OnInit {
   lang: any;
   quantity: number = 0;
   userLoginMode: string;
-  authStatus:string='login'
-  authStatusIsLogedin:boolean;
+  authStatus: string = 'login'
+  authStatusIsLogedin: boolean;
 
-  constructor(private http: HttpService, 
-             private translate: TranslateService, 
-             public dialog: MatDialog, 
-             private authService: AuthService) {
+  constructor(private http: HttpService,
+    private translate: TranslateService,
+    public dialog: MatDialog,
+    private authService: AuthService) {
     // translate.setDefaultLang('ka');
 
   }
   openDialog() {
     this.dialog.open(LoginModalComponent);
-  }
+  };
+
 
   ngOnInit(): void {
     this.languageControl();
@@ -48,11 +49,11 @@ export class NavbarComponent implements OnInit {
     }
   };
 
-  get loginMode():string|boolean{
+  get loginMode(): string | boolean {
     this.authService.userIsLogedin.subscribe((isLogedIn) => {
-      this.authStatusIsLogedin=isLogedIn;
+      this.authStatusIsLogedin = isLogedIn;
       //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
-      this.authStatusIsLogedin? this.authStatus ='levani':false;
+      this.authStatusIsLogedin ? this.authStatus = 'levani' : false;
     })
     return this.authStatus
   };
@@ -69,19 +70,22 @@ export class NavbarComponent implements OnInit {
     } else {
       this.http.searchSubject.next(this.search)
     };
-
   };
+  searchingByEnterKey(form: KeyboardEvent) {
+    if (form.key==='Enter')this.searchItem(form)
+  };
+
 
   changeLang(lang: any) {
     localStorage.setItem('lang', lang.value);
     this.translate.use(lang.value);
     this.http.changeLanguage.next();
-  }
+  };
 
   clearCart() {
     localStorage.clear();
     this.quantity = 0;
-  }
+  };
 
 };
 
