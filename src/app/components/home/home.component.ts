@@ -1,6 +1,6 @@
 import { shareReplay, filter } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -39,6 +39,24 @@ export class HomeComponent implements OnInit {
   };
 
 
-
+  filterByClientAmount(ev: any) {
+    this.itemArr$ = this.http.returnDummyData();
+    shareReplay();
+      this.itemArr$.subscribe((res) => {
+        const filtredItem = res.filter((item) => {
+          return item.price <=ev.value;
+        })
+        this.itemArr$ = of(filtredItem)
+      })
+  };
   
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }else{
+      return value+ '₾';
+    }
+
+  }
+
 }

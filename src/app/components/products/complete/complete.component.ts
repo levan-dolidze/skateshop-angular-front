@@ -25,11 +25,11 @@ export class CompleteComponent implements OnInit {
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
       this.itemArr$.subscribe((res) => {
-       const fil = res.filter((item)=>{
+       const filteredItems = res.filter((item)=>{
          return item.name===searchValue
 
        })
-       this.brands=fil
+       this.brands=filteredItems
       })
     })
   };

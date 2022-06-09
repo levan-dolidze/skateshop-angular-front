@@ -45,42 +45,42 @@ export class HttpService {
       {
         id: 2,
         name: 'baker',
-        price: 150,
+        price: 250,
         type: 'deck',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       },
       {
         id: 3,
         name: 'element',
-        price: 150,
+        price: 320,
         type: 'deck',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       },
       {
         id: 4,
         name: 'spitfire',
-        price: 150,
+        price: 450,
         type: 'wheel',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       },
       {
         id: 5,
         name: 'independent',
-        price: 150,
+        price: 500,
         type: 'truck',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       },
       {
         id:6 ,
         name: 'alien complete',
-        price: 470,
+        price: 1700,
         type: 'complete',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       },
       {
         id: 7,
         name: 'almost complete',
-        price: 500,
+        price: 100,
         type: 'complete',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$'
       }
