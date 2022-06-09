@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
 import { from, Observable, of } from 'rxjs';
@@ -10,13 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService,
+    private translate: TranslateService) { }
   itemArr$: Observable<any[]>;
+  lang: any;
 
 
   ngOnInit(): void {
     this.returnSkateboardItems();
     this.searchSkateboardItems();
+    this.languageControl();
+    this.http.changeLanguage.subscribe(()=>{
+      this.languageControl();
+    })
+  
+    
+  };
+
+  languageControl() {
+    this.lang = localStorage.getItem('lang');
+    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
   };
 
   returnSkateboardItems() {
@@ -39,17 +53,18 @@ export class HomeComponent implements OnInit {
   };
 
 
-  filterByClientAmount(ev: any) {
-    this.itemArr$ = this.http.returnDummyData();
-    shareReplay();
+  filterByClientAmount(e: any) {
+    this.returnSkateboardItems();
       this.itemArr$.subscribe((res) => {
         const filtredItem = res.filter((item) => {
-          return item.price <=ev.value;
+          return item.price <=e.value;
         })
         this.itemArr$ = of(filtredItem)
       })
   };
   
+
+
   formatLabel(value: number) {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';

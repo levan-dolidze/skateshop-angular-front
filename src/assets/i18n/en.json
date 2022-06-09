@@ -21,7 +21,8 @@
     "confirm":"Confirm",
     "confirmEmail":"Confirm Email",
     "resendCode":"Resend code",
-    "confirmText":"The confirmation code is sent to your email:"
+    "confirmText":"The confirmation code is sent to your email:",
+    "sliderTitle":"Tell me your poket size"
 
 }
 

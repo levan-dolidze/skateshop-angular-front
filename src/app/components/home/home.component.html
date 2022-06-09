@@ -1,22 +1,24 @@
-მითხარი შენი ბიუჯეტი:
-<mat-slider 
-thumbLabel
-[displayWith]="formatLabel"
-tickInterval="10"
-step="10"
-min="0"
-max="2000"
-aria-label="units"
-(change)="filterByClientAmount($event)"
->
-</mat-slider>
+<div class="slider-content">
+    <div>
+      {{"sliderTitle"|translate}}:
+    </div>
+
+   
+    <mat-slider 
+    thumbLabel
+    [displayWith]="formatLabel"
+    tickInterval="10"
+    step="10"
+    min="0"
+    max="2000"
+    aria-label="units"
+    (change)="filterByClientAmount($event)">
+    </mat-slider>
+</div>
+
 
 
 <div class="item-content">
-
-
-
-
  <div *ngIf="itemArr$" class="item-filter-inner" >
     <div *ngFor="let item of (itemArr$|async);let i =index">
      <div   [routerLink]="['/view-details',item.id]" routerLinkActive="router-link-active" class="item">

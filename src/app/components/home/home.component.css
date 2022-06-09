@@ -1,5 +1,9 @@
 .mat-slider{
-    background-color:rgb(216, 216, 216);
+    background-color:rgb(252, 210, 132);
     border-radius: 5px;
-
+    margin-top: 5px;
+    width: 20%;
+}
+.slider-content{
+    text-align: center;
 }
