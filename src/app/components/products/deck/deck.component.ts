@@ -1,6 +1,6 @@
 import { shareReplay, filter } from 'rxjs/operators';
-import { ItemArray, ProductUrl, Products } from './../../../models/url';
-import { from, Observable, Subscription, of } from 'rxjs';
+import { ItemArray, ProductUrl } from './../../../models/url';
+import { from, Observable,  } from 'rxjs';
 import { HttpService } from './../../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -36,7 +36,6 @@ export class DeckComponent implements OnInit {
         ).subscribe((res) => {
           this.brands.push(res)
         })
-
       })
     })
   };
