@@ -1,0 +1,40 @@
+.enterBtn{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.registration-content{
+    display: flex;
+    margin-top: 10px;
+
+}
+.personal-info{
+    padding: 0px 0px 10px 0px;
+}
+.personal-info-v2{
+    padding: 0px 0px 10px 0px;
+    margin-left: 20px;
+}
+.form-control{
+margin:10px 0px 0px 0px
+
+}
+#birthDay{
+    width: 100%;
+}
+.birthday-content{
+    display: flex;
+}
+.birth-date-manu{
+    cursor: pointer;
+    position: absolute;
+    color: rgb(168, 169, 168);
+    margin:17px 0px 0px 180px;
+ 
+   
+  
+}
+.back-to-signin{
+ margin-top: 5px;
+ cursor: pointer;
+}

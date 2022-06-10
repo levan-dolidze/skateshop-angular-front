@@ -1,0 +1,155 @@
+<div class="login-content">
+    <form *ngIf="authorizationModal" (ngSubmit)="signIn(signInForm)" #signInForm="ngForm">
+        <h2 mat-dialog-title>{{"authorization"|translate}}</h2>
+        <input [(ngModel)]="userLogin.email" [ngModelOptions]="{standalone: true}" #userEmail="ngModel"
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" class="form-control"
+            placeholder="Username" autocomplete="off" type="text">
+
+        <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userEmail.errors?.pattern">
+            არასწორი ფორმატი
+        </div>
+        <input style="margin-top:10px" [(ngModel)]="userLogin.password" [ngModelOptions]="{standalone: true}"
+            #userPassword="ngModel" required [class.borderError]="signInForm.submitted&&userPassword.errors?.pattern"
+            class="form-control" placeholder="Password" autocomplete="off" type="text">
+
+        <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userPassword.errors?.required">
+            შეიყვანეთ პაროლი
+        </div>
+
+
+        <div  (click)="authorizationModal=false;registrationModal=true" style="cursor:pointer;margin-top: 5px;" mat-dialog-content>{{"register"|translate}}</div>
+        <button  type="submit"   class="enterBtn" mat-raised-button color="primary">{{"enter"|translate}}</button>
+
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close>Close</button>
+        </div>
+
+    </form>
+
+
+        <form *ngIf="registrationModal" (ngSubmit)="userRegistration(registrationForm)" #registrationForm="ngForm">
+   <div style="display: flex;">
+    <mat-icon (click)="registrationModal=false;authorizationModal=true" class="back-to-signin">keyboard_return</mat-icon>
+    <h2 style="margin:0 auto;" mat-dialog-title>{{"registration"|translate}}</h2>
+   </div>
+         
+            <div class="registration-content">
+                <div class="personal-info">
+                    <input  [(ngModel)]="registration.username" 
+                    [ngModelOptions]="{standalone: true}" 
+                    required
+                    #userName="ngModel"
+                    name="username"
+                    class="form-control" 
+                    [class.borderError]="registrationForm.submitted&&userEmail.errors?.required" 
+                    placeholder="Username" 
+                    autocomplete="off" type="text">
+ 
+                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userName.errors?.required">
+                        შევსება სავალდებულოა
+                    </div>
+                    <input [(ngModel)]="registration.email" 
+                    required
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    [ngModelOptions]="{standalone: true}" 
+                    #userEmail="ngModel"
+                    name="userEmail"
+                    class="form-control" 
+                    [class.borderError]="registrationForm.submitted&&(userEmail.errors?.required||userEmail.errors?.pattern)"
+                    placeholder="Email" 
+                    autocomplete="off" type="text">
+
+                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.required">
+                        შევსება სავალდებულოა
+                    </div>
+                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
+                      არასწორი ფორმატი
+                    </div>
+
+ 
+                </div>
+
+              <div class="personal-info-v2">
+                <input [(ngModel)]="registration.surename" 
+                [ngModelOptions]="{standalone: true}" 
+                required
+                #userSurename="ngModel"
+                name="surename"
+                class="form-control" 
+                placeholder="Surename" 
+                [class.borderError]="registrationForm.submitted&&userEmail.errors?.required"
+                autocomplete="off" type="text">
+                <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userSurename.errors?.required">
+                    შევსება სავალდებულოა
+                </div>
+
+<div class="birthday-content">
+             <input class="birthDay" class="form-control" 
+                     id="birthDay"
+                     required
+                     [(ngModel)]="registration.birthDay"
+                     placeholder="yyyy-mm-dd" 
+                     #userBirthday='ngModel'
+                     name="user-birthDay" 
+                     ngbDatepicker 
+                     [class.borderError]="registrationForm.submitted&&userEmail.errors?.required"
+                     #d="ngbDatepicker">
+
+    <mat-icon class="birth-date-manu" (click)="d.toggle()">menu</mat-icon>
+ 
+                </div>
+                <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userBirthday.errors?.required">
+                    შევსება სავალდებულოა
+                </div>
+                </div>
+
+
+       
+            </div>
+    
+            <button type="submit" class="enterBtn" mat-raised-button
+            color="primary">{{"registration"|translate}}</button>
+
+        </form>
+
+
+
+
+        <form *ngIf="confirmAuthModal" (ngSubmit)="confirmAuth(confirmAuthForm)" #confirmAuthForm="ngForm">
+            <div style="display: flex;">
+             <mat-icon (click)="confirmAuthModal=false;registrationModal=true;" class="back-to-signin">keyboard_return</mat-icon>
+             <h2 style="margin:0 auto;" mat-dialog-title>{{"registration"|translate}}</h2>
+            </div>
+                  
+                     <div>
+                   <h3 style="text-align: center;">{{"confirmEmail"|translate}}</h3>
+                   {{"confirmText"|translate}}  {{registration.email}}
+                     </div>
+
+                     <input [(ngModel)]="emailConfirmCode" 
+                     [ngModelOptions]="{standalone: true}" 
+                     required
+                     #confirmCode="ngModel"
+                     name="surename"
+                     class="form-control" 
+                     placeholder="Enter code" 
+                     [class.borderError]="confirmAuthForm.submitted&&confirmCode.errors?.required"
+                     autocomplete="off" type="text">
+                     <div class="text-danger f-12 m-t-8" *ngIf="confirmAuthForm.submitted&&confirmCode.errors?.required">
+                         შევსება სავალდებულოა
+                     </div>
+                     <div style="display:flex;margin-top: 5px;">
+                        <mat-icon style="cursor:pointer;margin-top:5px;">refresh</mat-icon> <span style="margin-top:7px">{{"resendCode"|translate}}</span> 
+                     </div>
+
+                     <button type="submit" class="enterBtn" mat-raised-button
+                     color="primary">{{"Confirm"|translate}}</button>
+        </form>
+
+        <div *ngIf="Emailconfirmed">
+         დადასტურებულია
+        </div>
+         
+   
+</div>

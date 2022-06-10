@@ -1,0 +1,14 @@
+
+<div class="item-content">
+    <div class="item-filter-inner">
+       <div *ngFor="let item of brands">
+           <div class="item">
+               {{item.id}}
+               {{item.name}}
+               <img [src]="item.image">
+               {{item.price}}
+               {{item.type}}
+           </div>
+       </div>
+    </div>
+</div>

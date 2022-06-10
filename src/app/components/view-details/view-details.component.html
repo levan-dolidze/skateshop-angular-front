@@ -1,0 +1,34 @@
+<div class="detail-content">
+    <div class="detail-inner">
+        <div *ngIf="product" class="productDetail">
+            {{product.id}}
+            {{product.name}}
+            <img [src]="product.image">
+            {{product.price}}
+            {{product.type}}
+        </div>
+
+        <div class="product-info">
+
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, tempore numquam quo enim dolorum facilis
+            nihil obcaecati sunt saepe dicta possimus, delectus, neque beatae perferendis culpa ut corporis assumenda
+            aperiam eius cumque unde veniam sed harum aliquid. Aliquam quos, beatae, itaque, delectus unde animi hic
+            numquam omnis nulla eveniet blanditiis.
+
+        </div>
+
+        <div class="buy">
+            <button mat-flat-button color="primary">{{"buy"|translate}}</button>
+            <button (click)="addProductToCart()" mat-flat-button color="primary">{{"addToCart"|translate}}</button>
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+
+</div>
+
+<div>
+    
+</div>

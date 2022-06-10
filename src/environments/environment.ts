@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyBtEFcCCzeZo1XpTs9yDU01bkHqLSLnRSM",
+    authDomain: "skateshop-v2.firebaseapp.com",
+    databaseURL: "https://skateshop-v2-default-rtdb.firebaseio.com",
+    projectId: "skateshop-v2",
+    storageBucket: "skateshop-v2.appspot.com",
+    messagingSenderId: "585809802455",
+    appId: "1:585809802455:web:24813b3a3c708d99792c92",
+    measurementId: "G-RLV821BSQZ"
+  }
 };
 
 /*
