@@ -16,7 +16,9 @@ const routes: Routes = [
   { path: 'truck', loadChildren: () => import('./components/products/truck/truck.module').then(m => m.TruckModule) },
   { path: 'complete', loadChildren: () => import('./components/products/complete/complete.module').then(m => m.CompleteModule) },
   { path: 'gallery', loadChildren: () => import('./components/gallery/gallery.module').then(m => m.GalleryModule) },
-  { path: 'view-details/:id', loadChildren: () => import('./components/view-details/view-details.module').then(m => m.ViewDetailsModule) }
+  { path: 'view-details/:id', loadChildren: () => import('./components/view-details/view-details.module').then(m => m.ViewDetailsModule) },
+  { path: 'product-cart', loadChildren: () => import('./components/product-cart/product-cart.module').then(m => m.ProductCartModule) }
+
 
 ];
 

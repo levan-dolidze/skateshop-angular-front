@@ -3,9 +3,9 @@ import { filter, shareReplay } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import { ItemArray } from './../../models/url';
 import { HttpService } from './../../servises/http.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-view-details',
@@ -20,7 +20,8 @@ export class ViewDetailsComponent implements OnInit {
   product: ItemArray;
   lang: any;
   quantity: number = 0;
- 
+  tempArr: Array<any> = [];
+
   ngOnInit(): void {
 
     this.http.changeLanguage.subscribe(() => {
@@ -49,6 +50,25 @@ export class ViewDetailsComponent implements OnInit {
   };
 
   addProductToCart() {
+    let productsInCart = localStorage.getItem('products');
+    if (productsInCart) {
+      let parcedProductsInCart = JSON.parse(productsInCart);
+      const count = parcedProductsInCart.filter((obj: any) => obj.id === this.product.id).length + 1;
+      this.product.inCart = count
+      parcedProductsInCart.push(this.product);
+      localStorage.setItem('products', JSON.stringify(parcedProductsInCart));
+
+    } else {
+      let newProduct = [];
+      this.product.inCart = 1
+      newProduct.push(this.product)
+      localStorage.setItem('products', JSON.stringify(newProduct));
+    }
+    this.countProductsInCart()
+  };
+
+
+  countProductsInCart() {
     let pars = localStorage.getItem('items')
     if (pars) {
       this.quantity = JSON.parse(pars)
@@ -57,7 +77,5 @@ export class ViewDetailsComponent implements OnInit {
     }
     this.quantity++;
     this.http.addItemToCartEvent.next(this.quantity);
-
   }
-
 };

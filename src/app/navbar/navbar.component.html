@@ -38,7 +38,7 @@
 
 
                 <div class="cart">
-                    <span [matBadge]="quantity">{{"cart"|translate}}</span>
+                    <span [routerLink]="['/product-cart']" style="cursor:pointer;" [matBadge]="quantity">{{"cart"|translate}}</span>
                 </div>
                 <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
 

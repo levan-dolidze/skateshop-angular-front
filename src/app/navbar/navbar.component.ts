@@ -82,9 +82,12 @@ export class NavbarComponent implements OnInit {
     this.http.changeLanguage.next();
   };
 
+
+
   clearCart() {
     localStorage.clear();
     this.quantity = 0;
+    this.http.clearCart.next();
   };
 
 };

@@ -1,0 +1,18 @@
+<div class="product-incart-content">
+    <div *ngIf="productCartArray">
+        <div class="product-incart-inner" *ngFor="let item of productCartArray">
+            ID: {{item.id}}
+            <img [src]="item.image">
+            Name: {{item.name}}
+            Price: {{item.price}}
+            Type:{{item.type}}
+            Quantity:{{item.inCart}}
+            total: {{item.price*item.inCart}}
+        </div>
+    </div>
+
+    <div *ngIf="productCartArray.length<1">
+        {{"cartIsEmpty"|translate}}
+    </div>
+
+</div>

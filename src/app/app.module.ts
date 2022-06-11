@@ -21,12 +21,14 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FilterComponent,
     LoginModalComponent,
+   
 
 
   ],

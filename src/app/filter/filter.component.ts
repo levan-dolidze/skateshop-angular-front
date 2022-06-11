@@ -3,7 +3,7 @@ import { ItemArray, ProductUrl, Products } from './../models/url';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, shareReplay } from 'rxjs/operators';
-import { from, Observable, Subscription } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-filter',

@@ -1,0 +1,10 @@
+.product-incart-inner{
+    width: 70%;
+    height: 100px;
+    background-color:white;
+    margin-top: 10px;
+}
+.product-incart-inner img{
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
-import { shareReplay, filter } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor(private http: HttpService,
-    private translate: TranslateService) { }
+  private translate: TranslateService) { }
   itemArr$: Observable<any[]>;
   lang: any;
 
@@ -22,10 +22,8 @@ export class HomeComponent implements OnInit {
     this.searchSkateboardItems();
     this.languageControl();
     this.http.changeLanguage.subscribe(()=>{
-      this.languageControl();
+      this.languageControl(); 
     })
-  
-    
   };
 
   languageControl() {
@@ -38,7 +36,6 @@ export class HomeComponent implements OnInit {
       shareReplay(),
     )
   };
-
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
       this.returnSkateboardItems();
@@ -48,11 +45,9 @@ export class HomeComponent implements OnInit {
         })
         this.itemArr$ = of(filtredItem)
       })
-
     })
   };
-
-
+  
   filterByClientAmount(e: any) {
     this.returnSkateboardItems();
       this.itemArr$.subscribe((res) => {
