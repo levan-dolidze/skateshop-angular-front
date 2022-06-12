@@ -1,18 +1,34 @@
 <div class="product-incart-content">
-    <div *ngIf="productCartArray">
-        <div class="product-incart-inner" *ngFor="let item of productCartArray">
-            ID: {{item.id}}
-            <img [src]="item.image">
-            Name: {{item.name}}
-            Price: {{item.price}}
-            Type:{{item.type}}
-            Quantity:{{item.inCart}}
-            total: {{item.price*item.inCart}}
+    <h2>{{"myCart"|translate}}</h2>
+    <div class="product-incart-container" *ngIf="productCartArray">
+        <div class="product-incart-list">
+            <div class="product-incart-inner" *ngFor="let item of productCartArray">
+                ID: {{item.id}}
+                <img [src]="item.image">
+                Name: {{item.name}}
+                Price: {{item.price}}
+                Type:{{item.type}}
+                Quantity:{{item.inCart}}
+                total: {{item.price*item.inCart}}
+            </div>
+        </div>
+
+        <div *ngIf="productCartArray.length>0" class="order-product-inner">
+            <h2 style="padding:10px">{{"order"|translate}}</h2>
+            <div>
+                {{"totalItems"|translate}}: {{countTotalItems()}}
+            </div>
+            <div>
+                <h3 style="font-weight:bold;">{{"totalPrice"|translate}}: {{countTotalPrice()}} {{"currency"|translate}}</h3>
+
+            </div>
+            <button style="width:50%;" mat-flat-button color="primary">{{"continuePurchase"|translate}}</button>
         </div>
     </div>
 
     <div *ngIf="productCartArray.length<1">
         {{"cartIsEmpty"|translate}}
+
     </div>
 
 </div>

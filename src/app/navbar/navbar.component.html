@@ -37,10 +37,12 @@
                 </div>
 
 
-                <div class="cart">
-                    <span [routerLink]="['/product-cart']" style="cursor:pointer;" [matBadge]="quantity">{{"cart"|translate}}</span>
+                <div class="shopping-cart">
+                  <span style="margin-top:5px" [routerLink]="['/product-cart']">{{"cart"|translate}}</span> 
+                  <span style="margin-bottom:5px;" [routerLink]="['/product-cart']"> <mat-icon [matBadge]="quantity">add_shopping_cart</mat-icon></span> 
+                  <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
                 </div>
-                <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
+  
 
 
 

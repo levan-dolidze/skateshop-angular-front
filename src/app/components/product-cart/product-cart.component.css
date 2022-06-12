@@ -1,10 +1,37 @@
-.product-incart-inner{
-    width: 70%;
-    height: 100px;
-    background-color:white;
-    margin-top: 10px;
+.product-incart-content {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
 }
-.product-incart-inner img{
+
+.product-incart-container {
+    display: flex;
+}
+
+.product-incart-list {
+    overflow: scroll;
+    width: 70%;
+}
+
+.product-incart-inner {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.product-incart-inner img {
     height: 100%;
     object-fit: cover;
+}
+
+.order-product-inner {
+    position: sticky;
+    top: 0px;
+    text-align: center;
+    width: 30%;
+    margin-top: 10px;
+    height: 300px;
+
 }

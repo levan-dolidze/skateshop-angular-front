@@ -64,6 +64,8 @@
     cursor: pointer;
     margin:12px 0px 0px 17%
 }
-.login{
-
+.shopping-cart{
+    display: flex;
+    cursor:pointer;
+    margin-top: 6px;
 }

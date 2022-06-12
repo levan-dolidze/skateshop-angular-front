@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCartRoutingModule } from './product-cart-routing.module';
 import { ProductCartComponent } from './product-cart.component';
-
+import {MatButtonModule} from '@angular/material/button'
 
 
 @NgModule({
@@ -15,6 +15,7 @@ import { ProductCartComponent } from './product-cart.component';
   imports: [
     CommonModule,
     ProductCartRoutingModule,
+    MatButtonModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
