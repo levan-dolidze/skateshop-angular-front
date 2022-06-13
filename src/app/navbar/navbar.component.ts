@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   quantity: number = 0;
   userLoginMode: string;
   authStatus: string = 'login'
-  authStatusIsLogedin: boolean;
+  authStatusIsLoggedin: boolean;
 
   constructor(private http: HttpService,
     private translate: TranslateService,
@@ -35,6 +35,13 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageControl();
+    this.addItem();
+    this.deleteItem();
+    this.checkUserLoggedIn();
+  };
+
+
+  addItem() {
     this.http.addItemToCartEvent.subscribe((QTY) => {
       let item = localStorage.getItem('items');
       if (item) {
@@ -47,13 +54,28 @@ export class NavbarComponent implements OnInit {
     if (item) {
       this.quantity = JSON.parse(item)
     }
+  }
+
+  deleteItem() {
+    this.http.deleteItemEvent.subscribe((items) => {
+      this.addItem();
+    })
   };
+
+  checkUserLoggedIn() {
+    this.http.checkUserIsLoggedInEvent.subscribe((res) => {
+      //აქ თუ დალოგინებულია უნდა გადავამისამარო შეძენის საბოლოო სტეპზე 
+     !this.authStatusIsLoggedin?this.openDialog():false
+   
+
+    })
+  }
 
   get loginMode(): string | boolean {
     this.authService.userIsLogedin.subscribe((isLogedIn) => {
-      this.authStatusIsLogedin = isLogedIn;
+      this.authStatusIsLoggedin = isLogedIn;
       //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
-      this.authStatusIsLogedin ? this.authStatus = 'levani' : false;
+      this.authStatusIsLoggedin ? this.authStatus = 'levani' : false;
     })
     return this.authStatus
   };
@@ -72,7 +94,7 @@ export class NavbarComponent implements OnInit {
     };
   };
   searchingByEnterKey(form: KeyboardEvent) {
-    if (form.key==='Enter')this.searchItem(form)
+    if (form.key === 'Enter') this.searchItem(form)
   };
 
 

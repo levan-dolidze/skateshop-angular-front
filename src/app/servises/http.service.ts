@@ -12,7 +12,8 @@ export class HttpService {
   changeLanguage: Subject<any> = new Subject();
   addItemToCartEvent: Subject<number> = new Subject();
   clearCart: Subject<any> = new Subject();
-
+  deleteItemEvent:Subject<any>=new Subject();
+  checkUserIsLoggedInEvent:Subject<any>=new Subject();
 
   sendClickEvent() {
     this.subject.next();

@@ -40,7 +40,7 @@
                 <div class="shopping-cart">
                   <span style="margin-top:5px" [routerLink]="['/product-cart']">{{"cart"|translate}}</span> 
                   <span style="margin-bottom:5px;" [routerLink]="['/product-cart']"> <mat-icon [matBadge]="quantity">add_shopping_cart</mat-icon></span> 
-                  <mat-icon style="cursor:pointer;margin-left: 10px;" (click)="clearCart()">delete</mat-icon>
+                  <mat-icon style="cursor:pointer;margin-left: 10px;opacity:0.8" (click)="clearCart()">delete</mat-icon>
                 </div>
   
 
@@ -55,7 +55,7 @@
                 </div>
                 <button (click)="openDialog()" id="login" mat-stroked-button color="primary">
                     {{loginMode}}
-                    <span class="material-icons">{{authStatusIsLogedin?"login":"logout"}}</span>
+                    <span class="material-icons">{{authStatusIsLoggedin?"login":"logout"}}</span>
                 </button>
               
             </div>

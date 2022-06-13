@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -16,6 +17,7 @@ import {MatButtonModule} from '@angular/material/button'
     CommonModule,
     ProductCartRoutingModule,
     MatButtonModule,
+    MatIconModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

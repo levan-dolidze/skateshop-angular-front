@@ -2,14 +2,33 @@
     <h2>{{"myCart"|translate}}</h2>
     <div class="product-incart-container" *ngIf="productCartArray">
         <div class="product-incart-list">
-            <div class="product-incart-inner" *ngFor="let item of productCartArray">
-                ID: {{item.id}}
+            <div class="product-incart-inner" *ngFor="let item of productCartArray;let i =index">
+                <!-- ID:
+                <span>
+                    {{item.id}}
+                </span> -->
                 <img [src]="item.image">
-                Name: {{item.name}}
-                Price: {{item.price}}
-                Type:{{item.type}}
-                Quantity:{{item.inCart}}
-                total: {{item.price*item.inCart}}
+                    Name: 
+                    <span >
+                        {{item.name}}
+                    </span>
+                    Price: 
+                    <span >
+                        {{item.price}}
+                    </span>
+                    Type:
+                    <span >
+                        {{item.type}}
+                    </span>
+                    QTY:
+                    <span>
+                        {{item.inCart}}
+                    </span>
+                    Total:
+                    <span>
+                        {{item.price*item.inCart}}
+                    </span>
+                <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteItem(i)">delete</mat-icon>
             </div>
         </div>
 
@@ -19,16 +38,16 @@
                 {{"totalItems"|translate}}: {{countTotalItems()}}
             </div>
             <div>
-                <h3 style="font-weight:bold;">{{"totalPrice"|translate}}: {{countTotalPrice()}} {{"currency"|translate}}</h3>
-
+                <h3 style="font-weight:bold;">{{"totalPrice"|translate}}: {{countTotalPrice()}} {{"currency"|translate}}
+                </h3>
             </div>
-            <button style="width:50%;" mat-flat-button color="primary">{{"continuePurchase"|translate}}</button>
+            <button (click)="checkUserIsLoggedIn()" style="width:50%;" mat-flat-button
+                color="primary">{{"continuePurchase"|translate}}</button>
         </div>
     </div>
 
+
     <div *ngIf="productCartArray.length<1">
         {{"cartIsEmpty"|translate}}
-
     </div>
-
 </div>

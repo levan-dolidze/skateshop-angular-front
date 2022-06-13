@@ -49,7 +49,7 @@ export class ViewDetailsComponent implements OnInit {
     })
   };
 
-  addProductToCart() {
+  addProductInCart() {
     let productsInCart = localStorage.getItem('products');
     if (productsInCart) {
       let parcedProductsInCart = JSON.parse(productsInCart);

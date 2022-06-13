@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from './../../servises/http.service';
 import { ItemArray } from './../../models/url';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-cart',
@@ -26,9 +26,7 @@ export class ProductCartComponent implements OnInit {
     this.http.changeLanguage.subscribe(() => {
       this.languageControl();
     })
-
     // this.countTotalPrice();
-
   };
 
 
@@ -37,7 +35,7 @@ export class ProductCartComponent implements OnInit {
     console.log(this.productCartArray)
     let totalPrice = 0;
     from(this.productCartArray).pipe(
-      map((x => totalPrice += x.price))
+      map((x => totalPrice += (x.price * x.inCart)))
     ).subscribe((res) => {
       totalPrice = res
     })
@@ -54,7 +52,17 @@ export class ProductCartComponent implements OnInit {
     return totalItems
   };
 
+  deleteItem(index: any) {
+    this.productCartArray.splice(index, 1)
+    localStorage.setItem('products', JSON.stringify(this.productCartArray));
+    localStorage.setItem('items', JSON.stringify(this.countTotalItems()))
+    this.http.deleteItemEvent.next();
 
+  };
+
+  checkUserIsLoggedIn() {
+    this.http.checkUserIsLoggedInEvent.next();
+  }
 
 
   languageControl() {

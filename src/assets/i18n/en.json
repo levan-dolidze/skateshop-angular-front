@@ -29,7 +29,8 @@
     "continuePurchase":"Continue purchase",
     "totalPrice":"Total price",
     "totalItems":"Total Items",
-    "currency":"GEL"
+    "currency":"GEL",
+    "showMore":"Load more"
 
 }
 
