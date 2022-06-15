@@ -63,6 +63,8 @@ html{
      margin:20px 10px 0px 0px;
      cursor: pointer;
      border-radius: 5px;
+     padding: 10px;
+
   }
 
   .item img{

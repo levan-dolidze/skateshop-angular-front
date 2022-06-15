@@ -4,7 +4,12 @@
     margin-top: 5px;
     width: 20%;
 }
-.slider-content{
-    text-align: center;
+.load-more-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    
 }
+
 

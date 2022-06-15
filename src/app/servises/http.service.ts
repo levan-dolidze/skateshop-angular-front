@@ -92,6 +92,62 @@ export class HttpService {
         type: 'complete',
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
         inCart: 0
+      },
+      {
+        id: 8,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 9,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 9,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 10,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 11,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 12,
+        name: 'almost complete',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
+      },
+      {
+        id: 13,
+        name: 'test',
+        price: 100,
+        type: 'complete',
+        image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
+        inCart: 0
       }
 
     ]
