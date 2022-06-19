@@ -19,6 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
+import { PurchaseModalComponent } from './purchase-modal/purchase-modal.component';
 
 
 
@@ -28,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     NavbarComponent,
     FilterComponent,
     LoginModalComponent,
+    PurchaseModalComponent
    
 
 

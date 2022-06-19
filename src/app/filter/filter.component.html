@@ -4,19 +4,12 @@
     </mat-icon>
 
     <mat-menu #filter="matMenu" yPosition="below">
-        <section style="padding:10px 10px 0px 10px" class="example-section">
-            <mat-checkbox *ngFor="let brand of brands" 
-                           [(ngModel)]="chousenBrand"
-                           name="brandName" 
-                           #brandN ='ngModel'
-                           (change)="changeTiems(brand.name)">
-                           {{brand.name}}
+        <section style="padding:10px 10px 0px 10px" class="example-section" *ngFor="let brand of brands">
+            <mat-checkbox  
+                (change)="selectProduct($event)" [value]="brand.id">
+                {{brand.name}}
             </mat-checkbox>
         </section>
     </mat-menu>
 
-
-
 </div>
-
-

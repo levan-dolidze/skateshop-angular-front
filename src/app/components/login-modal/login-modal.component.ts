@@ -39,7 +39,6 @@ export class LoginModalComponent implements OnInit {
 
 
   userRegistration(registrationForm: any) {
-    console.log(registrationForm)
     if (registrationForm.invalid) {
       return
     }

@@ -2,7 +2,7 @@ import { HttpService } from './../servises/http.service';
 import { ItemArray, ProductUrl, Products } from './../models/url';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, filter, shareReplay, toArray, map } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 
 @Component({
@@ -16,20 +16,25 @@ export class FilterComponent implements OnInit {
   itemArr$: Observable<ItemArray[]>
   brands: any = [];
   chousenBrand: string;
+  uniqueNames: any
+  testArr: any = []
 
-
-  constructor(public route: Router, private http: HttpService) {}
+  constructor(public route: Router, private http: HttpService) { }
 
   ngOnInit(): void {
     this.filterViewByURL();
     this.filterControl();
   };
 
-
   filterControl() {
     this.itemArr$ = this.http.returnDummyData().pipe(
       shareReplay(),
     )
+    this.itemArr$.subscribe((res) => {
+      this.arrays = res
+    })
+
+
     this.route.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {
@@ -69,16 +74,17 @@ export class FilterComponent implements OnInit {
             })
           })
           break
-          case ProductUrl.complete:
-            this.itemArr$.subscribe((res) => {
-              this.brands = [];
-              from(res).pipe(
-                filter((x => x.type === ProductUrl.complete.substring(1)))
-              ).subscribe((res) => {
-                this.brands.push(res)
-                this.http.filterSubject.next(this.brands)
-              })
+        case ProductUrl.complete:
+          this.itemArr$.subscribe((res) => {
+            this.brands = [];
+            from(res).pipe(
+              filter((x => x.type === ProductUrl.complete.substring(1))),
+              toArray()
+            ).subscribe((res) => {
+              this.brands = res
+              this.http.filterSubject.next(this.brands)
             })
+          })
           break;
         default:
           break;
@@ -105,92 +111,62 @@ export class FilterComponent implements OnInit {
     });
   };
 
-  changeTiems(brand: any) {
-    if (this.chousenBrand) {
-      switch (brand) {
-        case Products.baker:
-          this.brands = []
-          this.itemArr$.subscribe((res) => {
-            from(res).pipe(
-              filter((x => x.name === Products.baker))
-            ).subscribe((res) => {
-              this.brands.push(res)
-              this.http.filterSubject.next(this.brands)
-            })
-          })
-          break
-        case Products.element:
-          this.brands = []
-          this.itemArr$.subscribe((res) => {
-            from(res).pipe(
-              filter((x => x.name === Products.element))
-            ).subscribe((res) => {
-              this.brands.push(res)
-              this.http.filterSubject.next(this.brands)
-            })
-          })
-          break
-        case Products.spitfire:
-          this.brands = []
-          this.itemArr$.subscribe((res) => {
-            from(res).pipe(
-              filter((x => x.name === Products.spitfire))
-            ).subscribe((res) => {
-              this.brands.push(res)
-              this.http.filterSubject.next(this.brands)
-            })
-          })
-          break
-        case Products.independent:
-          this.brands = []
-          this.itemArr$.subscribe((res) => {
-            from(res).pipe(
-              filter((x => x.name === Products.independent))
-            ).subscribe((res) => {
-              this.brands.push(res)
-              this.http.filterSubject.next(this.brands)
-            })
-          })
-          break
-          case Products.alien:
-            this.brands = []
-            this.itemArr$.subscribe((res) => {
-              from(res).pipe(
-                filter((x => x.name === Products.alien))
-              ).subscribe((res) => {
-                this.brands.push(res)
-                this.http.filterSubject.next(this.brands)
-              })
-            })
-            break
-          case Products.almost:
-            this.brands = []
-            this.itemArr$.subscribe((res) => {
-              from(res).pipe(
-                filter((x => x.name === Products.almost))
-              ).subscribe((res) => {
-                this.brands.push(res)
-                this.http.filterSubject.next(this.brands)
-              })
-            })
-            break
-        default:
-          break;
-      }
-    } else {
-      this.itemArr$.subscribe((res) => {
-        this.brands = []
-        from(res).pipe(
-          filter((x => x.type === this.route.url.substring(1)))
-        ).subscribe((res) => {
-          this.brands.push(res)
-          this.http.filterSubject.next(this.brands)
+  tempArray: any = [];
+  newArray: Array<ItemArray> = [];
+  arrays: Array<ItemArray> = [];
+  productArr: Array<ItemArray> = [];
 
-        })
-      })
-    }
+  selectProduct(event: any) {
+    switch (event.checked) {
+      case true:
+        this.tempArray = this.arrays.filter((e: any) => e.id === event.source.value)
+        this.newArray.push(this.tempArray)
+        this.productArr = [];
+        this.filterProducts(this.newArray)
+        break;
+      default:
+        this.tempArray = this.productArr.filter((e: any) => e.id !== event.source.value);
+        this.newArray = [];
+        this.productArr = [];
+        this.newArray.push(this.tempArray)
+        if (this.tempArray.length < 1) {
+          this.filterControl();
+          this.http.filterSubject.next(this.brands);
+          return
+        } else {
+          this.filterProducts(this.newArray)
+        }
+        break;
+    };
+
+
+    // switch (brand) {
+    //   case Products.baker: this.filterByBrand(e,Products.baker)
+    //     break
+    //   case Products.element: this.filterByBrand(e,Products.element)
+    //     break
+    //   case Products.spitfire: this.filterByBrand(e,Products.spitfire)
+    //     break
+    //   case Products.independent: this.filterByBrand(e,Products.independent)
+    //     break
+    //   case Products.alien: this.filterByBrand(e,Products.alien)
+    //     break
+    //   case Products.almost: this.filterByBrand(e.sourse.value,Products.almost)
+    //     break
+    //   default:
+    //     break;
+    // }
   };
 
+  filterProducts(newArray: any) {
+    for (const itemArr of newArray) {
+      for (let i = 0; i < itemArr.length; i++) {
+        let obj = itemArr[i];
+        this.productArr.push(obj);
+        this.http.filterSubject.next(this.productArr);
+      };
+    };
+  };
 
 
 

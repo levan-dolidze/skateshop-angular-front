@@ -1,3 +1,6 @@
+import { PurchaseModalComponent } from './../../purchase-modal/purchase-modal.component';
+import { LoginModalComponent } from './../login-modal/login-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, shareReplay } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
@@ -14,7 +17,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ViewDetailsComponent implements OnInit {
 
-  constructor(private router: ActivatedRoute, private http: HttpService, private translate: TranslateService) { }
+  constructor(private router: ActivatedRoute,
+    private http: HttpService,
+    private translate: TranslateService,
+    public dialog: MatDialog,
+
+  ) { }
 
   detaledProduct$: Observable<ItemArray[]>;
   product: ItemArray;
@@ -23,7 +31,7 @@ export class ViewDetailsComponent implements OnInit {
   tempArr: Array<any> = [];
 
   ngOnInit(): void {
-
+    this.languageControl();
     this.http.changeLanguage.subscribe(() => {
       this.languageControl();
     })
@@ -67,6 +75,10 @@ export class ViewDetailsComponent implements OnInit {
     this.countProductsInCart()
   };
 
+  buyProductNow() {
+    this.dialog.open(PurchaseModalComponent)
+
+  }
 
   countProductsInCart() {
     let pars = localStorage.getItem('items')

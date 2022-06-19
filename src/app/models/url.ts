@@ -27,8 +27,8 @@ export enum Products{
     element='element',
     spitfire='spitfire',
     independent='independent',
-    alien='alien complete',
-    almost='almost complete',
+    alien='alien',
+    almost='almost',
 
 }
 

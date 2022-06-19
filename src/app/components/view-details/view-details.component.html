@@ -18,7 +18,7 @@
         </div>
 
         <div class="buy">
-            <button mat-flat-button color="primary">{{"buy"|translate}}</button>
+            <button (click)="buyProductNow()"  mat-flat-button color="primary">{{"buy"|translate}}</button>
             <button (click)="addProductInCart()" mat-flat-button color="primary">{{"addToCart"|translate}}</button>
         </div>
 

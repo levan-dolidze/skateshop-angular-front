@@ -115,7 +115,6 @@
 
 
 
-
         <form *ngIf="confirmAuthModal" (ngSubmit)="confirmAuth(confirmAuthForm)" #confirmAuthForm="ngForm">
             <div style="display: flex;">
              <mat-icon (click)="confirmAuthModal=false;registrationModal=true;" class="back-to-signin">keyboard_return</mat-icon>
@@ -146,6 +145,10 @@
                      <button type="submit" class="enterBtn" mat-raised-button
                      color="primary">{{"Confirm"|translate}}</button>
         </form>
+
+
+
+
 
         <div *ngIf="Emailconfirmed">
          დადასტურებულია

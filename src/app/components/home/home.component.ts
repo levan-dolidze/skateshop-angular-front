@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, take, toArray } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
 import { from, Observable, of } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +12,13 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor(private http: HttpService,
-    private translate: TranslateService) { }
+  
+  private translate: TranslateService) { }
   itemArr$: Observable<any[]>;
-  lang: any;
-  itemCount: number = 5
+  lang: any;  
+  itemCount: number = 5;  
+  loadMoreBtn:boolean=true;
+  @ViewChildren("itemList") itemList: QueryList<ElementRef>;
 
   ngOnInit(): void {
     this.returnStartItems(this.itemCount)
@@ -26,10 +29,21 @@ export class HomeComponent implements OnInit {
     })
   };
 
+
   loadMore() {
     this.itemCount += 5;
     this.loadMoreItems(this.itemCount);
-  }
+  };
+
+
+
+  ngAfterViewInit() {
+    this.itemList.changes.subscribe(() => {
+      if (this.itemList && this.itemList.last) {
+        this.itemList.last.nativeElement.focus();
+      }
+    });
+  };
 
 
   loadMoreItems(num: number) {
@@ -66,8 +80,6 @@ export class HomeComponent implements OnInit {
   };
 
 
-
-
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
       this.returnSkateboardItems();
@@ -81,6 +93,7 @@ export class HomeComponent implements OnInit {
   };
 
   filterByClientAmount(e: any) {
+    this.loadMoreBtn=false;
     this.returnSkateboardItems();
     this.itemArr$.subscribe((res) => {
       const filtredItem = res.filter((item) => {
@@ -92,13 +105,12 @@ export class HomeComponent implements OnInit {
 
 
 
+
   formatLabel(value: number) {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
     } else {
       return value + '₾';
     }
-
-  }
-
+  };
 }
