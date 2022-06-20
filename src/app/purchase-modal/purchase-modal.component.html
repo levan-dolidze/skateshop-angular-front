@@ -1,60 +1,57 @@
 
 <div class="purchase-content">
     <form (ngSubmit)="purchaseNow(purchaseForm)" #purchaseForm="ngForm">
-            <h2 mat-dialog-title>{{"purchase"|translate}}    <button style="float:right" mat-button mat-dialog-close>Close</button> </h2> 
+            <h2 mat-dialog-title>{{"purchase"|translate}}<button style="float:right" mat-button mat-dialog-close>Close</button> </h2> 
             <div class="registration-content">
             <div class="personal-info">
-                <label>{{"name"|translate}} 
+            <label>{{"name"|translate}} 
             <input [(ngModel)]="order.name"
-                   [ngModelOptions]="{standalone: true}" 
+                   name="username"
                    required
                    #username="ngModel"
-                  [class.borderError]="purchaseForm.submitted&&username.errors?.required" class="form-control"
+                   [class.borderError]="purchaseForm.submitted&&username.errors?.required" class="form-control"
                    autocomplete="off" type="text">
-                   
                 </label>
-
                 <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&username.errors?.required">
                   შევსება სავალდებულოა
-              </div>
+                </div>
 
                 <label>{{"personalNumber"|translate}} 
                 <input [(ngModel)]="order.personalNumber"
-                       [ngModelOptions]="{standalone: true}" 
+                       name="userPersonalNumber"
                        required
                        pattern="[0-9]*"
                        #userPersonalNumber="ngModel"
-                      [class.borderError]="purchaseForm.submitted&&userPersonalNumber.errors?.required" class="form-control"
-              autocomplete="off" type="text">
+                       [class.borderError]="purchaseForm.submitted&&userPersonalNumber.errors?.required" class="form-control"
+                       autocomplete="off" type="text">
             </label>
             <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPersonalNumber.errors?.required">
               შევსება სავალდებულოა
-          </div>
-          <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPersonalNumber.errors?.pattern">
+            </div>
+           <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPersonalNumber.errors?.pattern">
             არასწორი ფორმატი
-        </div>
+           </div>
 
               <label > {{"address"|translate}} 
             <input [(ngModel)]="order.address"
-            [ngModelOptions]="{standalone: true}" 
-            required
-            #userAddress="ngModel"
-           [class.borderError]="purchaseForm.submitted&&userAddress.errors?.required" class="form-control"
-           autocomplete="off" type="text">
-        </label>
-        <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userAddress.errors?.required">
+                   required
+                   name="userAddress"
+                   #userAddress="ngModel"
+                   [class.borderError]="purchaseForm.submitted&&userAddress.errors?.required" class="form-control"
+                   autocomplete="off" type="text">
+          </label>
+           <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userAddress.errors?.required">
           შევსება სავალდებულოა
-      </div>
+          </div>
 
-      
             </div>
 
             <div class="personal-info-v2">
            
-<label >{{"surname"|translate}} 
+          <label >{{"surname"|translate}} 
                     <input [(ngModel)]="order.surname"
-                           [ngModelOptions]="{standalone: true}" 
                            required
+                           name="userSurname"
                            #userSurname="ngModel"
                           [class.borderError]="purchaseForm.submitted&&userSurname.errors?.required" class="form-control"
                           autocomplete="off" type="text">
@@ -64,27 +61,23 @@
                       </div>
             <label > {{"phone"|translate}} 
                           <input [(ngModel)]="order.phoneNumber"
-                   [ngModelOptions]="{standalone: true}" 
-                   required
-                   pattern="[0-9]*"
-                   #userPhone="ngModel"
-                  [class.borderError]="purchaseForm.submitted&&userPhone.errors?.required" class="form-control"
-                  autocomplete="off" type="text">
+                                 required
+                                 name="userPhone"
+                                 pattern="[0-9]*"
+                                 #userPhone="ngModel"
+                                [class.borderError]="purchaseForm.submitted&&userPhone.errors?.required" class="form-control"
+                                autocomplete="off" type="text">
                 </label>
                 <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPhone.errors?.required">
                   შევსება სავალდებულოა
-              </div>
-              <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPhone.errors?.pattern">
-                არასწორი ფორმატი
-            </div>
-            </div>
-    </div>
+                </div>
+                <div class="text-danger f-12 m-t-8" *ngIf="purchaseForm.submitted&&userPhone.errors?.pattern">
+                 არასწორი ფორმატი
+                </div>
+             </div>
+           </div>
 
-    <button  type="submit" class="enterBtn" mat-raised-button
-    color="primary">{{"order"|translate}}</button>
-
-
-
+    <button  type="submit"  class="enterBtn" mat-raised-button color="primary">{{"order"|translate}}</button>
     
     </form>
 </div>

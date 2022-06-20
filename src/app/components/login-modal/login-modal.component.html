@@ -1,6 +1,8 @@
 <div class="login-content">
     <form *ngIf="authorizationModal" (ngSubmit)="signIn(signInForm)" #signInForm="ngForm">
-        <h2 mat-dialog-title>{{"authorization"|translate}}</h2>
+        <h2 mat-dialog-title>{{"authorization"|translate}}  
+            <button style="float:right;" mat-button mat-dialog-close>Close</button>
+        </h2>
         <input [(ngModel)]="userLogin.email" [ngModelOptions]="{standalone: true}" #userEmail="ngModel"
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" class="form-control"
@@ -21,9 +23,9 @@
         <div  (click)="authorizationModal=false;registrationModal=true" style="cursor:pointer;margin-top: 5px;" mat-dialog-content>{{"register"|translate}}</div>
         <button  type="submit"   class="enterBtn" mat-raised-button color="primary">{{"enter"|translate}}</button>
 
-        <div mat-dialog-actions>
+        <!-- <div mat-dialog-actions>
             <button mat-button mat-dialog-close>Close</button>
-        </div>
+        </div> -->
 
     </form>
 

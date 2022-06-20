@@ -8,6 +8,7 @@ import { ItemArray } from './../../models/url';
 import { HttpService } from './../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/servises/auth.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ViewDetailsComponent implements OnInit {
     private http: HttpService,
     private translate: TranslateService,
     public dialog: MatDialog,
+    private authService: AuthService
 
   ) { }
 
@@ -30,11 +32,15 @@ export class ViewDetailsComponent implements OnInit {
   quantity: number = 0;
   tempArr: Array<any> = [];
 
+  authStatusIsLoggedin: boolean=true;
+  authStatus: string = 'login'
+
   ngOnInit(): void {
     this.languageControl();
     this.http.changeLanguage.subscribe(() => {
       this.languageControl();
     })
+
 
     const id = this.router.snapshot.paramMap.get('id');
     this.returnProductDetails(id);
@@ -75,10 +81,11 @@ export class ViewDetailsComponent implements OnInit {
     this.countProductsInCart()
   };
 
-  buyProductNow() {
-    this.dialog.open(PurchaseModalComponent)
 
-  }
+  //აქ უნდა შევამოწმო იუზერი დალოგინებული არის თუ არა რეალურად და მაგი სმიხედვით ან გავუშვა შეკვეთაზე ან ლოგინი მოვთხოვო
+  buyProductNow() {
+  this.authStatusIsLoggedin?this.dialog.open(PurchaseModalComponent):this.dialog.open(LoginModalComponent);
+  };
 
   countProductsInCart() {
     let pars = localStorage.getItem('items')
@@ -90,4 +97,19 @@ export class ViewDetailsComponent implements OnInit {
     this.quantity++;
     this.http.addItemToCartEvent.next(this.quantity);
   }
+
+
+
+  //სავარაუდოდ წასაშლელია
+  get loginMode(): string | boolean {
+    this.authService.userIsLogedin.subscribe((isLogedIn) => {
+      this.authStatusIsLoggedin = isLogedIn;
+      //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
+      this.authStatusIsLoggedin ? this.authStatus = 'levani' : false;
+    })
+    return this.authStatus
+  };
+
+
+
 };
