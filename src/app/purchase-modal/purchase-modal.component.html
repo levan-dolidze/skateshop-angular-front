@@ -1,10 +1,62 @@
 
 <div class="purchase-content">
     <form (ngSubmit)="purchaseNow(purchaseForm)" #purchaseForm="ngForm">
-        <h2 mat-dialog-title>{{"purchase"|translate}}</h2>
-        <div mat-dialog-actions>
-            <button mat-button mat-dialog-close>Close</button>
-        </div>
+            <h2 mat-dialog-title>{{"purchase"|translate}}    <button style="float:right" mat-button mat-dialog-close>Close</button> </h2> 
+  
+            <div class="registration-content">
+            <div class="personal-info">
+                <label>{{"name"|translate}} 
+            <input [(ngModel)]="order.name"
+                   [ngModelOptions]="{standalone: true}" 
+                   required
+                   #username="ngModel"
+                  [class.borderError]="purchaseForm.submitted&&username.errors?.required" class="form-control"
+                   autocomplete="off" type="text">
+                </label>
+                <label>{{"personalNumber"|translate}} 
+                <input [(ngModel)]="order.personalNumber"
+                       [ngModelOptions]="{standalone: true}" 
+                       required
+                       #userPersonalNumber="ngModel"
+                      [class.borderError]="purchaseForm.submitted&&userPersonalNumber.errors?.required" class="form-control"
+              autocomplete="off" type="text">
+            </label>
+              <label > {{"address"|translate}} 
+            <input [(ngModel)]="order.address"
+            [ngModelOptions]="{standalone: true}" 
+            required
+            #userAddress="ngModel"
+           [class.borderError]="purchaseForm.submitted&&userAddress.errors?.required" class="form-control"
+           autocomplete="off" type="text">
+        </label>
+            </div>
+
+            <div class="personal-info-v2">
+           
+<label >{{"surname"|translate}} 
+                    <input [(ngModel)]="order.surname"
+                           [ngModelOptions]="{standalone: true}" 
+                           required
+                           #userSurname="ngModel"
+                          [class.borderError]="purchaseForm.submitted&&userSurname.errors?.required" class="form-control"
+                          autocomplete="off" type="text">
+                        </label>
+            <label > {{"phone"|translate}} 
+                          <input [(ngModel)]="order.phoneNumber"
+                   [ngModelOptions]="{standalone: true}" 
+                   required
+                   #userPhone="ngModel"
+                  [class.borderError]="purchaseForm.submitted&&userPhone.errors?.required" class="form-control"
+                  autocomplete="off" type="text">
+                </label>
+            </div>
+    </div>
+
+    <button  type="submit" class="enterBtn" mat-raised-button
+    color="primary">{{"order"|translate}}</button>
+
+
+
     
     </form>
 </div>

@@ -10,3 +10,12 @@ export class UserRegistration {
     birthDay: Date;
 }
 
+export class Order{
+    name:string;
+    surname:string;
+    personalNumber:string;
+    phoneNumber:string;
+    address:string;
+
+}
+

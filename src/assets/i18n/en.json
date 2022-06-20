@@ -31,7 +31,12 @@
     "totalItems":"Total Items",
     "currency":"GEL",
     "showMore":"Load more",
-    "purchase":"Purchase"
+    "purchase":"Purchase",
+    "name":"Name",
+    "surname":"Surname",
+    "personalNumber":"Personal number",
+    "phone":"Phone number",
+    "address":"Address"
 
 }
 

@@ -31,7 +31,12 @@
             "totalItems":"პროდუქტების რაოდენობა",
             "currency":"₾",
             "showMore":"მეტის ნახვა",
-            "purchase":"შეძენა"
+            "purchase":"შეძენა",
+            "name":"სახელი",
+            "surname":"გვარი",
+            "personalNumber":"პირადი ნომერი",
+            "phone":"ტელეფონი",
+            "address":"მისამართი"
 
 
 

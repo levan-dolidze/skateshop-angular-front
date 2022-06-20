@@ -28,12 +28,11 @@
     </form>
 
 
-        <form *ngIf="registrationModal" (ngSubmit)="userRegistration(registrationForm)" #registrationForm="ngForm">
+<form *ngIf="registrationModal" (ngSubmit)="userRegistration(registrationForm)" #registrationForm="ngForm">
    <div style="display: flex;">
     <mat-icon (click)="registrationModal=false;authorizationModal=true" class="back-to-signin">keyboard_return</mat-icon>
     <h2 style="margin:0 auto;" mat-dialog-title>{{"registration"|translate}}</h2>
    </div>
-         
             <div class="registration-content">
                 <div class="personal-info">
                     <input  [(ngModel)]="registration.username" 
@@ -66,8 +65,6 @@
                     <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
                       არასწორი ფორმატი
                     </div>
-
- 
                 </div>
 
               <div class="personal-info-v2">
@@ -84,7 +81,7 @@
                     შევსება სავალდებულოა
                 </div>
 
-<div class="birthday-content">
+              <div class="birthday-content">
              <input class="birthDay" class="form-control" 
                      id="birthDay"
                      required
@@ -103,9 +100,6 @@
                     შევსება სავალდებულოა
                 </div>
                 </div>
-
-
-       
             </div>
     
             <button type="submit" class="enterBtn" mat-raised-button
