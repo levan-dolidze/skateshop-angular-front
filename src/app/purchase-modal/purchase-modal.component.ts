@@ -10,10 +10,16 @@ import { Order } from '../shared/classes';
 export class PurchaseModalComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
-  order:Order =new Order();
+  order: Order = new Order();
   ngOnInit(): void {
   }
-  purchaseNow(form:any){
-
+  purchaseNow(form: any) {
+    console.log(form)
+    if (form.invalid) {
+      return
+    }
+    else{
+      alert(78)
+    }
   }
 }
