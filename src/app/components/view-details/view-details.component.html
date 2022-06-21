@@ -1,11 +1,11 @@
 <div class="detail-content">
     <div class="detail-inner">
         <div *ngIf="product" class="productDetail" >
-            {{product.id}}
+           ID: {{product.id}}
+            {{product.type}}
             {{product.name}}
             <img [src]="product.image">
-            {{product.price}}
-            {{product.type}}
+           {{"price"|translate}} {{product.price}}  {{"currency"|translate}}
         </div>
 
         <div class="product-info">

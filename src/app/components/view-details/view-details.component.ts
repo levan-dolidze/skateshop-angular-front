@@ -87,13 +87,10 @@ export class ViewDetailsComponent implements OnInit {
   this.authStatusIsLoggedin?this.dialog.open(PurchaseModalComponent):this.dialog.open(LoginModalComponent);
   };
 
+  // if else ეწერა, და მოკლე if else დავწერე1
   countProductsInCart() {
-    let pars = localStorage.getItem('items')
-    if (pars) {
-      this.quantity = JSON.parse(pars)
-    } else {
-      this.quantity = 0;
-    }
+    let items = localStorage.getItem('items')
+    items? this.quantity = JSON.parse(items):this.quantity=0;
     this.quantity++;
     this.http.addItemToCartEvent.next(this.quantity);
   }

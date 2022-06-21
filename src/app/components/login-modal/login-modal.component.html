@@ -6,7 +6,7 @@
         <input [(ngModel)]="userLogin.email" [ngModelOptions]="{standalone: true}" #userEmail="ngModel"
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" class="form-control"
-            placeholder="Username" autocomplete="off" type="text">
+            placeholder="Email" autocomplete="off" type="text">
 
         <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userEmail.errors?.pattern">
             არასწორი ფორმატი

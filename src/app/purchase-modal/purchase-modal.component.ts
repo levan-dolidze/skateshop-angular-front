@@ -1,9 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/classes';
-import { HttpService } from '../servises/http.service';
-import { AuthService } from '../servises/auth.service';
-import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-purchase-modal',

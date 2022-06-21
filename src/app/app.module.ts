@@ -22,7 +22,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { PurchaseModalComponent } from './purchase-modal/purchase-modal.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +48,7 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
     MatDialogModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    
 
     TranslateModule.forRoot({
       loader: {

@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit {
           return item.name === searchValue;
         })
         this.itemArr$ = of(filtredItem)
+        this.loadMoreBtn=false;
       })
     })
   };
