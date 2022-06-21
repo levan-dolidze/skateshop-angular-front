@@ -19,7 +19,22 @@ export class WheelComponent implements OnInit {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
+    this.searchSkateboardItems();
   }
+
+
+    searchSkateboardItems() {
+    this.http.searchSubject.subscribe((searchValue) => {
+      this.itemArr$.subscribe((res) => {
+        this.brands = [];
+        from(res).pipe(
+          filter((x => x.name === searchValue))
+        ).subscribe((res) => {
+          this.brands.push(res)
+        })
+      })
+    })
+  };
   returnSkateboardItems() {
     this.itemArr$ = this.http.returnDummyData().pipe(
       shareReplay(),

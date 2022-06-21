@@ -20,6 +20,7 @@ export class TruckComponent implements OnInit {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
+    this.searchSkateboardItems();
   };
 
   returnSkateboardItems() {
@@ -79,5 +80,17 @@ export class TruckComponent implements OnInit {
     }
   };
 
+  searchSkateboardItems() {
+    this.http.searchSubject.subscribe((searchValue) => {
+      this.itemArr$.subscribe((res) => {
+        this.brands = [];
+        from(res).pipe(
+          filter((x => x.name === searchValue))
+        ).subscribe((res) => {
+          this.brands.push(res)
+        })
+      })
+    })
+  };
 
 }
