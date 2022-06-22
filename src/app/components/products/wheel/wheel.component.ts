@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
 import { ItemArray, ProductUrl } from './../../../models/url';
 import { from, Observable } from 'rxjs';
@@ -13,15 +14,26 @@ import { Component, OnInit } from '@angular/core';
 export class WheelComponent implements OnInit {
   brands: Array<any>
   itemArr$: Observable<ItemArray[]>
-  constructor(private http: HttpService, public route: Router) { }
+  lang: any;  
+
+  constructor(private http: HttpService, public route: Router,
+    private translate:TranslateService
+    ) { }
 
   ngOnInit(): void {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
-  }
-
+    this.languageControl();
+    this.http.changeLanguage.subscribe(() => {
+      this.languageControl();
+    })
+  };
+  languageControl() {
+    this.lang = localStorage.getItem('lang');
+    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
+  };
 
     searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {

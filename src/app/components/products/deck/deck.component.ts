@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
 import { ItemArray, ProductUrl } from './../../../models/url';
 import { from, Observable,  } from 'rxjs';
@@ -13,10 +14,13 @@ import { Router } from '@angular/router';
 export class DeckComponent implements OnInit {
 
 
-  constructor(private http: HttpService, public route: Router) {
+  constructor(private http: HttpService, public route: Router,
+    private translate:TranslateService
+    ) {
   }
-  brands: Array<any>
+  brands: Array<any>=[];
   itemArr$: Observable<ItemArray[]>
+  lang: any;  
 
 
 
@@ -25,6 +29,14 @@ export class DeckComponent implements OnInit {
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
+    this.languageControl();
+    this.http.changeLanguage.subscribe(() => {
+      this.languageControl();
+    })
+  };
+  languageControl() {
+    this.lang = localStorage.getItem('lang');
+    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
   };
 
   searchSkateboardItems() {
@@ -34,6 +46,7 @@ export class DeckComponent implements OnInit {
         from(res).pipe(
           filter((x => x.name === searchValue))
         ).subscribe((res) => {
+          this.brands.push(res)
         })
       })
     })

@@ -3,13 +3,13 @@
         <div class="navbar-title">
             {{"title" | translate}}
         </div>
-        <form  #signInForm="ngForm" (keypress)="searchingByEnterKey($event)">
+        <form (keypress)="searchByEnterKey($event)"  #signInForm="ngForm">
             <div class="navbar-navigation">
                 <div class="search-inner">
                     <i type="submit" (click)="searchItem(signInForm)"  class="fa-solid fa-magnifying-glass"></i>
-                    <input [(ngModel)]="search" 
-                           #searchInput="ngModel"
+                    <input [(ngModel)]="search"
                            name="searchInput"
+                           #searchInput="ngModel"
                            pattern="[a-zA-Z ]*" 
                            [class.borderError]="searchInput.touched&&searchInput.errors?.pattern"
                            class="form-control" 
@@ -18,8 +18,9 @@
                 </div>
 
                 <div class="navigation-inner">
-                    <button routerLinkActive="active" mat-button [routerLink]="['/home']"> {{"home"|translate}}
-                    </button>
+                    <!-- fake button მოგვარდა ბაგი, ენთერით ძებნისას არედაირექტებდა პირველივე მისამართზე და ჩავუყენეთ წინ    -->
+                    <button style="width:1px;"  mat-button></button>
+                    <button  mat-button [routerLink]="['/home']"> {{"home"|translate}} </button>
                     <button mat-button [routerLink]="['/about']"> {{"about"|translate}}</button>
                     <button mat-button [matMenuTriggerFor]="menu">{{"products"|translate}}</button>
                     <mat-menu #menu="matMenu">
@@ -29,23 +30,17 @@
                             <button mat-menu-item [routerLink]="['/truck']">{{"trucks"|translate}}</button>
                             <button mat-menu-item [routerLink]="['/complete']">{{"complete"|translate}}</button>
                         </div>
-
                     </mat-menu>
                     <button mat-button [routerLink]="['/sale']">{{"sale"|translate}}</button>
                     <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
                     <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
                 </div>
 
-
                 <div class="shopping-cart">
                   <span style="margin-top:5px" [routerLink]="['/product-cart']">{{"cart"|translate}}</span> 
                   <span style="margin-bottom:5px;" [routerLink]="['/product-cart']"> <mat-icon [matBadge]="quantity">add_shopping_cart</mat-icon></span> 
                   <mat-icon style="cursor:pointer;margin-left: 10px;opacity:0.8" (click)="clearCart()">delete</mat-icon>
                 </div>
-  
-
-
-
 
                 <div class="language-inner">
                     <select (change)="changeLang($event.target)">
@@ -59,8 +54,6 @@
                 </button>
               
             </div>
-
-
         </form>
     </div>
 </div>

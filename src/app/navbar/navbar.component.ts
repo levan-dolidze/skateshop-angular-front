@@ -93,7 +93,7 @@ export class NavbarComponent implements OnInit {
       this.http.searchSubject.next(this.search)
     };
   };
-  searchingByEnterKey(form: KeyboardEvent) {
+  searchByEnterKey(form: KeyboardEvent) {
     if (form.key === 'Enter') {
       this.http.searchSubject.next(this.search)
     }

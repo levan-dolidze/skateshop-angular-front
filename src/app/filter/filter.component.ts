@@ -17,7 +17,6 @@ export class FilterComponent implements OnInit {
   brands: any = [];
   chousenBrand: string;
   uniqueNames: any
-  testArr: any = []
 
   constructor(public route: Router, private http: HttpService) { }
 

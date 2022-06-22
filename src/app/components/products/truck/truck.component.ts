@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { ItemArray, ProductUrl } from './../../../models/url';
 import { shareReplay, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -12,17 +13,27 @@ import { from, Observable } from 'rxjs';
 })
 export class TruckComponent implements OnInit {
 
-  constructor(private http: HttpService, public route: Router) { }
+  constructor(private http: HttpService, public route: Router,
+    private translate:TranslateService
+    ) { }
   brands: Array<any>
   itemArr$: Observable<ItemArray[]>
+  lang: any;  
 
   ngOnInit(): void {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
+    this.languageControl();
+    this.http.changeLanguage.subscribe(() => {
+      this.languageControl();
+    })
   };
-
+  languageControl() {
+    this.lang = localStorage.getItem('lang');
+    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
+  };
   returnSkateboardItems() {
     this.itemArr$ = this.http.returnDummyData().pipe(
       shareReplay(),

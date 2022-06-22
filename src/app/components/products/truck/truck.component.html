@@ -4,10 +4,11 @@
        <div *ngFor="let item of brands">
            <div class="item" [routerLink]="['/view-details',item.id]" routerLinkActive="router-link-active"  >
                {{item.id}}
+               {{item.type}}
                {{item.name}}
                <img [src]="item.image">
-               {{item.price}}
-               {{item.type}}
+               {{"price"|translate}} {{item.price}}  {{"currency"|translate}}
+               
             </div>
        </div>
     </div>
