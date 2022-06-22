@@ -34,7 +34,6 @@ export class DeckComponent implements OnInit {
         from(res).pipe(
           filter((x => x.name === searchValue))
         ).subscribe((res) => {
-          this.brands.push(res)
         })
       })
     })
