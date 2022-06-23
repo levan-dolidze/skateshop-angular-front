@@ -8,10 +8,10 @@ import { Observable, of, Subject } from 'rxjs';
 export class HttpService {
   private subject = new Subject<any>()
 
-  showNumSub = new Subject<any>();
-  changeLanguage: Subject<any> = new Subject();
+  //events
+  changeLanguageEvent: Subject<any> = new Subject();
   addItemToCartEvent: Subject<number> = new Subject();
-  clearCart: Subject<any> = new Subject();
+  clearCartEvent: Subject<any> = new Subject();
   deleteItemEvent:Subject<any>=new Subject();
   checkUserIsLoggedInEvent:Subject<any>=new Subject();
 

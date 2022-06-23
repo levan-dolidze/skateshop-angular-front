@@ -3,10 +3,6 @@
     <div class="product-incart-container" *ngIf="productCartArray">
         <div class="product-incart-list">
             <div class="product-incart-inner" *ngFor="let item of productCartArray;let i =index">
-                <!-- ID:
-                <span>
-                    {{item.id}}
-                </span> -->
                 <img [src]="item.image">
                     Name: 
                     <span >

@@ -9,6 +9,7 @@ import { HttpService } from './../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/servises/auth.service';
+import { SharedService } from 'src/app/servises/shared.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ViewDetailsComponent implements OnInit {
     private http: HttpService,
     private translate: TranslateService,
     public dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private shared:SharedService
 
   ) { }
 
@@ -36,9 +38,9 @@ export class ViewDetailsComponent implements OnInit {
   authStatus: string = 'login'
 
   ngOnInit(): void {
-    this.languageControl();
-    this.http.changeLanguage.subscribe(() => {
-      this.languageControl();
+    this.shared.languageControl(this.lang,this.translate)
+    this.http.changeLanguageEvent.subscribe(() => {
+      this.shared.languageControl(this.lang,this.translate)
     })
 
 

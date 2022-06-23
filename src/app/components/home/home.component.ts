@@ -3,6 +3,7 @@ import { shareReplay, take, toArray } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
 import { from, Observable, of } from 'rxjs';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { SharedService } from 'src/app/servises/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpService,
   
-  private translate: TranslateService) { }
+  private translate: TranslateService,
+  private shared:SharedService
+  ) { }
   itemArr$: Observable<any[]>;
   lang: any;  
   itemCount: number = 5;  
@@ -23,9 +26,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.returnStartItems(this.itemCount)
     this.searchSkateboardItems();
-    this.languageControl();
-    this.http.changeLanguage.subscribe(() => {
-      this.languageControl();
+    this.shared.languageControl(this.lang,this.translate)
+    this.http.changeLanguageEvent.subscribe(() => {
+      this.shared.languageControl(this.lang,this.translate)
     })
   };
 
@@ -35,8 +38,6 @@ export class HomeComponent implements OnInit {
     this.loadMoreItems(this.itemCount);
   };
 
-
-
   ngAfterViewInit() {
     this.itemList.changes.subscribe(() => {
       if (this.itemList && this.itemList.last) {
@@ -44,7 +45,6 @@ export class HomeComponent implements OnInit {
       }
     });
   };
-
 
   loadMoreItems(num: number) {
     this.http.returnDummyData().subscribe((res) => {
@@ -68,17 +68,10 @@ export class HomeComponent implements OnInit {
     })
   };
 
-
-
   returnSkateboardItems() {
     this.itemArr$ = this.http.returnDummyData();
     shareReplay();
   }
-  languageControl() {
-    this.lang = localStorage.getItem('lang');
-    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
-  };
-
 
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
@@ -103,9 +96,6 @@ export class HomeComponent implements OnInit {
       this.itemArr$ = of(filtredItem)
     })
   };
-
-
-
 
   formatLabel(value: number) {
     if (value >= 1000) {

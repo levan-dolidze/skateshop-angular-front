@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
+import { SharedService } from '../servises/shared.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
   constructor(private http: HttpService,
     private translate: TranslateService,
     public dialog: MatDialog,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private shared: SharedService) {
     // translate.setDefaultLang('ka');
 
   }
@@ -34,7 +36,7 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.languageControl();
+    this.shared.languageControl(this.lang,this.translate)
     this.addItem();
     this.deleteItem();
     this.checkUserLoggedIn();
@@ -66,10 +68,8 @@ export class NavbarComponent implements OnInit {
     this.http.checkUserIsLoggedInEvent.subscribe((res) => {
       //აქ თუ დალოგინებულია უნდა გადავამისამარო შეძენის საბოლოო სტეპზე 
      !this.authStatusIsLoggedin?this.openDialog():false
-   
-
     })
-  }
+  };
 
   get loginMode(): string | boolean {
     this.authService.userIsLogedin.subscribe((isLogedIn) => {
@@ -81,10 +81,7 @@ export class NavbarComponent implements OnInit {
   };
 
 
-  languageControl() {
-    this.lang = localStorage.getItem('lang');
-    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
-  };
+
 
   searchItem(searchInput: any) {
     if (!this.search || searchInput.invalid) {
@@ -104,15 +101,14 @@ export class NavbarComponent implements OnInit {
   changeLang(lang: any) {
     localStorage.setItem('lang', lang.value);
     this.translate.use(lang.value);
-    this.http.changeLanguage.next();
+    this.http.changeLanguageEvent.next();
   };
-
 
 
   clearCart() {
     localStorage.clear();
     this.quantity = 0;
-    this.http.clearCart.next();
+    this.http.clearCartEvent.next();
   };
 
 };

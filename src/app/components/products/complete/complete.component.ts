@@ -5,6 +5,7 @@ import { HttpService } from './../../../servises/http.service';
 import { from, Observable } from 'rxjs';
 import { ItemArray, ProductUrl } from './../../../models/url';
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/servises/shared.service';
 
 @Component({
   selector: 'app-complete',
@@ -14,7 +15,8 @@ import { Component, OnInit } from '@angular/core';
 export class CompleteComponent implements OnInit {
 
   constructor(private http: HttpService, public route: Router,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private shared:SharedService
     ) { }
   brands: Array<any>;
   itemArr$: Observable<ItemArray[]>;
@@ -25,15 +27,10 @@ export class CompleteComponent implements OnInit {
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
-    this.languageControl();
-    this.http.changeLanguage.subscribe(() => {
-      this.languageControl();
+    this.shared.languageControl(this.lang,this.translate)
+    this.http.changeLanguageEvent.subscribe(() => {
+      this.shared.languageControl(this.lang,this.translate)
     })
-  };
-
-  languageControl() {
-    this.lang = localStorage.getItem('lang');
-    this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
   };
 
 
@@ -48,7 +45,6 @@ export class CompleteComponent implements OnInit {
       })
     })
   };
-
   returnSkateboardItems() {
     this.itemArr$ = this.http.returnDummyData().pipe(
       shareReplay(),
@@ -108,4 +104,4 @@ export class CompleteComponent implements OnInit {
   };
 
 
-}
+};
