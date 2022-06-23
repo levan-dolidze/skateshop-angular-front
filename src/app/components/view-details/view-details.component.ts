@@ -86,6 +86,7 @@ export class ViewDetailsComponent implements OnInit {
 
   //აქ უნდა შევამოწმო იუზერი დალოგინებული არის თუ არა რეალურად და მაგი სმიხედვით ან გავუშვა შეკვეთაზე ან ლოგინი მოვთხოვო
   buyProductNow() {
+  localStorage.setItem('purchase-now-products',JSON.stringify(this.product));
   this.authStatusIsLoggedin?this.dialog.open(PurchaseModalComponent):this.dialog.open(LoginModalComponent);
   };
 

@@ -4,18 +4,23 @@
 
 export const environment = {
   production: false,
-  firebaseConfig: {
-    apiKey: "AIzaSyBtEFcCCzeZo1XpTs9yDU01bkHqLSLnRSM",
-    authDomain: "skateshop-v2.firebaseapp.com",
-    databaseURL: "https://skateshop-v2-default-rtdb.firebaseio.com",
-    projectId: "skateshop-v2",
-    storageBucket: "skateshop-v2.appspot.com",
-    messagingSenderId: "585809802455",
-    appId: "1:585809802455:web:24813b3a3c708d99792c92",
-    measurementId: "G-RLV821BSQZ"
-  }
-};
+// Import the functions you need from the SDKs you need
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+ firebase: {
+  apiKey: "AIzaSyCaY9LC71afm6arymreEXCLpFCNcx5CvS8",
+  authDomain: "skateshop-angular-front.firebaseapp.com",
+  projectId: "skateshop-angular-front",
+  storageBucket: "skateshop-angular-front.appspot.com",
+  messagingSenderId: "927645695910",
+  appId: "1:927645695910:web:058078afe2bca6de5a9967",
+  measurementId: "G-VNS6Y2WZF4"
+}
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

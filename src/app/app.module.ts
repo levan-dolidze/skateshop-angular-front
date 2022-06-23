@@ -1,3 +1,5 @@
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from './../environments/environment';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,14 +23,13 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 import { PurchaseModalComponent } from './purchase-modal/purchase-modal.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FilterComponent,
     LoginModalComponent,
-    PurchaseModalComponent
+    PurchaseModalComponent,
    
 
 
@@ -48,6 +49,7 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
     MatDialogModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    AngularFireModule.initializeApp(environment.firebase),
     
 
     TranslateModule.forRoot({

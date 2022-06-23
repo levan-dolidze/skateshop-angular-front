@@ -45,5 +45,9 @@
 
     <div *ngIf="productCartArray.length<1">
         {{"cartIsEmpty"|translate}}
-    </div>
+        <div style="display:flex;">
+            <button [routerLink]="['/home']"    mat-stroked-button color="primary">   <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon></button>
+            <button [routerLink]="['/sale']" style="margin-top:5px;margin-left: 5px;" mat-flat-button color="primary">{{"sale"|translate}}</button> 
+        </div>
+   </div>
 </div>

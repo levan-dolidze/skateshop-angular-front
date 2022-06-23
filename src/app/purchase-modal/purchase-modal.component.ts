@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/classes';
@@ -10,6 +11,7 @@ import { Order } from '../shared/classes';
 export class PurchaseModalComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
+    private http:HttpClient
 
     ) { }
   order: Order = new Order();
@@ -23,8 +25,14 @@ export class PurchaseModalComponent implements OnInit {
     if (form.invalid) {
       return
     }
+    // თუ დალოგინებული არ არის უნდა ამოვუნათოთ ლოგინის მოდალი
+    // else if(){
+
+    // }
     else{
-      //უნდა გავაგზავნო შეკვეთა ბექში POST მეთოდი 
+      let updetedOrderStr =localStorage.getItem('purchase-now-products')
+      this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json',`${JSON.stringify(updetedOrderStr)}`).subscribe(responseData => {
+      });
     }
   }
 
