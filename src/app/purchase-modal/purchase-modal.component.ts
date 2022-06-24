@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/classes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-modal',
@@ -11,11 +12,13 @@ import { Order } from '../shared/classes';
 export class PurchaseModalComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
-    private http:HttpClient
+    private http: HttpClient,
+    private router:Router
 
-    ) { }
+  ) { }
   order: Order = new Order();
-  
+  orderIsCompleted: boolean = false;
+
 
 
   ngOnInit(): void {
@@ -29,10 +32,16 @@ export class PurchaseModalComponent implements OnInit {
     // else if(){
 
     // }
-    else{
-      let updetedOrderStr =localStorage.getItem('purchase-now-products')
-      this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json',`${JSON.stringify(updetedOrderStr)}`).subscribe(responseData => {
+    else {
+      let updetedOrderStr = localStorage.getItem('purchase-now-products')
+      this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(updetedOrderStr)}`).subscribe(responseData => {
       });
+      this.orderIsCompleted=true;
+      setTimeout(() => {
+        this.dialog.closeAll();
+        this.router.navigate(['/home'])
+      }, 3000);
+
     }
   }
 
@@ -46,4 +55,3 @@ export class PurchaseModalComponent implements OnInit {
 
 
 }
-1

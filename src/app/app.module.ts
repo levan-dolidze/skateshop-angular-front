@@ -32,7 +32,6 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
     PurchaseModalComponent,
    
 
-
   ],
   imports: [
     BrowserModule,
@@ -50,8 +49,6 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
     MatSelectModule,
     NgxMatSelectSearchModule,
     AngularFireModule.initializeApp(environment.firebase),
-    
-
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
