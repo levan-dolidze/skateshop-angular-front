@@ -1,3 +1,4 @@
+import { HttpService } from './../servises/http.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -12,8 +13,9 @@ import { Router } from '@angular/router';
 export class PurchaseModalComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
-    private http: HttpClient,
-    private router:Router
+    // private http: HttpClient,
+    private router: Router,
+    private http:HttpService
 
   ) { }
   order: Order = new Order();
@@ -33,17 +35,37 @@ export class PurchaseModalComponent implements OnInit {
 
     // }
     else {
-      let updetedOrderStr = localStorage.getItem('purchase-now-products')
-      this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(updetedOrderStr)}`).subscribe(responseData => {
-      });
-      this.orderIsCompleted=true;
-      setTimeout(() => {
-        this.dialog.closeAll();
-        this.router.navigate(['/home'])
-      }, 3000);
-
+      let channel =localStorage.getItem('channel');
+      if(channel=='now'){
+        let fromNow =localStorage.getItem('buy-now');
+        this.http.postOrder(fromNow).subscribe((res)=>{})
+        // this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(fromNow)}`).subscribe(res => {
+        // });
+        // this.api.deleteItemEvent.next()
+        // this.orderIsCompleted = true;
+        // setTimeout(() => {
+        //   this.dialog.closeAll();
+        //   localStorage.removeItem('products')
+        //   localStorage.removeItem('items')
+        //   this.router.navigate(['/home'])
+        // }, 3000);
+      }else{
+        let fromCart = localStorage.getItem('products');
+        this.http.postOrder(fromCart).subscribe((res)=>{})
+        // this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(fromCart)}`).subscribe(res => {
+        // });
+        // let fromNow =localStorage.getItem('buy-now');
+      }
+        this.http.deleteItemEvent.next();
+        this.orderIsCompleted = true;
+        setTimeout(() => {
+          this.dialog.closeAll();
+          localStorage.removeItem('products')
+          localStorage.removeItem('items')
+          this.router.navigate(['/home'])
+        }, 3000);
     }
-  }
+  };
 
 
   openDialog() {

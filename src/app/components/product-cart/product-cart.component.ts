@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { from } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpService } from './../../servises/http.service';
@@ -15,7 +16,8 @@ export class ProductCartComponent implements OnInit {
 
   constructor(private http: HttpService,
     private translate: TranslateService,
-    private shared:SharedService
+    private shared:SharedService,
+    private router:Router
   ) { }
   productCartArray: Array<ItemArray> = [];
   lang: any;
@@ -34,7 +36,6 @@ export class ProductCartComponent implements OnInit {
 
 
   countTotalPrice() {
-    console.log(this.productCartArray)
     let totalPrice = 0;
     from(this.productCartArray).pipe(
       map((x => totalPrice += (x.price * x.inCart)))
@@ -63,6 +64,7 @@ export class ProductCartComponent implements OnInit {
 
   checkUserIsLoggedIn() {
     this.http.checkUserIsLoggedInEvent.next();
+    localStorage.setItem('channel','cart')
   };
 
   clearCart() {
@@ -73,14 +75,17 @@ export class ProductCartComponent implements OnInit {
 
 
   showSkateboardProductFromCart() {
+    let tempArr=[];
     let products = localStorage.getItem('products');
     if (products) {
       this.productCartArray = JSON.parse(products)
+      tempArr =this.productCartArray 
       let uniqueProductsInCart = [
-        ...new Map(this.productCartArray.map((item: any) => [item.id, item])).values(),
+        ...new Map(tempArr.map((item: any) => [item.id, item])).values(),
       ];
-      this.productCartArray = uniqueProductsInCart;
+      this.productCartArray =  uniqueProductsInCart;
     };
+
   };
 
 

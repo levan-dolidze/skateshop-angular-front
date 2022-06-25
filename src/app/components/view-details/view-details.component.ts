@@ -3,7 +3,7 @@ import { LoginModalComponent } from './../login-modal/login-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, shareReplay } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import {from , Observable, of } from 'rxjs';
 import { ItemArray } from './../../models/url';
 import { HttpService } from './../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
@@ -86,7 +86,8 @@ export class ViewDetailsComponent implements OnInit {
 
   //აქ უნდა შევამოწმო იუზერი დალოგინებული არის თუ არა რეალურად და მაგი სმიხედვით ან გავუშვა შეკვეთაზე ან ლოგინი მოვთხოვო
   buyProductNow() {
-  localStorage.setItem('purchase-now-products',JSON.stringify(this.product));
+  localStorage.setItem('buy-now',JSON.stringify(this.product));
+  localStorage.setItem('channel','now')
   this.authStatusIsLoggedin?this.dialog.open(PurchaseModalComponent):this.dialog.open(LoginModalComponent);
   };
 

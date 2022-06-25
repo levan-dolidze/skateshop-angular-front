@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../../environments/environment';
 import { ItemArray } from './../models/url';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
@@ -12,8 +14,11 @@ export class HttpService {
   changeLanguageEvent: Subject<any> = new Subject();
   addItemToCartEvent: Subject<number> = new Subject();
   clearCartEvent: Subject<any> = new Subject();
-  deleteItemEvent:Subject<any>=new Subject();
-  checkUserIsLoggedInEvent:Subject<any>=new Subject();
+  deleteItemEvent: Subject<any> = new Subject();
+  checkUserIsLoggedInEvent: Subject<any> = new Subject();
+  cartUrlEvent: Subject<any> = new Subject();
+
+  apiUrl: any = environment.apiUrl;
 
   sendClickEvent() {
     this.subject.next();
@@ -27,7 +32,7 @@ export class HttpService {
 
 
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   searchSubject: Subject<any> = new Subject();
   filterSubject: Subject<any> = new Subject();
@@ -157,14 +162,22 @@ export class HttpService {
         image: 'https://images.blue-tomato.com/is/image/bluetomato/304475020_front.jpg-3xZpOt9g08hrsxFM61v8R_mtQ7Y/Lord+Nermal+8+25+Skateboard+Deck.jpg?$b8$',
         inCart: 0
       }
-    
-   
+
+
 
 
     ]
 
     return of(array)
 
+  }
+
+  postOrder(order: any) {
+    return this.http.post(`${this.apiUrl}`, order)
+  }
+
+  getOrders(){
+    return this.http.get(`${this.apiUrl}`)
   }
 
 }

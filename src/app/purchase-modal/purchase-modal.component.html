@@ -1,7 +1,7 @@
 
 <div  class="purchase-content">
     <form *ngIf="!orderIsCompleted" (ngSubmit)="purchaseNow(purchaseForm)" #purchaseForm="ngForm">
-            <h2 mat-dialog-title>{{"purchase"|translate}}<button style="float:right" mat-button mat-dialog-close>Close</button> </h2> 
+            <h2 mat-dialog-title>{{"order"|translate}}<button style="float:right" mat-button mat-dialog-close>Close</button> </h2> 
             <div class="registration-content">
             <div class="personal-info">
             <label>{{"name"|translate}} 

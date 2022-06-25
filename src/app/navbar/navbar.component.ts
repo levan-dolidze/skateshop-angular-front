@@ -1,3 +1,4 @@
+import { PurchaseModalComponent } from './../purchase-modal/purchase-modal.component';
 import { AuthService } from './../servises/auth.service';
 
 
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
   quantity: number = 0;
   userLoginMode: string;
   authStatus: string = 'login'
-  authStatusIsLoggedin: boolean;
+  authStatusIsLoggedin: boolean = false
 
   constructor(private http: HttpService,
     private translate: TranslateService,
@@ -30,16 +31,21 @@ export class NavbarComponent implements OnInit {
     // translate.setDefaultLang('ka');
 
   }
-  openDialog() {
-    this.dialog.open(LoginModalComponent);
-  };
 
 
   ngOnInit(): void {
-    this.shared.languageControl(this.lang,this.translate)
+    this.shared.languageControl(this.lang, this.translate)
     this.addItem();
     this.deleteItem();
     this.checkUserLoggedIn();
+    this.clearCartAfterOrdering();
+
+  };
+
+  clearCartAfterOrdering() {
+    this.http.deleteItemEvent.subscribe((res) => {
+      this.quantity = 0;
+    })
   };
 
 
@@ -58,16 +64,19 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+
   deleteItem() {
     this.http.deleteItemEvent.subscribe((items) => {
       this.addItem();
     })
   };
-
+  openDialog() {
+    this.dialog.open(LoginModalComponent)
+  }
   checkUserLoggedIn() {
     this.http.checkUserIsLoggedInEvent.subscribe((res) => {
       //აქ თუ დალოგინებულია უნდა გადავამისამარო შეძენის საბოლოო სტეპზე 
-     !this.authStatusIsLoggedin?this.openDialog():false
+      !this.authStatusIsLoggedin ? this.dialog.open(PurchaseModalComponent) :this.openDialog()
     })
   };
 
@@ -94,7 +103,7 @@ export class NavbarComponent implements OnInit {
     if (form.key === 'Enter') {
       this.http.searchSubject.next(this.search)
     }
-    else{return }
+    else { return }
   };
 
 
