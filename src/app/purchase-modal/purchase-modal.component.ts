@@ -39,22 +39,10 @@ export class PurchaseModalComponent implements OnInit {
       if(channel=='now'){
         let fromNow =localStorage.getItem('buy-now');
         this.http.postOrder(fromNow).subscribe((res)=>{})
-        // this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(fromNow)}`).subscribe(res => {
-        // });
-        // this.api.deleteItemEvent.next()
-        // this.orderIsCompleted = true;
-        // setTimeout(() => {
-        //   this.dialog.closeAll();
-        //   localStorage.removeItem('products')
-        //   localStorage.removeItem('items')
-        //   this.router.navigate(['/home'])
-        // }, 3000);
+
       }else{
         let fromCart = localStorage.getItem('products');
         this.http.postOrder(fromCart).subscribe((res)=>{})
-        // this.http.post('https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json', `${JSON.stringify(fromCart)}`).subscribe(res => {
-        // });
-        // let fromNow =localStorage.getItem('buy-now');
       }
         this.http.deleteItemEvent.next();
         this.orderIsCompleted = true;
