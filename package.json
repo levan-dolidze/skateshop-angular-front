@@ -27,6 +27,8 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "bootstrap": "^4.5.0",
     "firebase": "^9.8.4",
+    "ngx-cookieconsent": "^2.2.3",
+    "ngx-device-detector": "^3.0.0",
     "ngx-mat-select-search": "^4.1.2",
     "pspdfkit": "^2022.2.3",
     "rxjs": "~6.6.0",

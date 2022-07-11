@@ -67,6 +67,41 @@
                     <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
                       არასწორი ფორმატი
                     </div>
+
+
+                    <input [(ngModel)]="registration.pass" 
+                    required
+               
+                    [ngModelOptions]="{standalone: true}" 
+                    #userPass="ngModel"
+                    name="userEmail"
+                    class="form-control" 
+                    [class.borderError]="registrationForm.submitted&&(userPass.errors?.required)"
+                    placeholder="pass" 
+                    autocomplete="off" type="text">
+
+                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userPass.errors?.required">
+                        შევსება სავალდებულოა
+                    </div>
+                    <!-- <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
+                      არასწორი ფორმატი
+                    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
 
               <div class="personal-info-v2">
@@ -104,7 +139,7 @@
                 </div>
             </div>
     
-            <button type="submit" class="enterBtn" mat-raised-button
+            <button (click)="userSignUp()" type="submit" class="enterBtn" mat-raised-button
             color="primary">{{"registration"|translate}}</button>
 
         </form>

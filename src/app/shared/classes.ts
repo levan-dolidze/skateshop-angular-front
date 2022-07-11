@@ -8,6 +8,7 @@ export class UserRegistration {
     surename: string;
     email: string;
     birthDay: Date;
+    pass:string;
 }
 
 export class Order{

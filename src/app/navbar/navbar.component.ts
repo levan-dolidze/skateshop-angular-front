@@ -1,13 +1,12 @@
 import { PurchaseModalComponent } from './../purchase-modal/purchase-modal.component';
 import { AuthService } from './../servises/auth.service';
-
-
 import { HttpService } from './../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 import { SharedService } from '../servises/shared.service';
+import { NgcCookieConsentService } from 'ngx-cookieconsent';
 
 @Component({
   selector: 'app-navbar',
@@ -21,19 +20,22 @@ export class NavbarComponent implements OnInit {
   quantity: number = 0;
   userLoginMode: string;
   authStatus: string = 'login'
-  authStatusIsLoggedin: boolean = false
+  authStatusIsLoggedin: boolean = false;
 
   constructor(private http: HttpService,
     private translate: TranslateService,
     public dialog: MatDialog,
     private authService: AuthService,
-    private shared: SharedService) {
+    private shared: SharedService,
+    // private cookie:NgcCookieConsentService
+    ) {
     // translate.setDefaultLang('ka');
 
   }
 
 
   ngOnInit(): void {
+    this.lang = localStorage.getItem('lang');
     this.shared.languageControl(this.lang, this.translate)
     this.addItem();
     this.deleteItem();

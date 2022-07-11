@@ -22,6 +22,24 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 import { PurchaseModalComponent } from './purchase-modal/purchase-modal.component';
+import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent';
+import { AuthfirebaseService } from './servises/authfirebase.service';
+
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'http//:localhost:4200' // or 'your.domain.com' 
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
 
 @NgModule({
   declarations: [
@@ -48,6 +66,7 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
     MatDialogModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    NgcCookieConsentModule.forRoot(cookieConfig), 
     AngularFireModule.initializeApp(environment.firebase),
     TranslateModule.forRoot({
       loader: {
@@ -55,10 +74,9 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       },
-
     })
   ],
-  providers: [],
+  providers: [AuthfirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

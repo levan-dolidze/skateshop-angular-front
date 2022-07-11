@@ -4,6 +4,7 @@ import { HttpService } from './../../servises/http.service';
 import { from, Observable, of } from 'rxjs';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SharedService } from 'src/app/servises/shared.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-home',
@@ -13,22 +14,28 @@ import { SharedService } from 'src/app/servises/shared.service';
 export class HomeComponent implements OnInit {
 
   constructor(private http: HttpService,
-  
-  private translate: TranslateService,
-  private shared:SharedService
+
+    private translate: TranslateService,
+    private shared: SharedService,
+    private deviceService: DeviceDetectorService
   ) { }
   itemArr$: Observable<any[]>;
-  lang: any;  
-  itemCount: number = 5;  
-  loadMoreBtn:boolean=true;
+  lang: any;
+  itemCount: number = 5;
+  loadMoreBtn: boolean = true;
   @ViewChildren("itemList") itemList: QueryList<ElementRef>;
 
   ngOnInit(): void {
+    console.log(this.deviceService.isMobile());
+    this.http.getDeviceIP().subscribe((res) => {
+      console.log(res)
+
+    })
     this.returnStartItems(this.itemCount)
     this.searchSkateboardItems();
-    this.shared.languageControl(this.lang,this.translate)
+    this.shared.languageControl(this.lang, this.translate)
     this.http.changeLanguageEvent.subscribe(() => {
-      this.shared.languageControl(this.lang,this.translate)
+      this.shared.languageControl(this.lang, this.translate)
     })
   };
 
@@ -57,13 +64,13 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  returnStartItems(num:number) {
+  returnStartItems(num: number) {
     this.http.returnDummyData().subscribe((res) => {
       from(res).pipe(
         take(num),
         toArray()
       ).subscribe((res) => {
-        this.itemArr$=of(res)
+        this.itemArr$ = of(res)
       })
     })
   };
@@ -81,13 +88,13 @@ export class HomeComponent implements OnInit {
           return item.name === searchValue;
         })
         this.itemArr$ = of(filtredItem)
-        this.loadMoreBtn=false;
+        this.loadMoreBtn = false;
       })
     })
   };
 
   filterByClientAmount(e: any) {
-    this.loadMoreBtn=false;
+    this.loadMoreBtn = false;
     this.returnSkateboardItems();
     this.itemArr$.subscribe((res) => {
       const filtredItem = res.filter((item) => {

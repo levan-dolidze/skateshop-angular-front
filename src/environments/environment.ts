@@ -20,7 +20,8 @@ export const environment = {
   appId: "1:927645695910:web:058078afe2bca6de5a9967",
   measurementId: "G-VNS6Y2WZF4"
 },
-apiUrl:'https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json'
+apiUrl:'https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json',
+IP:'http://api.ipify.org/?format=json'
 }
 /*
  * For easier debugging in development mode, you can import the following file

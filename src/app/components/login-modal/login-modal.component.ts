@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './../../servises/auth.service';
 import { UserLogin, UserRegistration } from './../../shared/classes';
 import { Component, OnInit } from '@angular/core';
+import { AuthfirebaseService } from 'src/app/servises/authfirebase.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -21,9 +22,14 @@ export class LoginModalComponent implements OnInit {
   registrationModal: boolean;
   confirmAuthModal: boolean;
   Emailconfirmed: boolean;
-  filteredBanks:Array<any>=["levani","dolidze"]
+  filteredBanks: Array<any> = ["levani", "dolidze"]
+  isSignedIn: boolean = false;
+  constructor(private authServise: AuthService,
+    public dialog: MatDialog,
+    private router: Router,
+    private firebase: AuthfirebaseService
 
-  constructor(private authServise: AuthService, public dialog: MatDialog,private router:Router) { }
+  ) { }
 
   ngOnInit(): void {
 
@@ -51,20 +57,24 @@ export class LoginModalComponent implements OnInit {
   }
 
   confirmAuth(confirmForm: any) {
-    if (confirmForm.invalid) {
-      return
-    } else {
-      this.confirmAuthModal = false;
-      this.Emailconfirmed = true;
-      setTimeout(() => {
-        this.dialog.closeAll()
-        this.authServise.userIsLogedin.next(true);
-        this.router.navigate([''])
-      
-      }, 3000);
-    }
+    // if (confirmForm.invalid) {
+    //   return
+    // } else {
+    //   this.confirmAuthModal = false;
+    //   this.Emailconfirmed = true;
+    //   setTimeout(() => {
+    //     this.dialog.closeAll()
+    //     this.authServise.userIsLogedin.next(true);
+    //     this.router.navigate([''])
+
+    //   }, 3000);
+    // }
 
   }
 
+  async userSignUp() {
+    await this.firebase.signUp(this.registration.email, this.registration.pass)
+    if (this.firebase.isLoggedIn) this.isSignedIn = true
+  }
 
 };

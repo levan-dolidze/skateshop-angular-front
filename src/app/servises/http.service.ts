@@ -19,7 +19,7 @@ export class HttpService {
   cartUrlEvent: Subject<any> = new Subject();
 
   apiUrl: any = environment.apiUrl;
-
+  IP: any = environment.IP;
   sendClickEvent() {
     this.subject.next();
   }
@@ -176,8 +176,11 @@ export class HttpService {
     return this.http.post(`${this.apiUrl}`, order)
   }
 
-  getOrders(){
+  getOrders() {
     return this.http.get(`${this.apiUrl}`)
+  }
+  getDeviceIP() {
+    return this.http.get(`${this.IP}`)
   }
 
 }
