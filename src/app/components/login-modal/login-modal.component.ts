@@ -37,12 +37,23 @@ export class LoginModalComponent implements OnInit {
   }
 
 
-  signIn(signInForm: any) {
+  async signIn(signInForm: any) {
     if (signInForm.invalid) {
       return
     }
-  };
+    else {
+      await this.firebase.signIn(this.userLogin.email, this.userLogin.password)
+      if (this.firebase.isLoggedIn) this.isSignedIn = true;
+      // this.registrationModal = false;
+      // this.confirmAuthModal = true;
+      this.dialog.closeAll()
+      this.authServise.userIsLogedin.next(true);
+      this.router.navigate([''])
+     
+    }
 
+
+  };
 
 
   userRegistration(registrationForm: any) {
@@ -66,25 +77,24 @@ export class LoginModalComponent implements OnInit {
         this.dialog.closeAll()
         this.authServise.userIsLogedin.next(true);
         this.router.navigate([''])
-
       }, 3000);
     }
 
   }
 
-  async userSignUp(form:any) {
-    if(form.invalid){
+  async userSignUp(form: any) {
+    if (form.invalid) {
       return
-    }else{
+    } else {
       this.registrationModal = false;
       this.confirmAuthModal = true;
     }
-    
+
     await this.firebase.signUp(this.registration.email, this.registration.pass)
     if (this.firebase.isLoggedIn) this.isSignedIn = true;
     this.verifyEmail();
-   
-    
+
+
   }
 
   verifyEmail() {

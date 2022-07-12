@@ -16,7 +16,7 @@ export class AuthfirebaseService {
         this.isLoggedIn = true;
         localStorage.setItem('user', JSON.stringify(res.user))
       })
-  }
+  };
 
   async signUp(email: string, password: string) {
     await this.firebaseAuth.createUserWithEmailAndPassword(email, password).
@@ -32,7 +32,7 @@ export class AuthfirebaseService {
   async logOut() {
     this.firebaseAuth.signOut();
     localStorage.removeItem('user')
-  }
+  };
 
 
 
