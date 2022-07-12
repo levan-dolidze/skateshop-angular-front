@@ -24,7 +24,7 @@ export class LoginModalComponent implements OnInit {
   confirmAuthModal: boolean;
   Emailconfirmed: boolean;
   filteredBanks: Array<any> = ["levani", "dolidze"]
-  isSignedIn: boolean = false;
+ 
   constructor(private authServise: AuthService,
     public dialog: MatDialog,
     private router: Router,
@@ -43,13 +43,13 @@ export class LoginModalComponent implements OnInit {
     }
     else {
       await this.firebase.signIn(this.userLogin.email, this.userLogin.password)
-      if (this.firebase.isLoggedIn) this.isSignedIn = true;
-      // this.registrationModal = false;
-      // this.confirmAuthModal = true;
+      if (this.firebase.isLoggedIn) this.authServise.userIsLogedin.next(true)
       this.dialog.closeAll()
       this.authServise.userIsLogedin.next(true);
+      window.location.reload();
       this.router.navigate([''])
-     
+
+
     }
 
 
@@ -91,7 +91,7 @@ export class LoginModalComponent implements OnInit {
     }
 
     await this.firebase.signUp(this.registration.email, this.registration.pass)
-    if (this.firebase.isLoggedIn) this.isSignedIn = true;
+    if (this.firebase.isLoggedIn) this.authServise.userIsLogedin.next(true)
     this.verifyEmail();
 
 
@@ -105,6 +105,7 @@ export class LoginModalComponent implements OnInit {
           setTimeout(() => {
             this.dialog.closeAll()
             this.authServise.userIsLogedin.next(true);
+            
             this.router.navigate([''])
           }, 3000);
         });

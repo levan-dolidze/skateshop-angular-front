@@ -63,7 +63,8 @@ export class ProductCartComponent implements OnInit {
   };
 
   checkUserIsLoggedIn() {
-    this.http.checkUserIsLoggedInEvent.next();
+    //ამ კლიკზე უნდა შევამოწმო არის თუ არა დალოგინებული და გავაყოლო true & false
+    // this.http.checkUserIsLoggedInEvent.next();
     localStorage.setItem('channel','cart')
   };
 

@@ -6,7 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 import { SharedService } from '../servises/shared.service';
-import { NgcCookieConsentService } from 'ngx-cookieconsent';
+import { AuthfirebaseService } from '../servises/authfirebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,31 +19,50 @@ export class NavbarComponent implements OnInit {
   search: string;
   lang: any;
   quantity: number = 0;
-  userLoginMode: string;
   authStatus: string = 'login'
-  authStatusIsLoggedin: boolean = false;
+  authStatusIsLoggedin: boolean;
+  userEmail: any
 
   constructor(private http: HttpService,
     private translate: TranslateService,
     public dialog: MatDialog,
     private authService: AuthService,
     private shared: SharedService,
+    private firebaseAuth: AuthfirebaseService,
+    private router: Router
     // private cookie:NgcCookieConsentService
-    ) {
+  ) {
     // translate.setDefaultLang('ka');
 
   }
 
 
   ngOnInit(): void {
+
     this.lang = localStorage.getItem('lang');
     this.shared.languageControl(this.lang, this.translate)
     this.addItem();
     this.deleteItem();
-    this.checkUserLoggedIn();
     this.clearCartAfterOrdering();
+    // this.authService.userIsLogedin.next(true)
+    this.loginMode;
+    this.checkUserLoggedIn();
 
   };
+
+  checkUserLoggedIn() {
+    let tokenInfo = localStorage.getItem('user');
+    if (tokenInfo) {
+      let parsedToken = JSON.parse(tokenInfo);
+      if (parsedToken.emailVerified) {
+        this.userEmail = parsedToken.email;
+        this.authService.userIsLogedin.next(true)
+        this.authStatusIsLoggedin = true;
+      };
+    };
+  };
+
+
 
   clearCartAfterOrdering() {
     this.http.deleteItemEvent.subscribe((res) => {
@@ -73,20 +93,28 @@ export class NavbarComponent implements OnInit {
     })
   };
   openDialog() {
-    this.dialog.open(LoginModalComponent)
+    if (this.authStatusIsLoggedin) {
+      this.firebaseAuth.logOut();
+      window.location.reload();
+      this.router.navigate([''])
+    }
+    else {
+      this.dialog.open(LoginModalComponent)
+
+    }
   }
-  checkUserLoggedIn() {
-    this.http.checkUserIsLoggedInEvent.subscribe((res) => {
-      //აქ თუ დალოგინებულია უნდა გადავამისამარო შეძენის საბოლოო სტეპზე 
-      !this.authStatusIsLoggedin ? this.dialog.open(PurchaseModalComponent) :this.openDialog()
-    })
-  };
+  // checkUserLoggedIn() {
+  //   this.http.checkUserIsLoggedInEvent.subscribe((res) => {
+  //     //აქ თუ დალოგინებულია უნდა გადავამისამარო შეძენის საბოლოო სტეპზე 
+  //     !this.authStatusIsLoggedin ? this.dialog.open(PurchaseModalComponent) : this.openDialog()
+  //   })
+  // };
 
   get loginMode(): string | boolean {
     this.authService.userIsLogedin.subscribe((isLogedIn) => {
       this.authStatusIsLoggedin = isLogedIn;
       //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
-      this.authStatusIsLoggedin ? this.authStatus = 'levani' : false;
+      this.authStatusIsLoggedin ? this.authStatus = this.userEmail : false;
     })
     return this.authStatus
   };
