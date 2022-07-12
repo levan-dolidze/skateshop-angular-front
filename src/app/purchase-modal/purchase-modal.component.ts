@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/classes';
 import { Router } from '@angular/router';
+import { getAuth, sendEmailVerification } from "firebase/auth";
 
 @Component({
   selector: 'app-purchase-modal',
@@ -24,7 +25,13 @@ export class PurchaseModalComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    
+
   }
+
+
+
 
   purchaseNow(form: any) {
     if (form.invalid) {

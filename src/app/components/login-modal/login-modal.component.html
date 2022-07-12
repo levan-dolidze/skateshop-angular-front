@@ -88,20 +88,6 @@
                     </div> -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
               <div class="personal-info-v2">
@@ -139,7 +125,7 @@
                 </div>
             </div>
     
-            <button (click)="userSignUp()" type="submit" class="enterBtn" mat-raised-button
+            <button (click)="userSignUp(registrationForm)" type="submit" class="enterBtn" mat-raised-button
             color="primary">{{"registration"|translate}}</button>
 
         </form>
@@ -147,17 +133,18 @@
 
 
         <form *ngIf="confirmAuthModal" (ngSubmit)="confirmAuth(confirmAuthForm)" #confirmAuthForm="ngForm">
-            <div style="display: flex;">
+            <!-- <div style="display: flex;">
              <mat-icon (click)="confirmAuthModal=false;registrationModal=true;" class="back-to-signin">keyboard_return</mat-icon>
              <h2 style="margin:0 auto;" mat-dialog-title>{{"registration"|translate}}</h2>
-            </div>
+            </div> -->
                   
                      <div>
                    <h3 style="text-align: center;">{{"confirmEmail"|translate}}</h3>
                    {{"confirmText"|translate}}  {{registration.email}}
                      </div>
+                 
 
-                     <input [(ngModel)]="emailConfirmCode" 
+                     <!-- <input [(ngModel)]="emailConfirmCode" 
                      [ngModelOptions]="{standalone: true}" 
                      required
                      #confirmCode="ngModel"
@@ -174,11 +161,8 @@
                      </div>
 
                      <button type="submit" class="enterBtn" mat-raised-button
-                     color="primary">{{"Confirm"|translate}}</button>
+                     color="primary">{{"Confirm"|translate}}</button> -->
         </form>
-
-
-
 
 
         <div *ngIf="Emailconfirmed">
