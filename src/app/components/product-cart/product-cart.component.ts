@@ -6,6 +6,9 @@ import { ItemArray } from './../../models/url';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { SharedService } from 'src/app/servises/shared.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { PurchaseModalComponent } from 'src/app/purchase-modal/purchase-modal.component';
 
 @Component({
   selector: 'app-product-cart',
@@ -17,7 +20,8 @@ export class ProductCartComponent implements OnInit {
   constructor(private http: HttpService,
     private translate: TranslateService,
     private shared:SharedService,
-    private router:Router
+    public dialog: MatDialog
+
   ) { }
   productCartArray: Array<ItemArray> = [];
   lang: any;
@@ -30,9 +34,24 @@ export class ProductCartComponent implements OnInit {
     this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang,this.translate)
     })
-    // this.countTotalPrice();
   };
 
+
+  checkUserLoggedIn(): boolean {
+    let tokenInfo = localStorage.getItem('user');
+    if (tokenInfo) {
+      let parsedToken = JSON.parse(tokenInfo);
+      if (parsedToken.emailVerified) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
+    else {
+      return false
+    }
+  };
 
 
   countTotalPrice() {
@@ -63,8 +82,12 @@ export class ProductCartComponent implements OnInit {
   };
 
   checkUserIsLoggedIn() {
-    //ამ კლიკზე უნდა შევამოწმო არის თუ არა დალოგინებული და გავაყოლო true & false
-    // this.http.checkUserIsLoggedInEvent.next();
+    if(!this.checkUserLoggedIn()){
+      this.dialog.open(LoginModalComponent);
+    }
+    else{
+      this.dialog.open(PurchaseModalComponent);
+    }
     localStorage.setItem('channel','cart')
   };
 

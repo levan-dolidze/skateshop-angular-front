@@ -56,16 +56,16 @@ export class LoginModalComponent implements OnInit {
   };
 
 
-  userRegistration(registrationForm: any) {
-    if (registrationForm.invalid) {
-      return
-    }
-    else {
-      this.registrationModal = false;
-      this.confirmAuthModal = true;
-      this.userSignUp(registrationForm)
-    };
-  };
+  // userRegistration(registrationForm: any) {
+  //   if (registrationForm.invalid) {
+  //     return
+  //   }
+  //   else {
+  //     this.registrationModal = false;
+  //     this.confirmAuthModal = true;
+  //     this.userSignUp(registrationForm)
+  //   };
+  // };
 
   confirmAuth(confirmForm: any) {
     if (confirmForm.invalid) {
@@ -83,19 +83,17 @@ export class LoginModalComponent implements OnInit {
   }
 
   async userSignUp(form: any) {
-    if (form.invalid) {
+    if (form.invalid||this.registration.pass.length<6) {
       return
     } else {
       this.registrationModal = false;
       this.confirmAuthModal = true;
+      await this.firebase.signUp(this.registration.email, this.registration.pass)
+      if (this.firebase.isLoggedIn) this.authServise.userIsLogedin.next(true)
+      this.verifyEmail();
     }
 
-    await this.firebase.signUp(this.registration.email, this.registration.pass)
-    if (this.firebase.isLoggedIn) this.authServise.userIsLogedin.next(true)
-    this.verifyEmail();
-
-
-  }
+  };
 
   verifyEmail() {
     const auth = getAuth();
@@ -111,6 +109,5 @@ export class LoginModalComponent implements OnInit {
         });
 
     }
-
   }
 };

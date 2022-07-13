@@ -3,20 +3,39 @@
         <h2 mat-dialog-title>{{"authorization"|translate}}  
             <button style="float:right;" mat-button mat-dialog-close>Close</button>
         </h2>
-        <input [(ngModel)]="userLogin.email" [ngModelOptions]="{standalone: true}" #userEmail="ngModel"
-            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-            [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" class="form-control"
-            placeholder="Email" autocomplete="off" type="text">
+        <input [(ngModel)]="userLogin.email" [ngModelOptions]="{standalone: true}"
+               #userEmail="ngModel"
+               required
+               pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+               [class.borderError]="signInForm.submitted&&userEmail.errors?.pattern" 
+               class="form-control"
+               placeholder="Email" 
+               autocomplete="off" 
+               type="text">
 
+        <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userEmail.errors?.required">
+            შევსება სავალდებულოა
+        </div>
         <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userEmail.errors?.pattern">
             არასწორი ფორმატი
         </div>
-        <input style="margin-top:10px" [(ngModel)]="userLogin.password" [ngModelOptions]="{standalone: true}"
-            #userPassword="ngModel" required [class.borderError]="signInForm.submitted&&userPassword.errors?.pattern"
-            class="form-control" placeholder="Password" autocomplete="off" type="text">
+        <input   [(ngModel)]="userLogin.password"
+                 [ngModelOptions]="{standalone: true}"
+                 required 
+                 minlength="6"
+                 type="password"  
+                 #userPassword="ngModel" 
+                 style="margin-top:10px" 
+                 [class.borderError]="signInForm.submitted&&userPassword.errors?.pattern"
+                 class="form-control" 
+                 placeholder="Password" 
+                 autocomplete="off" >
 
         <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userPassword.errors?.required">
-            შეიყვანეთ პაროლი
+            შევსება სავალდებულოა
+        </div>
+        <div class="text-danger f-12 m-t-8" *ngIf="signInForm.submitted&&userPassword.errors?.minlength">
+           მინიმალური სიმბოლოს რაოდენობა 6
         </div>
 
 
@@ -30,7 +49,7 @@
     </form>
 
 
-<form *ngIf="registrationModal" (ngSubmit)="userRegistration(registrationForm)" #registrationForm="ngForm">
+<form *ngIf="registrationModal" (ngSubmit)="userSignUp(registrationForm)" #registrationForm="ngForm">
    <div style="display: flex;">
     <mat-icon (click)="registrationModal=false;authorizationModal=true" class="back-to-signin">keyboard_return</mat-icon>
     <h2 style="margin:0 auto;" mat-dialog-title>{{"registration"|translate}}</h2>
@@ -61,33 +80,35 @@
                     placeholder="Email" 
                     autocomplete="off" type="text">
 
-                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.required">
-                        შევსება სავალდებულოა
+                    <div *ngIf="registrationForm.submitted">
+                        <div class="text-danger f-12 m-t-8" *ngIf="userEmail.errors?.required">
+                            შევსება სავალდებულოა
+                        </div>
+                        <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
+                            არასწორი ფორმატი
+                          </div>
                     </div>
-                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
-                      არასწორი ფორმატი
-                    </div>
-
-
-                    <input [(ngModel)]="registration.pass" 
-                    required
-               
+                
+                 
+                    <input [(ngModel)]="registration.pass"
                     [ngModelOptions]="{standalone: true}" 
+                    required
                     #userPass="ngModel"
                     name="userEmail"
                     class="form-control" 
-                    [class.borderError]="registrationForm.submitted&&(userPass.errors?.required)"
+                    [class.borderError]="registrationForm.submitted&&(userPass.errors?.required||userPass.errors?.minlength)"
                     placeholder="pass" 
-                    autocomplete="off" type="text">
-
-                    <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userPass.errors?.required">
-                        შევსება სავალდებულოა
+                    autocomplete="off" 
+                    type="text">
+                    <div *ngIf="registrationForm.submitted">
+                        <div *ngIf="registration.pass.length<6" class="text-danger f-12 m-t-8" >
+                            მინიმალური სიმბოლოს რაოდენობა 6
+                        </div>
+                        <div *ngIf="userPass.errors?.required" class="text-danger f-12 m-t-8" >
+                            შევსება სავალდებულოა
+                        </div>
+                 
                     </div>
-                    <!-- <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userEmail.errors?.pattern">
-                      არასწორი ფორმატი
-                    </div> -->
-
-
                 </div>
 
               <div class="personal-info-v2">
@@ -116,7 +137,7 @@
                      [class.borderError]="registrationForm.submitted&&userEmail.errors?.required"
                      #d="ngbDatepicker">
 
-    <mat-icon class="birth-date-manu" (click)="d.toggle()">menu</mat-icon>
+                <mat-icon class="birth-date-manu" (click)="d.toggle()">menu</mat-icon>
  
                 </div>
                 <div class="text-danger f-12 m-t-8" *ngIf="registrationForm.submitted&&userBirthday.errors?.required">
@@ -125,9 +146,8 @@
                 </div>
             </div>
     
-            <button (click)="userSignUp(registrationForm)" type="submit" class="enterBtn" mat-raised-button
+            <button  type="submit" class="enterBtn" mat-raised-button
             color="primary">{{"registration"|translate}}</button>
-
         </form>
 
 
