@@ -14,7 +14,7 @@ import { FilterComponent } from './filter/filter.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -22,10 +22,11 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
 import { PurchaseModalComponent } from './purchase-modal/purchase-modal.component';
-import {NgcCookieConsentConfig, NgcCookieConsentModule} from 'ngx-cookieconsent';
+import { NgcCookieConsentConfig, NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { AuthfirebaseService } from './servises/authfirebase.service';
+import { MessagesInterceptor } from './messages.interceptor';
 
-const cookieConfig:NgcCookieConsentConfig = {
+const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
     domain: 'http//:localhost:4200' // or 'your.domain.com' 
   },
@@ -66,7 +67,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     MatDialogModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
-    NgcCookieConsentModule.forRoot(cookieConfig), 
+    NgcCookieConsentModule.forRoot(cookieConfig),
     AngularFireModule.initializeApp(environment.firebase),
     TranslateModule.forRoot({
       loader: {
@@ -76,7 +77,13 @@ const cookieConfig:NgcCookieConsentConfig = {
       },
     })
   ],
-  providers: [AuthfirebaseService],
+  providers: [AuthfirebaseService,
+  {
+    provide:HTTP_INTERCEPTORS,
+    useClass:MessagesInterceptor,
+    multi:true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
