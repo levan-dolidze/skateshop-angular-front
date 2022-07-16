@@ -43,6 +43,8 @@
                 </div>
 
                 <div class="language-inner">
+                <button *ngIf="admin" mat-button [routerLink]="['/admin']"> Admin-Ka</button>
+
                     <select (change)="changeLang($event.target)">
                         <option value="ka" [selected]="lang =='ka'">KA</option>
                         <option value="en" [selected]="lang =='en'"> ENG</option>
@@ -52,6 +54,7 @@
                     {{loginMode}}
                     <span class="material-icons">{{authStatusIsLoggedin?"logout":"login"}}</span>
                 </button>
+
               
             </div>
         </form>

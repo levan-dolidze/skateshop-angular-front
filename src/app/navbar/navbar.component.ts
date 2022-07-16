@@ -7,7 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 import { SharedService } from '../servises/shared.service';
 import { AuthfirebaseService } from '../servises/authfirebase.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Admin, AdminPermission } from '../shared/classes';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +23,9 @@ export class NavbarComponent implements OnInit {
   authStatus: string = 'login'
   authStatusIsLoggedin: boolean;
   userEmail: any
+  admin: boolean = false;
+  adminPermission:AdminPermission=new AdminPermission();
+
 
   constructor(private http: HttpService,
     private translate: TranslateService,
@@ -29,7 +33,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private shared: SharedService,
     private firebaseAuth: AuthfirebaseService,
-    private router: Router
+    private router: Router,
+    private routerAct:ActivatedRoute
     // private cookie:NgcCookieConsentService
   ) {
     // translate.setDefaultLang('ka');
@@ -50,12 +55,16 @@ export class NavbarComponent implements OnInit {
 
   };
 
+  
+
+
   checkUserLoggedIn() {
     let tokenInfo = localStorage.getItem('user');
     if (tokenInfo) {
       let parsedToken = JSON.parse(tokenInfo);
       if (parsedToken.emailVerified) {
         this.userEmail = parsedToken.email;
+        this.admin=this.adminPermission.adminPermission(this.userEmail)
         this.authService.userIsLogedin.next(true)
         this.authStatusIsLoggedin = true;
       };
@@ -95,8 +104,8 @@ export class NavbarComponent implements OnInit {
   openDialog() {
     if (this.authStatusIsLoggedin) {
       this.firebaseAuth.logOut();
-      window.location.reload();
       this.router.navigate([''])
+      window.location.reload();
     }
     else {
       this.dialog.open(LoginModalComponent)
@@ -113,6 +122,7 @@ export class NavbarComponent implements OnInit {
   get loginMode(): string | boolean {
     this.authService.userIsLogedin.subscribe((isLogedIn) => {
       this.authStatusIsLoggedin = isLogedIn;
+
       //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
       this.authStatusIsLoggedin ? this.authStatus = this.userEmail : false;
     })
