@@ -3,6 +3,7 @@ import { environment } from './../../environments/environment';
 import { ItemArray } from './../models/url';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class HttpService {
 
   apiUrl: any = environment.apiUrl;
   IP: any = environment.IP;
+  imageDetailList: AngularFireList<any>
+
+
+
   sendClickEvent() {
     this.subject.next();
   }
@@ -32,12 +37,19 @@ export class HttpService {
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private firebase: AngularFireDatabase) { }
 
   searchSubject: Subject<any> = new Subject();
   filterSubject: Subject<any> = new Subject();
 
+  insertImageDetails(imageDetails:any) {
+    this.imageDetailList.push(imageDetails)
 
+  }
+  getImageDetailList(){
+    this.imageDetailList=this.firebase.list('imageDetails')
+
+  }
 
 
   returnDummyData(): Observable<ItemArray[]> {

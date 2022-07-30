@@ -14,6 +14,15 @@ export interface ItemArray {
 
 }
 
+export class ProductModel{
+    id: string|number;
+    name: string;
+    price: number;
+    type: string;
+    image:any;
+    inCart:any;
+}
+
 export enum ProductUrl {
  deck='/deck',
  wheel='/wheel',

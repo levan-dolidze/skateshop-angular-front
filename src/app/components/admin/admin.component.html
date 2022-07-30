@@ -1,1 +1,34 @@
-<p>admin works!</p>
+<div class="admin-content">
+       <div class="admin-inner">
+              <form class="form-inner" (ngSubmit)="addProduct(productForm)" #productForm="ngForm">
+
+                     <input [(ngModel)]="productModel.type" name="productType" #productType="ngModel" type="text"
+                            class="form-control">
+
+
+                     <input [(ngModel)]="productModel.name" 
+                            name="productName" #productName="ngModel" 
+                            accept="image/*"
+                            type="text" class="form-control">
+                            <div class="image-content">
+                            <img [src]="imgURL" >
+
+                            </div>
+
+                     <input [(ngModel)]="productModel.image" 
+                            (change)="showPreview($event)" 
+                            name="productImg" 
+                            #productImg="ngModel"
+                            type="file" class="form-control">
+
+
+                     <input [(ngModel)]="productModel.price" name="productPrice" #productPrice="ngModel" type="text"
+                            class="form-control">
+
+                     <button type="submit" class="addBTN" mat-raised-button color="primary">add Product</button>
+
+              </form>
+
+
+       </div>
+</div>
