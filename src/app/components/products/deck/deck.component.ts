@@ -1,11 +1,12 @@
 import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
 import { ItemArray, ProductUrl } from './../../../models/url';
-import { from, Observable,  } from 'rxjs';
+import { from, Observable, } from 'rxjs';
 import { HttpService } from './../../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/servises/shared.service';
+import { LoaderService } from 'src/app/loader.service';
 
 @Component({
   selector: 'app-deck',
@@ -16,13 +17,14 @@ export class DeckComponent implements OnInit {
 
 
   constructor(private http: HttpService, public route: Router,
-    private translate:TranslateService,
-    private shared:SharedService
-    ) {
+    private translate: TranslateService,
+    private shared: SharedService,
+    public loader:LoaderService
+  ) {
   }
-  brands: Array<any>=[];
+  brands: Array<any> = [];
   itemArr$: Observable<ItemArray[]>
-  lang: any;  
+  lang: any;
 
 
 
@@ -31,9 +33,9 @@ export class DeckComponent implements OnInit {
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
-    this.shared.languageControl(this.lang,this.translate);
+    this.shared.languageControl(this.lang, this.translate);
     this.http.changeLanguageEvent.subscribe(() => {
-      this.shared.languageControl(this.lang,this.translate)
+      this.shared.languageControl(this.lang, this.translate)
     })
   };
 
@@ -52,7 +54,7 @@ export class DeckComponent implements OnInit {
   };
 
   returnSkateboardItems() {
-    this.itemArr$ = this.http.returnDummyData().pipe(
+    this.itemArr$ = this.http.returnAllProduct().pipe(
       shareReplay(),
     )
   };
@@ -65,43 +67,55 @@ export class DeckComponent implements OnInit {
     switch (this.route.url) {
       case ProductUrl.deck:
         this.itemArr$.subscribe((res) => {
-          this.brands = [];
-          from(res).pipe(
-            filter((x => x.type === ProductUrl.deck.substring(1)))
-          ).subscribe((res) => {
-            this.brands.push(res)
-          })
+          if (res) {
+            let itemDataAll = Object.values(res);
+            this.brands = [];
+            from(itemDataAll).pipe(
+              filter((x => x.type === ProductUrl.deck.substring(1)))
+            ).subscribe((res) => {
+              this.brands.push(res)
+            })
+          }
+     
         })
         break;
       case ProductUrl.wheel:
         this.itemArr$.subscribe((res) => {
+          if (res) {
+            let itemDataAll = Object.values(res);
           this.brands = [];
-          from(res).pipe(
+          from(itemDataAll).pipe(
             filter((x => x.type === ProductUrl.wheel.substring(1)))
           ).subscribe((res) => {
             this.brands.push(res)
           })
+        }
         })
         break;
       case ProductUrl.truck:
         this.itemArr$.subscribe((res) => {
+          if (res) {
+            let itemDataAll = Object.values(res);
           this.brands = [];
-          from(res).pipe(
+          from(itemDataAll).pipe(
             filter((x => x.type === ProductUrl.truck.substring(1)))
           ).subscribe((res) => {
             this.brands.push(res)
           })
+        }
         })
         break;
       case ProductUrl.complete:
         this.itemArr$.subscribe((res) => {
+          if (res) {
+            let itemDataAll = Object.values(res);
           this.brands = [];
-          from(res).pipe(
+          from(itemDataAll).pipe(
             filter((x => x.type === ProductUrl.complete.substring(1)))
-
           ).subscribe((res) => {
             this.brands.push(res)
           })
+        }
         })
         break;
       default:

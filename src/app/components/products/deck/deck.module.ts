@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DeckRoutingModule } from './deck-routing.module';
 import { DeckComponent } from './deck.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

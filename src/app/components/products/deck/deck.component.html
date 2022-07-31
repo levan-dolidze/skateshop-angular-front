@@ -2,9 +2,12 @@
 
 <div class="item-content">
     <div class="item-filter-inner">
+  <mat-spinner *ngIf="loader.isLoading|async" ></mat-spinner>
+
        <div *ngFor="let item of brands">
+
            <div [routerLink]="['/view-details',item.id]"   class="item">
-               {{item.id}}
+               <!-- {{item.id}} -->
                {{item.type}}
                {{item.name}}
                <img [src]="item.image">

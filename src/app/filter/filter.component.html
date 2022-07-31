@@ -4,10 +4,10 @@
     </mat-icon>
 
     <mat-menu #filter="matMenu" yPosition="below">
-        <section style="padding:10px 10px 0px 10px" class="example-section" *ngFor="let brand of brands">
+        <section style="padding:10px 10px 0px 10px" class="example-section" *ngFor="let brand of returnUniqueOwners()">
             <mat-checkbox  
-                (change)="selectProduct($event)" [value]="brand.id">
-                {{brand.name}}
+                (change)="selectProduct($event)" [value]="brand">
+                {{brand}}
             </mat-checkbox>
         </section>
     </mat-menu>

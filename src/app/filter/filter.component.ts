@@ -1,5 +1,5 @@
 import { HttpService } from './../servises/http.service';
-import { ItemArray, ProductUrl, Products } from './../models/url';
+import { ItemArray, ProductUrl } from './../models/url';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { distinctUntilChanged, filter, shareReplay, toArray, map } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class FilterComponent implements OnInit {
   chousenBrand: string;
   uniqueNames: any
 
+  temp: Array<any> = []
+
   constructor(public route: Router, private http: HttpService) { }
 
   ngOnInit(): void {
@@ -26,11 +28,14 @@ export class FilterComponent implements OnInit {
   };
 
   filterControl() {
-    this.itemArr$ = this.http.returnDummyData().pipe(
+    this.itemArr$ = this.http.returnAllProduct().pipe(
       shareReplay(),
     )
     this.itemArr$.subscribe((res) => {
-      this.arrays = res
+      if (res) {
+        let product = Object.values(res)
+        this.arrays = product
+      }
     })
 
 
@@ -41,8 +46,9 @@ export class FilterComponent implements OnInit {
       switch (this.currentUrl.url) {
         case ProductUrl.deck:
           this.itemArr$.subscribe((res) => {
+            let product = Object.values(res)
             this.brands = [];
-            from(res).pipe(
+            from(product).pipe(
               filter((x => x.type === ProductUrl.deck.substring(1)))
             ).subscribe((res) => {
               this.brands.push(res);
@@ -53,8 +59,9 @@ export class FilterComponent implements OnInit {
           break;
         case ProductUrl.wheel:
           this.itemArr$.subscribe((res) => {
+            let product = Object.values(res)
             this.brands = [];
-            from(res).pipe(
+            from(product).pipe(
               filter((x => x.type === ProductUrl.wheel.substring(1)))
             ).subscribe((res) => {
               this.brands.push(res);
@@ -64,8 +71,9 @@ export class FilterComponent implements OnInit {
           break;
         case ProductUrl.truck:
           this.itemArr$.subscribe((res) => {
+            let product = Object.values(res)
             this.brands = [];
-            from(res).pipe(
+            from(product).pipe(
               filter((x => x.type === ProductUrl.truck.substring(1)))
             ).subscribe((res) => {
               this.brands.push(res)
@@ -75,8 +83,9 @@ export class FilterComponent implements OnInit {
           break
         case ProductUrl.complete:
           this.itemArr$.subscribe((res) => {
+            let product = Object.values(res)
             this.brands = [];
-            from(res).pipe(
+            from(product).pipe(
               filter((x => x.type === ProductUrl.complete.substring(1))),
               toArray()
             ).subscribe((res) => {
@@ -90,6 +99,26 @@ export class FilterComponent implements OnInit {
       }
     });
   }
+
+  returnUniqueOwners() {
+    let tempo: any[] = []
+    let maped = this.brands.map((item: any) => {
+      return item.name
+    })
+    from(maped)
+      .pipe(distinctUntilChanged())
+      .subscribe((res) => {
+        tempo.push(res)
+      });
+    return tempo
+
+  };
+
+
+
+
+
+
 
   filterViewByURL() {
     this.route.events.pipe(
@@ -118,13 +147,14 @@ export class FilterComponent implements OnInit {
   selectProduct(event: any) {
     switch (event.checked) {
       case true:
-        this.tempArray = this.arrays.filter((e: any) => e.id === event.source.value)
+        this.tempArray = this.arrays.filter((e: any) => e.name === event.source.value)
+        console.log(this.tempArray)
         this.newArray.push(this.tempArray)
         this.productArr = [];
         this.filterProducts(this.newArray)
         break;
       default:
-        this.tempArray = this.productArr.filter((e: any) => e.id !== event.source.value);
+        this.tempArray = this.productArr.filter((e: any) => e.name !== event.source.value);
         this.newArray = [];
         this.productArr = [];
         this.newArray.push(this.tempArray)
@@ -139,22 +169,6 @@ export class FilterComponent implements OnInit {
     };
 
 
-    // switch (brand) {
-    //   case Products.baker: this.filterByBrand(e,Products.baker)
-    //     break
-    //   case Products.element: this.filterByBrand(e,Products.element)
-    //     break
-    //   case Products.spitfire: this.filterByBrand(e,Products.spitfire)
-    //     break
-    //   case Products.independent: this.filterByBrand(e,Products.independent)
-    //     break
-    //   case Products.alien: this.filterByBrand(e,Products.alien)
-    //     break
-    //   case Products.almost: this.filterByBrand(e.sourse.value,Products.almost)
-    //     break
-    //   default:
-    //     break;
-    // }
   };
 
   filterProducts(newArray: any) {
