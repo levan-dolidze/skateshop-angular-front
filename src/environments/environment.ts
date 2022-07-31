@@ -4,13 +4,7 @@
 
 export const environment = {
   production: false,
-// Import the functions you need from the SDKs you need
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
  firebase: {
   apiKey: "AIzaSyCaY9LC71afm6arymreEXCLpFCNcx5CvS8",
   authDomain: "skateshop-angular-front.firebaseapp.com",
@@ -20,8 +14,7 @@ export const environment = {
   appId: "1:927645695910:web:058078afe2bca6de5a9967",
   measurementId: "G-VNS6Y2WZF4"
 },
-apiUrl:'https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json',
-allDataURL:'https://skateshop-angular-front-default-rtdb.firebaseio.com/allProductData.json',
+apiUrl:'https://skateshop-angular-front-default-rtdb.firebaseio.com/',
 IP:'http://api.ipify.org/?format=json'
 }
 

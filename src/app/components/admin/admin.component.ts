@@ -44,14 +44,12 @@ export class AdminComponent implements OnInit {
             name:this.productModel.name,
             price:this.productModel.price,
             image:this.imgURL
-          }
+        }
           this.http.insertImageDetails(obj)
         })
 
       })
-    ).subscribe(() => {
-
-    })
+    ).subscribe(() =>{})
   }
 
 

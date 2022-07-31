@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private translate: TranslateService,
     private shared: SharedService,
     private deviceService: DeviceDetectorService,
-    public loader:LoaderService
+    public loader: LoaderService
 
   ) { }
   itemArr$: Observable<ProductModel[]>;
@@ -31,15 +31,18 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // this.http.getDeviceIP().subscribe((res) => {
     // })
+ 
+
+
+
     this.returnProducts();
     this.returnStartItems(this.itemCount)
     this.searchSkateboardItems();
     this.languageControl();
-
   };
 
 
-  languageControl(){
+  languageControl() {
     this.shared.languageControl(this.lang, this.translate)
     this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang, this.translate)
@@ -48,46 +51,25 @@ export class HomeComponent implements OnInit {
 
   returnProducts() {
     this.itemArr$ = this.http.returnAllProduct();
-    // this.itemArr$.subscribe(() => {
-    //   shareReplay()
-    // })
   };
 
   loadMore() {
     this.itemCount += 5;
-    this.loadMoreItems(this.itemCount);
+    this.returnStartItems(this.itemCount);
   };
 
 
 
-  loadMoreItems(num: number) {
+
+  returnStartItems(itemQTY: number) {
     this.returnProducts();
     this.itemArr$.subscribe((res) => {
-      if (res) {
-        let itemDataAll = Object.values(res);
-        from(itemDataAll).pipe(
-          take(num),
-          toArray()
-        ).subscribe((res) => {
-          this.itemArr$ = of(res)
-        })
-      }
-
-    })
-  }
-
-  returnStartItems(num: number) {
-    this.itemArr$.subscribe((res) => {
-      if (res) {
-        let itemDataAll = Object.values(res);
-        from(itemDataAll).pipe(
-          take(num),
-          toArray()
-        ).subscribe((res) => {
-          this.itemArr$ = of(res)
-        })
-      }
-
+      from(res).pipe(
+        take(itemQTY),
+        toArray()
+      ).subscribe((res) => {
+        this.itemArr$ = of(res)
+      })
     })
   };
 
@@ -97,17 +79,11 @@ export class HomeComponent implements OnInit {
     this.http.searchSubject.subscribe((searchValue) => {
       this.returnProducts();
       this.itemArr$.subscribe((res) => {
-        if (res) {
-          let itemDataAll = Object.values(res);
-          const filtredItem = itemDataAll.filter((item) => {
-            return item.name === searchValue;
-          })
-          this.itemArr$ = of(filtredItem)
-          this.loadMoreBtn = false;
-        }
-
-
-
+        const filtredItem = res.filter((item) => {
+          return item.name === searchValue;
+        })
+        this.itemArr$ = of(filtredItem)
+        this.loadMoreBtn = false;
       })
     })
   };
@@ -116,13 +92,10 @@ export class HomeComponent implements OnInit {
     this.loadMoreBtn = false;
     this.returnProducts();
     this.itemArr$.subscribe((res) => {
-      if (res) {
-        let itemDataAll = Object.values(res);
-        const filtredItem = itemDataAll.filter((item) => {
-          return item.price <= e.value;
-        })
-        this.itemArr$ = of(filtredItem)
-      }
+      const filtredItem = res.filter((item) => {
+        return item.price <= e.value;
+      })
+      this.itemArr$ = of(filtredItem)
     })
   };
 
@@ -145,6 +118,5 @@ export class HomeComponent implements OnInit {
 
 
 
-}
+};
 
-// let itemDataAll = Object.values(res);

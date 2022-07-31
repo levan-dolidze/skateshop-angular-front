@@ -10,7 +10,9 @@ export interface ItemArray {
     price: number,
     type: string,
     image:string,
-    inCart:any
+    inCart:any,
+    key:string
+
 
 }
 
@@ -21,6 +23,7 @@ export class ProductModel{
     type: string;
     image:any;
     inCart:any;
+    key:string;
 }
 
 export enum ProductUrl {
