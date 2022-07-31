@@ -5,6 +5,8 @@ import { from, Observable, of } from 'rxjs';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SharedService } from 'src/app/servises/shared.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { ProductModel } from 'src/app/models/url';
+import { LoaderService } from 'src/app/loader.service';
 
 @Component({
   selector: 'app-home',
@@ -14,93 +16,113 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class HomeComponent implements OnInit {
 
   constructor(private http: HttpService,
-
     private translate: TranslateService,
     private shared: SharedService,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    public loader:LoaderService
+
   ) { }
-  itemArr$: Observable<any[]>;
+  itemArr$: Observable<ProductModel[]>;
   lang: any;
   itemCount: number = 5;
   loadMoreBtn: boolean = true;
   @ViewChildren("itemList") itemList: QueryList<ElementRef>;
 
   ngOnInit(): void {
-    console.log(this.deviceService.isMobile());
-    this.http.getDeviceIP().subscribe((res) => {
-      console.log(res)
-
-    })
+    // this.http.getDeviceIP().subscribe((res) => {
+    // })
+    this.returnProducts();
     this.returnStartItems(this.itemCount)
     this.searchSkateboardItems();
+    this.languageControl();
+
+  };
+
+
+  languageControl(){
     this.shared.languageControl(this.lang, this.translate)
     this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang, this.translate)
     })
-  };
+  }
 
+  returnProducts() {
+    this.itemArr$ = this.http.returnAllProduct();
+    // this.itemArr$.subscribe(() => {
+    //   shareReplay()
+    // })
+  };
 
   loadMore() {
     this.itemCount += 5;
     this.loadMoreItems(this.itemCount);
   };
 
-  ngAfterViewInit() {
-    this.itemList.changes.subscribe(() => {
-      if (this.itemList && this.itemList.last) {
-        this.itemList.last.nativeElement.focus();
-      }
-    });
-  };
+
 
   loadMoreItems(num: number) {
-    this.http.returnDummyData().subscribe((res) => {
-      from(res).pipe(
-        take(num),
-        toArray()
-      ).subscribe((res) => {
-        this.itemArr$ = of(res)
-      })
+    this.returnProducts();
+    this.itemArr$.subscribe((res) => {
+      if (res) {
+        let itemDataAll = Object.values(res);
+        from(itemDataAll).pipe(
+          take(num),
+          toArray()
+        ).subscribe((res) => {
+          this.itemArr$ = of(res)
+        })
+      }
+
     })
   }
 
   returnStartItems(num: number) {
-    this.http.returnDummyData().subscribe((res) => {
-      from(res).pipe(
-        take(num),
-        toArray()
-      ).subscribe((res) => {
-        this.itemArr$ = of(res)
-      })
+    this.itemArr$.subscribe((res) => {
+      if (res) {
+        let itemDataAll = Object.values(res);
+        from(itemDataAll).pipe(
+          take(num),
+          toArray()
+        ).subscribe((res) => {
+          this.itemArr$ = of(res)
+        })
+      }
+
     })
   };
 
-  returnSkateboardItems() {
-    this.itemArr$ = this.http.returnDummyData();
-    shareReplay();
-  }
+
 
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
-      this.returnSkateboardItems();
+      this.returnProducts();
       this.itemArr$.subscribe((res) => {
-        const filtredItem = res.filter((item) => {
-          return item.name === searchValue;
-        })
-        this.itemArr$ = of(filtredItem)
-        this.loadMoreBtn = false;
+        if (res) {
+          let itemDataAll = Object.values(res);
+          const filtredItem = itemDataAll.filter((item) => {
+            return item.name === searchValue;
+          })
+          this.itemArr$ = of(filtredItem)
+          this.loadMoreBtn = false;
+        }
+
+
+
       })
     })
   };
 
   filterByClientAmount(e: any) {
     this.loadMoreBtn = false;
-    this.returnSkateboardItems();
+    this.returnProducts();
     this.itemArr$.subscribe((res) => {
-      const filtredItem = res.filter((item) => {
-        return item.price <= e.value;
-      })
-      this.itemArr$ = of(filtredItem)
+      if (res) {
+        let itemDataAll = Object.values(res);
+        const filtredItem = itemDataAll.filter((item) => {
+          return item.price <= e.value;
+        })
+        this.itemArr$ = of(filtredItem)
+      }
     })
   };
 
@@ -111,4 +133,18 @@ export class HomeComponent implements OnInit {
       return value + '₾';
     }
   };
+
+  ngAfterViewInit() {
+    this.itemList.changes.subscribe(() => {
+      if (this.itemList && this.itemList.last) {
+        this.itemList.last.nativeElement.focus();
+      }
+    });
+  };
+
+
+
+
 }
+
+// let itemDataAll = Object.values(res);

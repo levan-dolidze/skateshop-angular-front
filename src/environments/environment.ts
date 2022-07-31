@@ -21,8 +21,10 @@ export const environment = {
   measurementId: "G-VNS6Y2WZF4"
 },
 apiUrl:'https://skateshop-angular-front-default-rtdb.firebaseio.com/orderProductInfo.json',
+allDataURL:'https://skateshop-angular-front-default-rtdb.firebaseio.com/allProductData.json',
 IP:'http://api.ipify.org/?format=json'
 }
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

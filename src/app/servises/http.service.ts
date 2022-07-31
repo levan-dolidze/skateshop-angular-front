@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
-import { ItemArray } from './../models/url';
+import { ItemArray, ProductModel } from './../models/url';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database'
@@ -20,6 +20,7 @@ export class HttpService {
   cartUrlEvent: Subject<any> = new Subject();
 
   apiUrl: any = environment.apiUrl;
+  allDatUrl:any=environment.allDataURL;
   IP: any = environment.IP;
   imageDetailList: AngularFireList<any>
 
@@ -47,7 +48,7 @@ export class HttpService {
 
   }
   getImageDetailList(){
-    this.imageDetailList=this.firebase.list('imageDetails')
+    this.imageDetailList=this.firebase.list('allProductData')
 
   }
 
@@ -181,6 +182,11 @@ export class HttpService {
     ]
 
     return of(array)
+
+  }
+
+  returnAllProduct():Observable<ProductModel[]>{
+    return this.http.get<ProductModel[]>(`${this.allDatUrl}`)
 
   }
 

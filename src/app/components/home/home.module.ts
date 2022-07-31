@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import {MatSliderModule} from '@angular/material/slider';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     HomeComponent
@@ -15,6 +15,7 @@ import {MatSliderModule} from '@angular/material/slider';
     CommonModule,
     HomeRoutingModule,
     MatSliderModule,
+    MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
