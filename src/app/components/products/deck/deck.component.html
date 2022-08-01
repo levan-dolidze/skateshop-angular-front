@@ -6,7 +6,7 @@
 
        <div *ngFor="let item of brands">
 
-           <div [routerLink]="['/view-details',item.id]"   class="item">
+           <div (click)="viewDetails(item.key)"  class="item">
                <!-- {{item.id}} -->
                {{item.type}}
                {{item.name}}

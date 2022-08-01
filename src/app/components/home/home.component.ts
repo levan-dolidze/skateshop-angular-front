@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { shareReplay, take, toArray } from 'rxjs/operators';
+import { filter, shareReplay, take, toArray } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
 import { from, Observable, of } from 'rxjs';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
@@ -7,6 +7,7 @@ import { SharedService } from 'src/app/servises/shared.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ProductModel } from 'src/app/models/url';
 import { LoaderService } from 'src/app/loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     private translate: TranslateService,
     private shared: SharedService,
     private deviceService: DeviceDetectorService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private router: Router
 
   ) { }
   itemArr$: Observable<ProductModel[]>;
@@ -31,10 +33,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // this.http.getDeviceIP().subscribe((res) => {
     // })
- 
-
-
-
     this.returnProducts();
     this.returnStartItems(this.itemCount)
     this.searchSkateboardItems();
@@ -111,11 +109,22 @@ export class HomeComponent implements OnInit {
     this.itemList.changes.subscribe(() => {
       if (this.itemList && this.itemList.last) {
         this.itemList.last.nativeElement.focus();
-      }
+      };
     });
   };
 
 
+
+  viewDetails(key: any) {
+    this.itemArr$.subscribe((res) => {
+      from(res).pipe(
+        filter((x => x.key === key))
+      ).subscribe((res) => {
+        localStorage.setItem('details', JSON.stringify(res))
+        this.router.navigate(['/view-details/', key])
+      })
+    })
+  };
 
 
 };

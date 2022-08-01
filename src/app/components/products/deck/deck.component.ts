@@ -16,7 +16,7 @@ import { LoaderService } from 'src/app/loader.service';
 export class DeckComponent implements OnInit {
 
 
-  constructor(private http: HttpService, public route: Router,
+  constructor(private http: HttpService, public router: Router,
     private translate: TranslateService,
     private shared: SharedService,
     public loader:LoaderService
@@ -64,7 +64,7 @@ export class DeckComponent implements OnInit {
     })
   };
   controlByType() {
-    switch (this.route.url) {
+    switch (this.router.url) {
       case ProductUrl.deck:
         this.itemArr$.subscribe((res) => {
           if (res) {
@@ -123,4 +123,16 @@ export class DeckComponent implements OnInit {
     }
   };
 
+
+
+  viewDetails(key: any) {
+    this.itemArr$.subscribe((res) => {
+      from(res).pipe(
+        filter((x => x.key === key))
+      ).subscribe((res) => {
+        localStorage.setItem('details', JSON.stringify(res))
+        this.router.navigate(['/view-details/', key])
+      })
+    })
+  };
 };

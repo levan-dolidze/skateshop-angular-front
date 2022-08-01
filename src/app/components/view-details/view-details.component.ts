@@ -54,27 +54,21 @@ export class ViewDetailsComponent implements OnInit {
   };
 
   returnProductDetails(key: any) {
-    this.detaledProduct$ = this.http.returnAllProduct();
-    this.detaledProduct$.subscribe((res) => {
-      from(res).pipe(
-        filter((x => x.key == key)),
-      ).subscribe((res) => {
-        this.product = res
-      })
-
-    })
-
-
+    let item = localStorage.getItem('details');
+    if (item) {
+      let selectedItem = JSON.parse(item);
+      this.product=selectedItem
+    };
   };
 
   addProductInCart() {
     let productsInCart = localStorage.getItem('products');
     if (productsInCart) {
-      let parcedProductsInCart = JSON.parse(productsInCart);
-      const count = parcedProductsInCart.filter((obj: any) => obj.id === this.product.id).length + 1;
+      let productInCart = JSON.parse(productsInCart);
+      const count = productInCart.filter((obj: any) => obj.id === this.product.id).length + 1;
       this.product.inCart = count
-      parcedProductsInCart.push(this.product);
-      localStorage.setItem('products', JSON.stringify(parcedProductsInCart));
+      productInCart.push(this.product);
+      localStorage.setItem('products', JSON.stringify(productInCart));
 
     } else {
       let newProduct = [];
