@@ -2,9 +2,9 @@ import { PurchaseModalComponent } from './../../purchase-modal/purchase-modal.co
 import { LoginModalComponent } from './../login-modal/login-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { filter, shareReplay } from 'rxjs/operators';
-import {from , Observable, of } from 'rxjs';
-import { ItemArray } from './../../models/url';
+import { filter, shareReplay, toArray } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { ItemArray, ProductModel } from './../../models/url';
 import { HttpService } from './../../servises/http.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -24,23 +24,23 @@ export class ViewDetailsComponent implements OnInit {
     private translate: TranslateService,
     public dialog: MatDialog,
     private authService: AuthService,
-    private shared:SharedService
+    private shared: SharedService
 
   ) { }
 
-  detaledProduct$: Observable<ItemArray[]>;
-  product: ItemArray;
+  detaledProduct$: Observable<ProductModel[]>;
+  product: ProductModel;
   lang: any;
   quantity: number = 0;
   tempArr: Array<any> = [];
 
-  authStatusIsLoggedin: boolean=true;
+  authStatusIsLoggedin: boolean = true;
   authStatus: string = 'login'
 
   ngOnInit(): void {
-    this.shared.languageControl(this.lang,this.translate)
+    this.shared.languageControl(this.lang, this.translate)
     this.http.changeLanguageEvent.subscribe(() => {
-      this.shared.languageControl(this.lang,this.translate)
+      this.shared.languageControl(this.lang, this.translate)
     })
 
 
@@ -53,16 +53,18 @@ export class ViewDetailsComponent implements OnInit {
     this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
   };
 
-  returnProductDetails(id: any) {
-    this.detaledProduct$ = this.http.returnDummyData();
+  returnProductDetails(key: any) {
+    this.detaledProduct$ = this.http.returnAllProduct();
     this.detaledProduct$.subscribe((res) => {
-      shareReplay();
       from(res).pipe(
-        filter((x => x.id == id))
+        filter((x => x.key == key)),
       ).subscribe((res) => {
-        this.product = res;
+        this.product = res
       })
+
     })
+
+
   };
 
   addProductInCart() {
@@ -86,15 +88,15 @@ export class ViewDetailsComponent implements OnInit {
 
   //აქ უნდა შევამოწმო იუზერი დალოგინებული არის თუ არა რეალურად და მაგი სმიხედვით ან გავუშვა შეკვეთაზე ან ლოგინი მოვთხოვო
   buyProductNow() {
-  localStorage.setItem('buy-now',JSON.stringify(this.product));
-  localStorage.setItem('channel','now')
-  this.authStatusIsLoggedin?this.dialog.open(PurchaseModalComponent):this.dialog.open(LoginModalComponent);
+    localStorage.setItem('buy-now', JSON.stringify(this.product));
+    localStorage.setItem('channel', 'now')
+    this.authStatusIsLoggedin ? this.dialog.open(PurchaseModalComponent) : this.dialog.open(LoginModalComponent);
   };
 
   // if else ეწერა, და მოკლე if else დავწერე1
   countProductsInCart() {
     let items = localStorage.getItem('items')
-    items? this.quantity = JSON.parse(items):this.quantity=0;
+    items ? this.quantity = JSON.parse(items) : this.quantity = 0;
     this.quantity++;
     this.http.addItemToCartEvent.next(this.quantity);
   }
