@@ -38,16 +38,15 @@ export class ViewDetailsComponent implements OnInit {
   authStatus: string = 'login'
 
   ngOnInit(): void {
+    const id = this.router.snapshot.paramMap.get('id');
+    this.returnProductDetails(id);
     this.shared.languageControl(this.lang, this.translate)
     this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang, this.translate)
     })
-
-
-    const id = this.router.snapshot.paramMap.get('id');
-    this.returnProductDetails(id);
-
   };
+
+  
   languageControl() {
     this.lang = localStorage.getItem('lang');
     this.lang == 'en' ? this.translate.setDefaultLang('en') : this.translate.setDefaultLang('ka');
@@ -55,9 +54,9 @@ export class ViewDetailsComponent implements OnInit {
 
   returnProductDetails(key: any) {
     let item = localStorage.getItem('details');
-    if (item) {
+    if(item) {
       let selectedItem = JSON.parse(item);
-      this.product=selectedItem
+      this.product=selectedItem;
     };
   };
 

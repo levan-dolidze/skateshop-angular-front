@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     AdminRoutingModule,
     FormsModule,
     MatButtonModule,
+    MatIconModule,
     
 
   ]

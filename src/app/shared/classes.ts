@@ -17,6 +17,7 @@ export class Order{
     personalNumber:string;
     phoneNumber:string;
     address:string;
+    image:string;
 
 }
 export enum Admin{

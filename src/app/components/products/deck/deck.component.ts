@@ -1,9 +1,9 @@
 import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
-import { ItemArray, ProductUrl } from './../../../models/url';
-import { from, Observable, } from 'rxjs';
+import { ItemArray, ProductModel, ProductUrl } from './../../../models/url';
+import { from, Observable, Subscription, } from 'rxjs';
 import { HttpService } from './../../../servises/http.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/servises/shared.service';
 import { LoaderService } from 'src/app/loader.service';
@@ -13,18 +13,21 @@ import { LoaderService } from 'src/app/loader.service';
   templateUrl: './deck.component.html',
   styleUrls: ['./deck.component.css']
 })
-export class DeckComponent implements OnInit {
+export class DeckComponent implements OnInit, OnDestroy {
 
 
   constructor(private http: HttpService, public router: Router,
     private translate: TranslateService,
     private shared: SharedService,
-    public loader:LoaderService
+    public loader: LoaderService
   ) {
   }
   brands: Array<any> = [];
-  itemArr$: Observable<ItemArray[]>
+  itemArr$: Observable<ProductModel[]>
   lang: any;
+  changeLanguageEvent = new Subscription();
+  searchSubject = new Subscription();
+  filterSubject = new Subscription();
 
 
 
@@ -34,14 +37,14 @@ export class DeckComponent implements OnInit {
     this.controlByBrands();
     this.searchSkateboardItems();
     this.shared.languageControl(this.lang, this.translate);
-    this.http.changeLanguageEvent.subscribe(() => {
+    this.changeLanguageEvent = this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang, this.translate)
     })
   };
 
 
   searchSkateboardItems() {
-    this.http.searchSubject.subscribe((searchValue) => {
+    this.searchSubject = this.http.searchSubject.subscribe((searchValue) => {
       this.itemArr$.subscribe((res) => {
         this.brands = [];
         from(res).pipe(
@@ -59,7 +62,7 @@ export class DeckComponent implements OnInit {
     )
   };
   controlByBrands() {
-    this.http.filterSubject.subscribe((res) => {
+    this.filterSubject = this.http.filterSubject.subscribe((res) => {
       this.brands = res
     })
   };
@@ -76,46 +79,46 @@ export class DeckComponent implements OnInit {
               this.brands.push(res)
             })
           }
-     
+
         })
         break;
       case ProductUrl.wheel:
         this.itemArr$.subscribe((res) => {
           if (res) {
             let itemDataAll = Object.values(res);
-          this.brands = [];
-          from(itemDataAll).pipe(
-            filter((x => x.type === ProductUrl.wheel.substring(1)))
-          ).subscribe((res) => {
-            this.brands.push(res)
-          })
-        }
+            this.brands = [];
+            from(itemDataAll).pipe(
+              filter((x => x.type === ProductUrl.wheel.substring(1)))
+            ).subscribe((res) => {
+              this.brands.push(res)
+            })
+          }
         })
         break;
       case ProductUrl.truck:
         this.itemArr$.subscribe((res) => {
           if (res) {
             let itemDataAll = Object.values(res);
-          this.brands = [];
-          from(itemDataAll).pipe(
-            filter((x => x.type === ProductUrl.truck.substring(1)))
-          ).subscribe((res) => {
-            this.brands.push(res)
-          })
-        }
+            this.brands = [];
+            from(itemDataAll).pipe(
+              filter((x => x.type === ProductUrl.truck.substring(1)))
+            ).subscribe((res) => {
+              this.brands.push(res)
+            })
+          }
         })
         break;
       case ProductUrl.complete:
         this.itemArr$.subscribe((res) => {
           if (res) {
             let itemDataAll = Object.values(res);
-          this.brands = [];
-          from(itemDataAll).pipe(
-            filter((x => x.type === ProductUrl.complete.substring(1)))
-          ).subscribe((res) => {
-            this.brands.push(res)
-          })
-        }
+            this.brands = [];
+            from(itemDataAll).pipe(
+              filter((x => x.type === ProductUrl.complete.substring(1)))
+            ).subscribe((res) => {
+              this.brands.push(res)
+            })
+          }
         })
         break;
       default:
@@ -134,5 +137,11 @@ export class DeckComponent implements OnInit {
         this.router.navigate(['/view-details/', key])
       })
     })
+  };
+
+  ngOnDestroy(): void {
+    this.changeLanguageEvent.unsubscribe();
+    this.searchSubject.unsubscribe();
+    this.filterSubject.unsubscribe()
   };
 };

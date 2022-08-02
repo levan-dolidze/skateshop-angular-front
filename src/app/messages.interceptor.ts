@@ -9,7 +9,6 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
-import { SharedService } from './servises/shared.service';
 import { LoaderService } from './loader.service';
 
 
@@ -28,6 +27,5 @@ export class MessagesInterceptor implements HttpInterceptor {
       }
     )
     )
-    
   };
 };

@@ -1,10 +1,10 @@
 import { TranslateService } from '@ngx-translate/core';
 import { shareReplay, filter } from 'rxjs/operators';
-import { ItemArray, ProductUrl } from './../../../models/url';
-import { from, Observable } from 'rxjs';
+import { ItemArray, ProductModel, ProductUrl } from './../../../models/url';
+import { from, Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpService } from './../../../servises/http.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/servises/shared.service';
 
 @Component({
@@ -12,30 +12,36 @@ import { SharedService } from 'src/app/servises/shared.service';
   templateUrl: './wheel.component.html',
   styleUrls: ['./wheel.component.css']
 })
-export class WheelComponent implements OnInit {
+export class WheelComponent implements OnInit, OnDestroy {
   brands: Array<any>
-  itemArr$: Observable<ItemArray[]>
-  lang: any;  
+  itemArr$: Observable<ProductModel[]>;
 
-  constructor(private http: HttpService, public route: Router,
-    private translate:TranslateService,
-    private shared:SharedService
-    ) { }
+  lang: any;
+  filterSubject = new Subscription();
+  changeLanguageEvent = new Subscription();
+
+  constructor(private http: HttpService, public router: Router,
+    private translate: TranslateService,
+    private shared: SharedService
+  ) { }
 
   ngOnInit(): void {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
-    this.shared.languageControl(this.lang,this.translate)
-    this.http.changeLanguageEvent.subscribe(() => {
-      this.shared.languageControl(this.lang,this.translate)
-    })
+    this.languageControl();
+  };
 
+  languageControl() {
+    this.shared.languageControl(this.lang, this.translate)
+    this.changeLanguageEvent = this.http.changeLanguageEvent.subscribe(() => {
+      this.shared.languageControl(this.lang, this.translate)
+    })
   };
 
 
-    searchSkateboardItems() {
+  searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
       this.itemArr$.subscribe((res) => {
         this.brands = [];
@@ -47,18 +53,32 @@ export class WheelComponent implements OnInit {
       })
     })
   };
+
+
+
+  viewDetails(key: any) {
+    this.itemArr$.subscribe((res) => {
+      from(res).pipe(
+        filter((x => x.key === key))
+      ).subscribe((res) => {
+        localStorage.setItem('details', JSON.stringify(res))
+        this.router.navigate(['/view-details/', key])
+      })
+    })
+  };
+
+
+
   returnSkateboardItems() {
-    this.itemArr$ = this.http.returnDummyData().pipe(
-      shareReplay(),
-    )
+    this.itemArr$ = this.http.returnAllProduct();
   };
   controlByBrands() {
-    this.http.filterSubject.subscribe((res) => {
-      this.brands = res
+    this.filterSubject = this.http.filterSubject.subscribe((res) => {
+      this.brands = res;
     })
   };
   controlByType() {
-    switch (this.route.url) {
+    switch (this.router.url) {
       case ProductUrl.deck:
         this.itemArr$.subscribe((res) => {
           this.brands = [];
@@ -104,5 +124,10 @@ export class WheelComponent implements OnInit {
         break;
     }
   };
+
+  ngOnDestroy(): void {
+    this.filterSubject.unsubscribe();
+    this.changeLanguageEvent.unsubscribe();
+  }
 
 }

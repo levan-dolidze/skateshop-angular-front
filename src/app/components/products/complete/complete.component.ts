@@ -3,7 +3,7 @@ import { filter, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpService } from './../../../servises/http.service';
 import { from, Observable } from 'rxjs';
-import { ItemArray, ProductUrl } from './../../../models/url';
+import { ItemArray, ProductModel, ProductUrl } from './../../../models/url';
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/servises/shared.service';
 
@@ -14,49 +14,49 @@ import { SharedService } from 'src/app/servises/shared.service';
 })
 export class CompleteComponent implements OnInit {
 
-  constructor(private http: HttpService, public route: Router,
-    private translate:TranslateService,
-    private shared:SharedService
-    ) { }
+  constructor(private http: HttpService, public router: Router,
+    private translate: TranslateService,
+    private shared: SharedService
+  ) { }
   brands: Array<any>;
-  itemArr$: Observable<ItemArray[]>;
-  lang: any;  
+  itemArr$: Observable<ProductModel[]>;
+  lang: any;
 
   ngOnInit(): void {
     this.returnSkateboardItems();
     this.controlByType();
     this.controlByBrands();
     this.searchSkateboardItems();
-    this.shared.languageControl(this.lang,this.translate)
-    this.http.changeLanguageEvent.subscribe(() => {
-      this.shared.languageControl(this.lang,this.translate)
-    })
+    this.languageControl();
   };
 
+  languageControl() {
+    this.shared.languageControl(this.lang, this.translate)
+    this.http.changeLanguageEvent.subscribe(() => {
+      this.shared.languageControl(this.lang, this.translate)
+    })
+  }
 
   searchSkateboardItems() {
     this.http.searchSubject.subscribe((searchValue) => {
       this.itemArr$.subscribe((res) => {
-       const filteredItems = res.filter((item)=>{
-         return item.name===searchValue
-
-       })
-       this.brands=filteredItems
+        const filteredItems = res.filter((item) => {
+          return item.name === searchValue
+        })
+        this.brands = filteredItems
       })
     })
   };
   returnSkateboardItems() {
-    this.itemArr$ = this.http.returnDummyData().pipe(
-      shareReplay(),
-    )
+    this.itemArr$ = this.http.returnAllProduct()
   };
   controlByBrands() {
     this.http.filterSubject.subscribe((res) => {
-      this.brands = res
+      this.brands = res;
     })
   };
   controlByType() {
-    switch (this.route.url) {
+    switch (this.router.url) {
       case ProductUrl.deck:
         this.itemArr$.subscribe((res) => {
           this.brands = [];
@@ -103,5 +103,14 @@ export class CompleteComponent implements OnInit {
     }
   };
 
-
+  viewDetails(key: any) {
+    this.itemArr$.subscribe((res) => {
+      from(res).pipe(
+        filter((x => x.key === key))
+      ).subscribe((res) => {
+        localStorage.setItem('details', JSON.stringify(res))
+        this.router.navigate(['/view-details/', key])
+      })
+    })
+  };
 };

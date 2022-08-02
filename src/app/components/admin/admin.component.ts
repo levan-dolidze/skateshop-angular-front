@@ -4,6 +4,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { HttpService } from 'src/app/servises/http.service';
 import { v4 as uuidv4 } from 'uuid'
+import { Order } from 'src/app/shared/classes';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -15,16 +17,24 @@ export class AdminComponent implements OnInit {
 
   constructor(private storage: AngularFireStorage, private http: HttpService) { }
   itemModel: ItemArray;
+  orders$: Observable<Order[]>;
   productModel: ProductModel = new ProductModel;
   imgURL: any;
   selectedImage: any
   ngOnInit(): void {
     this.http.getImageDetailList();
+    this.returnOrders()
 
   }
 
+  returnOrders() {
+    this.orders$=this.http.getOrders();
+    this.orders$.subscribe((res)=>{
+     this.orders$=of(res)
 
-  
+    })
+  }
+
   get returnUniqueExtId() {
     return uuidv4()
   };
@@ -38,19 +48,20 @@ export class AdminComponent implements OnInit {
         //url ში გვაქვს ახალი ატვირთული სურათი
         fileRef.getDownloadURL().subscribe((url) => {
           this.imgURL = url;
-          const obj ={
-            id:this.returnUniqueExtId,
-            type:this.productModel.type,
-            name:this.productModel.name,
-            price:this.productModel.price,
-            image:this.imgURL
-        }
+          const obj = {
+            id: this.returnUniqueExtId,
+            type: this.productModel.type,
+            name: this.productModel.name,
+            price: this.productModel.price,
+            image: this.imgURL
+          }
           this.http.insertImageDetails(obj)
         })
 
       })
-    ).subscribe(() =>{})
+    ).subscribe(() => { })
   }
+
 
 
   showPreview(event: any) {
@@ -64,5 +75,27 @@ export class AdminComponent implements OnInit {
     }
 
   }
+
+
+
+  deleteOrder() {
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

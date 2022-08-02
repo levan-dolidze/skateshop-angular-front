@@ -1,14 +1,11 @@
 <div class="item-content">
     <div class="item-filter-inner">
        <div *ngFor="let item of brands">
-           <div [routerLink]="['/view-details',item.id]" routerLinkActive="router-link-active" class="item">
-               {{item.id}}
+           <div (click)="viewDetails(item.key)" class="item">
                {{item.type}}
                {{item.name}}
                <img [src]="item.image">
                {{"price"|translate}} {{item.price}}  {{"currency"|translate}}
-               
-
            </div>
        </div>
     </div>

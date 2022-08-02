@@ -1,7 +1,39 @@
 <div class="admin-content">
        <div class="admin-inner">
-              <form class="form-inner" (ngSubmit)="addProduct(productForm)" #productForm="ngForm">
+              <div class="orders-inner">
+                     <h3>შეკვეთა</h3>
+                     <div class="order-list">
+                                   <div class="order-list-inner" *ngFor="let item of (orders$|async)" >
+                                <img [src]="item.image">
+                                    Name: 
+                                    <span >
+                                        {{item.name}}
+                                    </span>
+                                    Price: 
+                                    <span >
+                                        {{item.surname}}
+                                    </span>
+                                    Type:
+                                    <span >
+                                        {{item.personalNumber}}
+                                    </span>
+                                    QTY:
+                                    <span>
+                                        {{item.phoneNumber}}
+                                    </span>
+                                    Total:
+                                    <span>
+                                        {{item.address}}
+                                    </span>
+                                <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteOrder()">delete</mat-icon>
+                            </div>
+                        </div>
 
+              </div> 
+
+              
+              <form class="form-inner" (ngSubmit)="addProduct(productForm)" #productForm="ngForm">
+                   <h3>პროდუქტის დამატება</h3>
                      <input [(ngModel)]="productModel.type" 
                             name="productType" 
                             #productType="ngModel" 
@@ -39,6 +71,7 @@
 
               </form>
 
+               
 
        </div>
 </div>
