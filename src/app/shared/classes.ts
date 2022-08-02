@@ -11,15 +11,7 @@ export class UserRegistration {
     pass:any;
 }
 
-export class Order{
-    name:string;
-    surname:string;
-    personalNumber:string;
-    phoneNumber:string;
-    address:string;
-    image:string;
 
-}
 export enum Admin{
     admin='l.dolidze11@gmail.com'
 }

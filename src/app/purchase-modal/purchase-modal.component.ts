@@ -2,12 +2,12 @@ import { HttpService } from './../servises/http.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { Order } from '../shared/classes';
 import { Router } from '@angular/router';
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import { AuthfirebaseService } from '../servises/authfirebase.service';
 import { AuthService } from '../servises/auth.service';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
+import { Order, ProductModel, Products } from '../models/url';
 
 @Component({
   selector: 'app-purchase-modal',
@@ -21,6 +21,7 @@ export class PurchaseModalComponent implements OnInit {
     private http: HttpService,
   ) { }
   order: Order = new Order();
+  products: ProductModel = new ProductModel;
   orderIsCompleted: boolean = false;
 
 
@@ -59,11 +60,18 @@ export class PurchaseModalComponent implements OnInit {
       let channel = localStorage.getItem('channel');
       if (channel == 'now') {
         let fromNow = localStorage.getItem('buy-now');
-        this.http.postOrder(fromNow).subscribe((res) => { })
+        if (fromNow) {
+          let orderedItem = JSON.parse(fromNow);
+          this.http.postOrder(this.returnOrder(orderedItem)).subscribe((res) => { })
+        };
 
       } else {
         let fromCart = localStorage.getItem('products');
-        this.http.postOrder(fromCart).subscribe((res) => { })
+        if (fromCart) {
+          let orderedItem = JSON.parse(fromCart);
+          this.http.postOrder(this.returnOrder(orderedItem)).subscribe((res) => { })
+
+        }
       }
       this.http.deleteItemEvent.next();
       this.orderIsCompleted = true;
@@ -79,6 +87,21 @@ export class PurchaseModalComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(PurchaseModalComponent);
+  };
+
+
+  returnOrder(product:ProductModel) {
+    const userInfo:Order = {
+      name: this.order.name,
+      surname: this.order.surname,
+      personalNumber: this.order.personalNumber,
+      phoneNumber: this.order.phoneNumber,
+      address: this.order.address,
+      image: this.order.image,
+      product:product
+
+    }
+    return userInfo
   };
 
 

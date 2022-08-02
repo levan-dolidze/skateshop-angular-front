@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemArray, ProductModel } from 'src/app/models/url';
+import { ItemArray, Order, ProductModel } from 'src/app/models/url';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { HttpService } from 'src/app/servises/http.service';
 import { v4 as uuidv4 } from 'uuid'
-import { Order } from 'src/app/shared/classes';
 import { Observable, of } from 'rxjs';
 
 
@@ -30,6 +29,7 @@ export class AdminComponent implements OnInit {
   returnOrders() {
     this.orders$=this.http.getOrders();
     this.orders$.subscribe((res)=>{
+      console.log(res)
      this.orders$=of(res)
 
     })

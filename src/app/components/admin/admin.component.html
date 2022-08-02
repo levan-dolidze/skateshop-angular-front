@@ -4,27 +4,16 @@
                      <h3>შეკვეთა</h3>
                      <div class="order-list">
                                    <div class="order-list-inner" *ngFor="let item of (orders$|async)" >
-                                <img [src]="item.image">
+                                <img [src]="item.product.image">
                                     Name: 
                                     <span >
-                                        {{item.name}}
+                                        {{item.product.name}}
                                     </span>
                                     Price: 
                                     <span >
-                                        {{item.surname}}
+                                        {{item.product.price}}
                                     </span>
-                                    Type:
-                                    <span >
-                                        {{item.personalNumber}}
-                                    </span>
-                                    QTY:
-                                    <span>
-                                        {{item.phoneNumber}}
-                                    </span>
-                                    Total:
-                                    <span>
-                                        {{item.address}}
-                                    </span>
+                                
                                 <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteOrder()">delete</mat-icon>
                             </div>
                         </div>

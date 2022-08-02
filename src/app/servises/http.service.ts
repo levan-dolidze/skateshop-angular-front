@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
-import { ItemArray, ProductModel } from './../models/url';
+import { ItemArray, Order, ProductModel } from './../models/url';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database'
 import { map } from 'rxjs/operators';
-import { Order } from '../shared/classes';
+
 
 @Injectable({
   providedIn: 'root'

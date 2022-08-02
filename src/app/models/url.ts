@@ -24,7 +24,20 @@ export class ProductModel{
     image:any;
     inCart:any;
     key:string;
+  
 }
+export class Order{
+    name:string;
+    surname:string;
+    personalNumber:string;
+    phoneNumber:string;
+    address:string;
+    image:string;
+    product:ProductModel
+
+}
+
+
 
 export enum ProductUrl {
  deck='/deck',
