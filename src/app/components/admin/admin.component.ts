@@ -29,7 +29,6 @@ export class AdminComponent implements OnInit {
   returnOrders() {
     this.orders$ = this.http.getOrders();
     this.orders$.subscribe((res) => {
-      console.log(res)
       this.orders$ = of(res)
       
 
@@ -83,7 +82,12 @@ export class AdminComponent implements OnInit {
 
 
   deleteOrder(key:any) {
-    this.http.deleteDeleveredOrder(key).subscribe((res)=>{
+    this.http.deleteDeleveredOrder(key).subscribe((res)=>{  })
+    this.http.deleteItemEvent.subscribe((item)=>{
+      console.log(item)
+     this.orders$=item
+
+  
 
     })
 

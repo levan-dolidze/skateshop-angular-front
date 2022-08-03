@@ -4,7 +4,7 @@ import { ItemArray, Order, ProductModel } from './../models/url';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database'
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -26,7 +26,7 @@ export class HttpService {
   IP: any = environment.IP;
   imageDetailList: AngularFireList<any>
 
-
+  items:Order[]=[]
 
   sendClickEvent() {
     this.subject.next();
@@ -115,8 +115,9 @@ export class HttpService {
           for (const key in res) {
             orderArr.push({ ...res[key], key: key })
           }
+          this.items=orderArr
           return orderArr
-        }else{
+        } else {
           return [];
         }
       })
@@ -126,8 +127,15 @@ export class HttpService {
     return this.http.get(`${this.IP}`)
   };
 
-  deleteDeleveredOrder(key:any){
-    return this.http.delete(`${this.apiUrl}orders/${key}.json`)
+  deleteDeleveredOrder(key: any) {
+    return this.http.delete(`${this.apiUrl}orders/${key}.json`).pipe(
+      tap(()=>{
+        const itemIndex=this.items.map((item)=>item.key).indexOf(key);
+        this.items.splice(itemIndex,1)
+        this.deleteItemEvent.next(of(this.items) )
+
+      })
+    )
   };
 
 };
