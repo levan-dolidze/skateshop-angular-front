@@ -61,7 +61,8 @@ export class PurchaseModalComponent implements OnInit {
       if (channel == 'now') {
         let fromNow = localStorage.getItem('buy-now');
         if (fromNow) {
-          let orderedItem = JSON.parse(fromNow);
+          let orderedItem=[];
+          orderedItem.push(JSON.parse(fromNow)) ;
           this.http.postOrder(this.returnOrder(orderedItem)).subscribe((res) => { })
         };
 
@@ -90,7 +91,7 @@ export class PurchaseModalComponent implements OnInit {
   };
 
 
-  returnOrder(product:ProductModel) {
+  returnOrder(product:any) {
     const userInfo:Order = {
       name: this.order.name,
       surname: this.order.surname,

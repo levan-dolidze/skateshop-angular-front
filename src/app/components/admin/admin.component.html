@@ -3,64 +3,86 @@
               <div class="orders-inner">
                      <h3>შეკვეთა</h3>
                      <div class="order-list">
-                                   <div class="order-list-inner" *ngFor="let item of (orders$|async)" >
-                                <img [src]="item.product.image">
-                                    Name: 
-                                    <span >
-                                        {{item.product.name}}
-                                    </span>
-                                    Price: 
-                                    <span >
-                                        {{item.product.price}}
-                                    </span>
-                                
-                                <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteOrder()">delete</mat-icon>
+                            <div class="order-list-inner" *ngFor="let item of (orders$|async)">
+                                   <!-- <img [src]="item.product.image"> -->
+                                   <div class="userInfo">
+                                         <h3>შემკვეთის ინფო</h3> 
+                                          <div>
+                                                 შემკვეთი:{{item.name}}   {{item.surname}}
+                                          </div>
+                                          <div>
+                                                
+                                                 პირადი#   {{item.personalNumber}}
+                                          </div>
+                                      
+                                          <div>
+                                                 მობილური: {{item.phoneNumber}}
+                                          </div>
+                                         
+                                          <div>
+                                             
+                                                 მისამართი:     {{item.address}}
+                                          </div>
+                                    
+                                   </div>
+
+                                   <div class="product-details" *ngFor="let i of item.product">
+                                          <img [src]="i.image">
+
+                                          <div style="padding:10px">
+                                                 <div>
+                                                        id : <span>{{i.key}}</span> 
+                                                   
+                                                 </div>
+                                                 name :      <span>{{i.name}}</span> 
+                                  
+                                             
+                                                 <div>
+                                                        Type      <span>{{i.type}}</span>
+
+                                                 </div>
+                                                 <div>
+                                                       price  <span>{{i.price}}</span> 
+
+                                                 </div>
+                                            
+
+                                          </div>
+
+                                   </div>
+                                   <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteOrder(item.key)">delete</mat-icon>
                             </div>
-                        </div>
+                     </div>
+                     
 
-              </div> 
+              </div>
 
-              
+
               <form class="form-inner" (ngSubmit)="addProduct(productForm)" #productForm="ngForm">
-                   <h3>პროდუქტის დამატება</h3>
-                     <input [(ngModel)]="productModel.type" 
-                            name="productType" 
-                            #productType="ngModel" 
-                            type="text"
-                            placeholder="type"
-                            class="form-control">
+                     <h3>პროდუქტის დამატება</h3>
+                     <input [(ngModel)]="productModel.type" name="productType" #productType="ngModel" type="text"
+                            placeholder="type" class="form-control">
 
 
-                     <input [(ngModel)]="productModel.name" 
-                            name="productName" #productName="ngModel" 
-                            accept="image/*"
-                            placeholder="name"
-                            type="text" class="form-control">
-                            <div class="image-content">
-                            <img [src]="imgURL" >
+                     <input [(ngModel)]="productModel.name" name="productName" #productName="ngModel" accept="image/*"
+                            placeholder="name" type="text" class="form-control">
+                     <div class="image-content">
+                            <img [src]="imgURL">
 
-                            </div>
+                     </div>
 
-                     <input [(ngModel)]="productModel.image" 
-                            (change)="showPreview($event)" 
-                            name="productImg" 
-                            #productImg="ngModel"
-  
-                            type="file" class="form-control">
+                     <input [(ngModel)]="productModel.image" (change)="showPreview($event)" name="productImg"
+                            #productImg="ngModel" type="file" class="form-control">
 
 
-                     <input [(ngModel)]="productModel.price" 
-                            name="productPrice" 
-                            #productPrice="ngModel" 
-                            type="text"
-                            placeholder="price"
-                            class="form-control">
+                     <input [(ngModel)]="productModel.price" name="productPrice" #productPrice="ngModel" type="text"
+                            placeholder="price" class="form-control">
 
                      <button type="submit" class="addBTN" mat-raised-button color="primary">add Product</button>
 
               </form>
 
-               
+
 
        </div>
 </div>

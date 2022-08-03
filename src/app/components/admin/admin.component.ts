@@ -27,13 +27,17 @@ export class AdminComponent implements OnInit {
   }
 
   returnOrders() {
-    this.orders$=this.http.getOrders();
-    this.orders$.subscribe((res)=>{
+    this.orders$ = this.http.getOrders();
+    this.orders$.subscribe((res) => {
       console.log(res)
-     this.orders$=of(res)
+      this.orders$ = of(res)
+      
+
 
     })
   }
+
+  
 
   get returnUniqueExtId() {
     return uuidv4()
@@ -78,7 +82,11 @@ export class AdminComponent implements OnInit {
 
 
 
-  deleteOrder() {
+  deleteOrder(key:any) {
+    this.http.deleteDeleveredOrder(key).subscribe((res)=>{
+
+    })
+
 
   }
 

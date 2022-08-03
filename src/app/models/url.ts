@@ -16,7 +16,7 @@ export interface ItemArray {
 
 }
 
-export class ProductModel{
+export class ProductModel{ 
     id: string|number;
     name: string;
     price: number;
@@ -24,6 +24,7 @@ export class ProductModel{
     image:any;
     inCart:any;
     key:string;
+
   
 }
 export class Order{
@@ -33,7 +34,8 @@ export class Order{
     phoneNumber:string;
     address:string;
     image:string;
-    product:ProductModel
+    key?:string;
+    product:ProductModel[]
 
 }
 

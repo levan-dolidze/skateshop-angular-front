@@ -105,7 +105,7 @@ export class HttpService {
 
   postOrder(order: any) {
     return this.http.post(`${this.apiUrl}orders.json`, order)
-  }
+  };
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(`${this.apiUrl}orders.json`).pipe(
@@ -121,9 +121,13 @@ export class HttpService {
         }
       })
     )
-  }
+  };
   getDeviceIP() {
     return this.http.get(`${this.IP}`)
-  }
+  };
 
-}
+  deleteDeleveredOrder(key:any){
+    return this.http.delete(`${this.apiUrl}orders/${key}.json`)
+  };
+
+};
