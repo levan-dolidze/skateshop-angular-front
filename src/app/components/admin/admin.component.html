@@ -4,57 +4,42 @@
                      <h3>შეკვეთა</h3>
                      <div class="order-list">
                             <div class="order-list-inner" *ngFor="let item of (orders$|async)">
-                                   <!-- <img [src]="item.product.image"> -->
                                    <div class="userInfo">
-                                         <h3>შემკვეთის ინფო</h3> 
+                                          <h3>შემკვეთის ინფო</h3>
                                           <div>
-                                                 შემკვეთი:{{item.name}}   {{item.surname}}
+                                                 შემკვეთი:{{item.name}} {{item.surname}}
                                           </div>
                                           <div>
-                                                
-                                                 პირადი#   {{item.personalNumber}}
+                                                 პირადი# {{item.personalNumber}}
                                           </div>
-                                      
                                           <div>
                                                  მობილური: {{item.phoneNumber}}
                                           </div>
-                                         
                                           <div>
-                                             
-                                                 მისამართი:     {{item.address}}
+                                                 მისამართი: {{item.address}}
+                                                 <a href="https://www.google.com/maps/@41.746432,44.7840256,14z">map</a>
                                           </div>
-                                    
                                    </div>
-
                                    <div class="product-details" *ngFor="let i of item.product">
                                           <img [src]="i.image">
 
                                           <div style="padding:10px">
                                                  <div>
-                                                        id : <span>{{i.key}}</span> 
-                                                   
+                                                        id : <span>{{i.key}}</span>
                                                  </div>
-                                                 name :      <span>{{i.name}}</span> 
-                                  
-                                             
+                                                 name : <span>{{i.name}}</span>
                                                  <div>
-                                                        Type      <span>{{i.type}}</span>
-
+                                                        Type <span>{{i.type}}</span>
                                                  </div>
                                                  <div>
-                                                       price  <span>{{i.price}}</span> 
-
+                                                        price <span>{{i.price}}</span>
                                                  </div>
-                                            
-
                                           </div>
-
                                    </div>
-                                   <mat-icon style="float:right;cursor:pointer;opacity:0.8;" (click)="deleteOrder(item.key)">delete</mat-icon>
+                                   <mat-icon style="float:right;cursor:pointer;opacity:0.8;"
+                                          (click)="deleteOrder(item.key)">delete</mat-icon>
                             </div>
                      </div>
-                     
-
               </div>
 
 
@@ -81,8 +66,6 @@
                      <button type="submit" class="addBTN" mat-raised-button color="primary">add Product</button>
 
               </form>
-
-
 
        </div>
 </div>

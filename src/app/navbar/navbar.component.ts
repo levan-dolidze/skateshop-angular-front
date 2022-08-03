@@ -132,13 +132,13 @@ export class NavbarComponent implements OnInit {
 
 
 
-  searchItem(searchInput: any) {
-    if (!this.search || searchInput.invalid) {
-      return
-    } else {
-      this.http.searchSubject.next(this.search)
-    };
-  };
+  // searchItem(searchInput: any) {
+  //   if (!this.search || searchInput.invalid) {
+  //     return
+  //   } else {
+  //     this.http.searchSubject.next(this.search)
+  //   };
+  // };
   searchByEnterKey(form: KeyboardEvent) {
     if (form.key === 'Enter') {
       this.http.searchSubject.next(this.search)

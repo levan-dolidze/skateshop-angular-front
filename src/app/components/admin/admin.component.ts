@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ItemArray, Order, ProductModel } from 'src/app/models/url';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { HttpService } from 'src/app/servises/http.service';
 import { v4 as uuidv4 } from 'uuid'
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,12 +12,14 @@ import { Observable, of } from 'rxjs';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit,OnDestroy {
 
   constructor(private storage: AngularFireStorage, private http: HttpService) { }
   itemModel: ItemArray;
   orders$: Observable<Order[]>;
   productModel: ProductModel = new ProductModel;
+  deleteItemEvent$ = new Subscription();
+
   imgURL: any;
   selectedImage: any
   ngOnInit(): void {
@@ -30,13 +32,10 @@ export class AdminComponent implements OnInit {
     this.orders$ = this.http.getOrders();
     this.orders$.subscribe((res) => {
       this.orders$ = of(res)
-      
-
-
     })
-  }
+  };
 
-  
+
 
   get returnUniqueExtId() {
     return uuidv4()
@@ -81,21 +80,19 @@ export class AdminComponent implements OnInit {
 
 
 
-  deleteOrder(key:any) {
-    this.http.deleteDeleveredOrder(key).subscribe((res)=>{  })
-    this.http.deleteItemEvent.subscribe((item)=>{
-      console.log(item)
-     this.orders$=item
-
-  
-
+  deleteOrder(key: any) {
+    this.http.deleteDeleveredOrder(key).subscribe((res) => { })
+    this.deleteItemEvent$ = this.http.deleteItemEvent.subscribe((item) => {
+      this.orders$ = item;
     })
 
 
   }
 
 
-
+ngOnDestroy(): void {
+  this.deleteItemEvent$.unsubscribe()
+}
 
 
 

@@ -6,7 +6,7 @@
         <form (keypress)="searchByEnterKey($event)"  #signInForm="ngForm">
             <div class="navbar-navigation">
                 <div class="search-inner">
-                    <i type="submit" (click)="searchItem(signInForm)"  class="fa-solid fa-magnifying-glass"></i>
+                    <!-- <i type="submit" (click)="searchItem(signInForm)"  class="fa-solid fa-magnifying-glass"></i> -->
                     <input [(ngModel)]="search"
                            name="searchInput"
                            #searchInput="ngModel"
