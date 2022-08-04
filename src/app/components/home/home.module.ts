@@ -7,6 +7,10 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { FormsModule } from '@angular/forms';
+
+
 @NgModule({
   declarations: [
     HomeComponent
@@ -14,7 +18,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    NgxSliderModule,
     MatSliderModule,
+    FormsModule,
     MatProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {

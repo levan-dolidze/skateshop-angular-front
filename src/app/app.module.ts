@@ -25,6 +25,7 @@ import { PurchaseModalComponent } from './purchase-modal/purchase-modal.componen
 import { NgcCookieConsentConfig, NgcCookieConsentModule } from 'ngx-cookieconsent';
 import { AuthfirebaseService } from './servises/authfirebase.service';
 import { MessagesInterceptor } from './messages.interceptor';
+import { FooterComponent } from './footer/footer.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -49,6 +50,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     FilterComponent,
     LoginModalComponent,
     PurchaseModalComponent,
+    FooterComponent,
 
 
   ],

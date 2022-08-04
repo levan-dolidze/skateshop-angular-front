@@ -12,3 +12,16 @@
     
 }
 
+.bugedSlider{
+    position: sticky;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    background-color: #F5F6F7;
+    width:100%;
+}
+.bugedSlider .ngx-slider {
+    width:30%;
+
+
+}

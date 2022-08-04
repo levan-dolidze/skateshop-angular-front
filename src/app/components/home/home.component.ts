@@ -8,6 +8,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { ProductModel } from 'src/app/models/url';
 import { LoaderService } from 'src/app/loader.service';
 import { Router } from '@angular/router';
+import { LabelType } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,20 @@ export class HomeComponent implements OnInit {
   itemCount: number = 5;
   loadMoreBtn: boolean = true;
   @ViewChildren("itemList") itemList: QueryList<ElementRef>;
+
+  Options = {
+    floor: 0,
+    ceil: 1000,
+    translate: (value: number, label: LabelType): string => {  
+      switch (label) {  
+          case LabelType.Low:  
+              return `<b>My Budget:</b> ₾ ${value}` 
+          default:  
+              return `₾ ${value}`  
+      }  
+  }
+  };
+  customerBudget: number = 0;
 
   ngOnInit(): void {
     // this.http.getDeviceIP().subscribe((res) => {
@@ -86,16 +101,16 @@ export class HomeComponent implements OnInit {
     })
   };
 
-  filterByClientAmount(e: any) {
-    this.loadMoreBtn = false;
-    this.returnProducts();
-    this.itemArr$.subscribe((res) => {
-      const filtredItem = res.filter((item) => {
-        return item.price <= e.value;
-      })
-      this.itemArr$ = of(filtredItem)
-    })
-  };
+  // filterByClientAmount(e: any) {
+  //   this.loadMoreBtn = false;
+  //   this.returnProducts();
+  //   this.itemArr$.subscribe((res) => {
+  //     const filtredItem = res.filter((item) => {
+  //       return item.price <= e.value;
+  //     })
+  //     this.itemArr$ = of(filtredItem)
+  //   })
+  // };
 
   formatLabel(value: number) {
     if (value >= 1000) {
@@ -125,6 +140,19 @@ export class HomeComponent implements OnInit {
       })
     })
   };
+
+
+  sliderEvent() {
+    this.loadMoreBtn = false;
+    this.returnProducts();
+    this.itemArr$.subscribe((res) => {
+      const filtredItem = res.filter((item) => {
+        return item.price <= this.customerBudget;
+      })
+      this.itemArr$ = of(filtredItem)
+    })
+  }
+
 
 
 };

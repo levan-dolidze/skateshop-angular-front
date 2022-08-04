@@ -1,8 +1,6 @@
 <div class="item-content">
-  <div>
-    {{"sliderTitle"|translate}}:
-  </div>
-  <mat-slider class="slider"
+
+  <!-- <mat-slider class="slider"
   thumbLabel
   [displayWith]="formatLabel"
   tickInterval="10"
@@ -11,7 +9,13 @@
   max="2000"
   aria-label="units"
   (change)="filterByClientAmount($event)">
-  </mat-slider>
+  </mat-slider> -->
+  <div class="bugedSlider">
+    <!-- <div>
+      {{"sliderTitle"|translate}}:
+    </div> -->
+    <ngx-slider  (mouseup)="sliderEvent()" [(ngModel)]="customerBudget" [options]="Options" ></ngx-slider>
+  </div>
 
 
 
