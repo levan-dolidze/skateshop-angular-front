@@ -24,6 +24,9 @@ export class ProductModel{
     image:any;
     inCart:any;
     key:string;
+    size:string;
+    description:string;
+    sale?:number;
 
   
 }

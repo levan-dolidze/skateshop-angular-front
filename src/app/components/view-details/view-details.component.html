@@ -1,24 +1,23 @@
 <div class="detail-content">
     <div class="detail-inner">
-        <div *ngIf="product" class="productDetail" >
-            {{product.type}}
-            {{product.name}}
+        <div *ngIf="product" class="productDetail">
             <img [src]="product.image">
-           {{"price"|translate}} {{product.price}}  {{"currency"|translate}}
+   
         </div>
 
         <div class="product-info">
-
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, tempore numquam quo enim dolorum facilis
-            nihil obcaecati sunt saepe dicta possimus, delectus, neque beatae perferendis culpa ut corporis assumenda
-            aperiam eius cumque unde veniam sed harum aliquid. Aliquam quos, beatae, itaque, delectus unde animi hic
-            numquam omnis nulla eveniet blanditiis.
-
+            <h3>Description:</h3>
+            <li> Type:{{product.type}}</li>
+            <li>Name: {{product.name}}</li>
+            <li> {{product.description}}</li>
+            <li> size:{{product.size}}</li>
+           <h3>{{"price"|translate}} {{product.price}} {{"currency"|translate}}</h3> 
         </div>
 
         <div class="buy">
-            <button (click)="buyProductNow()"  mat-flat-button color="primary">{{"buy"|translate}}</button>
-            <button style="margin-left:10px" (click)="addProductInCart()" mat-flat-button color="primary">{{"addToCart"|translate}}</button>
+            <button (click)="buyProductNow()" mat-flat-button color="primary">{{"buy"|translate}}</button>
+            <button style="margin-left:10px" (click)="addProductInCart()" mat-flat-button
+                color="primary">{{"addToCart"|translate}}</button>
         </div>
 
         <div>
@@ -29,5 +28,5 @@
 </div>
 
 <div>
-    
+
 </div>

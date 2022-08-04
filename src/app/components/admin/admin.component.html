@@ -32,6 +32,15 @@
                                                         Type <span>{{i.type}}</span>
                                                  </div>
                                                  <div>
+                                                        Size <span>{{i.size}}</span>
+                                                 </div>
+                                                 <div>
+                                                        Description <span>{{i.description}}</span>
+                                                 </div>
+                                                 <div>
+                                                        Description <span>{{i.sale}}</span>
+                                                 </div>
+                                                 <div>
                                                         price <span>{{i.price}}</span>
                                                  </div>
                                           </div>
@@ -59,6 +68,10 @@
                      <input [(ngModel)]="productModel.image" (change)="showPreview($event)" name="productImg"
                             #productImg="ngModel" type="file" class="form-control">
 
+                     <input [(ngModel)]="productModel.size" name="productSize" #productSize="ngModel" type="text"
+                            placeholder="size" class="form-control">
+                     <textarea [(ngModel)]="productModel.description" name="productDescription" #productDescription="ngModel" type="text"
+                            placeholder="description" class="form-control"></textarea>
 
                      <input [(ngModel)]="productModel.price" name="productPrice" #productPrice="ngModel" type="text"
                             placeholder="price" class="form-control">
