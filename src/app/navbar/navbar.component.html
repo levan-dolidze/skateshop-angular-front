@@ -21,7 +21,6 @@
                     <!-- temporery solution მოგვარდა ბაგი, ენთერით ძებნისას არედაირექტებდა პირველივე მისამართზე და ჩავუყენეთ წინ    -->
                     <button style="width:1px;"  mat-button></button>
                     <button  mat-button [routerLink]="['/home']"> {{"home"|translate}} </button>
-                    <button mat-button [routerLink]="['/about']"> {{"about"|translate}}</button>
                     <button mat-button [matMenuTriggerFor]="menu">{{"products"|translate}}</button>
                     <mat-menu #menu="matMenu">
                         <div class="product-menu">
@@ -33,7 +32,6 @@
                     </mat-menu>
                     <button mat-button [routerLink]="['/sale']">{{"sale"|translate}}</button>
                     <button mat-button [routerLink]="['/gallery']">{{"gallery"|translate}}</button>
-                    <button mat-button [routerLink]="['/contact']"> {{"contact"|translate}}</button>
                 </div>
 
                 <div class="shopping-cart">
