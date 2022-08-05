@@ -26,8 +26,6 @@ export class ProductModel{
     key:string;
     size:string;
     description:string;
-    sale?:number;
-
   
 }
 export class Order{

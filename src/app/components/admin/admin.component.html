@@ -37,9 +37,9 @@
                                                  <div>
                                                         Description <span>{{i.description}}</span>
                                                  </div>
-                                                 <div>
+                                                 <!-- <div>
                                                         Description <span>{{i.sale}}</span>
-                                                 </div>
+                                                 </div> -->
                                                  <div>
                                                         price <span>{{i.price}}</span>
                                                  </div>
@@ -75,6 +75,7 @@
 
                      <input [(ngModel)]="productModel.price" name="productPrice" #productPrice="ngModel" type="text"
                             placeholder="price" class="form-control">
+             
 
                      <button type="submit" class="addBTN" mat-raised-button color="primary">add Product</button>
 

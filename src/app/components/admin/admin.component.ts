@@ -58,8 +58,6 @@ export class AdminComponent implements OnInit,OnDestroy {
             image: this.imgURL,
             description:this.productModel.description,
             size:this.productModel.size,
-            sale:this.productModel.sale
-
           }
           this.http.insertImageDetails(obj)
         })
