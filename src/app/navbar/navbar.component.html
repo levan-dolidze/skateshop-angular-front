@@ -41,7 +41,23 @@
                 </div>
 
                 <div class="language-inner">
-                <button *ngIf="admin" mat-button [routerLink]="['/admin']"> Admin</button>
+                <!-- <button *ngIf="admin" mat-button [routerLink]="['/admin']"> Admin</button> -->
+                
+                <button *ngIf="admin"  mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
+                <mat-menu #adminMenu="matMenu">
+                    <div class="product-menu">
+                        <button mat-menu-item [routerLink]="['/admin']">{{"order"|translate}}</button>
+                        <button mat-menu-item [routerLink]="['/admin-product-change']">{{"products"|translate}}</button>
+                    
+                    </div>
+                </mat-menu>
+
+
+
+
+
+
+
 
                     <select (change)="changeLang($event.target)">
                         <option value="ka" [selected]="lang =='ka'">KA</option>

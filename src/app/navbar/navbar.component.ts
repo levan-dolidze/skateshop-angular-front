@@ -9,6 +9,7 @@ import { SharedService } from '../servises/shared.service';
 import { AuthfirebaseService } from '../servises/authfirebase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Admin, AdminPermission } from '../shared/classes';
+import { PermissionsService } from '../permissions.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
   authStatusIsLoggedin: boolean;
   userEmail: any
   admin: boolean = false;
-  adminPermission:AdminPermission=new AdminPermission();
+  adminPermission: AdminPermission = new AdminPermission();
 
 
   constructor(private http: HttpService,
@@ -34,7 +35,7 @@ export class NavbarComponent implements OnInit {
     private shared: SharedService,
     private firebaseAuth: AuthfirebaseService,
     private router: Router,
-    private routerAct:ActivatedRoute
+    private permission: PermissionsService
     // private cookie:NgcCookieConsentService
   ) {
     // translate.setDefaultLang('ka');
@@ -43,32 +44,14 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.lang = localStorage.getItem('lang');
     this.shared.languageControl(this.lang, this.translate)
     this.addItem();
     this.deleteItem();
     this.clearCartAfterOrdering();
-    // this.authService.userIsLogedin.next(true)
     this.loginMode;
-    this.checkUserLoggedIn();
+    this.userAuthChecking();
 
-  };
-
-  
-
-
-  checkUserLoggedIn() {
-    let tokenInfo = localStorage.getItem('user');
-    if (tokenInfo) {
-      let parsedToken = JSON.parse(tokenInfo);
-      if (parsedToken.emailVerified) {
-        this.userEmail = parsedToken.email;
-        this.admin=this.adminPermission.adminPermission(this.userEmail)
-        this.authService.userIsLogedin.next(true)
-        this.authStatusIsLoggedin = true;
-      };
-    };
   };
 
 
@@ -119,11 +102,23 @@ export class NavbarComponent implements OnInit {
   //   })
   // };
 
-  get loginMode(): string | boolean {
-    this.authService.userIsLogedin.subscribe((isLogedIn) => {
-      this.authStatusIsLoggedin = isLogedIn;
 
-      //ამის მაგივრად უნდა წამოვიღო ბაზიდან კლიენტის ინფო და ჩავსეტო სახელი 
+  userAuthChecking() {
+    let obj = this.permission.userAuth();
+    if (obj.admin && obj.isLoggedIn) {
+      this.userEmail = obj.userEmail;
+      this.authService.userIsLogedin.next(true)
+      this.admin = true;
+    }
+    else if (!obj.admin && obj.isLoggedIn) {
+      this.userEmail = obj.userEmail;
+      this.authService.userIsLogedin.next(true)
+    }
+  };
+
+  get loginMode(): string | boolean {
+    this.authService.userIsLogedin.subscribe((isLoggedIn) => {
+      this.authStatusIsLoggedin = isLoggedIn;
       this.authStatusIsLoggedin ? this.authStatus = this.userEmail : false;
     })
     return this.authStatus

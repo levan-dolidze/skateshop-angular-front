@@ -9,6 +9,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     HomeRoutingModule,
     NgxSliderModule,
     MatSliderModule,
+    MatIconModule,
     FormsModule,
     MatProgressSpinnerModule,
     TranslateModule.forRoot({

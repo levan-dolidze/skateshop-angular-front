@@ -23,6 +23,12 @@ const routes: Routes = [
     loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AdminGuardGuard]
 
+  },
+  {
+    path: 'admin-product-change',
+    loadChildren: () => import('./admin-product-change/admin-product-change.module').then(m => m.AdminProductChangeModule),
+    canActivate: [AdminGuardGuard]
+
   }
 
 

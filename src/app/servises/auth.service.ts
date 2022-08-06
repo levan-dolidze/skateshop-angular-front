@@ -9,4 +9,8 @@ export class AuthService {
   constructor() { }
 
   userIsLogedin:Subject<boolean>=new Subject();
+
+
+
+  
 }

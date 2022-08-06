@@ -1,28 +1,31 @@
 import { TranslateService } from '@ngx-translate/core';
 import { filter, shareReplay, take, toArray } from 'rxjs/operators';
 import { HttpService } from './../../servises/http.service';
-import { from, Observable, of } from 'rxjs';
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { from, Observable, of, Subscription } from 'rxjs';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { SharedService } from 'src/app/servises/shared.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ProductModel } from 'src/app/models/url';
 import { LoaderService } from 'src/app/loader.service';
 import { Router } from '@angular/router';
 import { LabelType } from '@angular-slider/ngx-slider';
+import { AuthfirebaseService } from 'src/app/servises/authfirebase.service';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpService,
     private translate: TranslateService,
     private shared: SharedService,
     private deviceService: DeviceDetectorService,
     public loader: LoaderService,
-    private router: Router
+    private router: Router,
+    private firebase: AuthfirebaseService,
 
   ) { }
   itemArr$: Observable<ProductModel[]>;
@@ -30,18 +33,20 @@ export class HomeComponent implements OnInit {
   itemCount: number = 5;
   loadMoreBtn: boolean = true;
   @ViewChildren("itemList") itemList: QueryList<ElementRef>;
+  changeLanguageEvent$ = new Subscription();
+  searchSubject$ = new Subscription();
 
   Options = {
     floor: 0,
     ceil: 1000,
-    translate: (value: number, label: LabelType): string => {  
-      switch (label) {  
-          case LabelType.Low:  
-              return `<b>My Budget:</b> ₾ ${value}` 
-          default:  
-              return `₾ ${value}`  
-      }  
-  }
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return `<b>My Budget:</b> ₾ ${value}`
+        default:
+          return `₾ ${value}`
+      }
+    }
   };
   customerBudget: number = 0;
 
@@ -57,7 +62,7 @@ export class HomeComponent implements OnInit {
 
   languageControl() {
     this.shared.languageControl(this.lang, this.translate)
-    this.http.changeLanguageEvent.subscribe(() => {
+    this.changeLanguageEvent$ = this.http.changeLanguageEvent.subscribe(() => {
       this.shared.languageControl(this.lang, this.translate)
     })
   }
@@ -70,8 +75,6 @@ export class HomeComponent implements OnInit {
     this.itemCount += 5;
     this.returnStartItems(this.itemCount);
   };
-
-
 
 
   returnStartItems(itemQTY: number) {
@@ -89,7 +92,7 @@ export class HomeComponent implements OnInit {
 
 
   searchSkateboardItems() {
-    this.http.searchSubject.subscribe((searchValue) => {
+    this.searchSubject$ = this.http.searchSubject.subscribe((searchValue) => {
       this.returnProducts();
       this.itemArr$.subscribe((res) => {
         const filtredItem = res.filter((item) => {
@@ -101,16 +104,6 @@ export class HomeComponent implements OnInit {
     })
   };
 
-  // filterByClientAmount(e: any) {
-  //   this.loadMoreBtn = false;
-  //   this.returnProducts();
-  //   this.itemArr$.subscribe((res) => {
-  //     const filtredItem = res.filter((item) => {
-  //       return item.price <= e.value;
-  //     })
-  //     this.itemArr$ = of(filtredItem)
-  //   })
-  // };
 
   formatLabel(value: number) {
     if (value >= 1000) {
@@ -153,7 +146,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-
+  ngOnDestroy(): void {
+    this.changeLanguageEvent$.unsubscribe();
+  };
 
 };
 

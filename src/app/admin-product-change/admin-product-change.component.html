@@ -1,0 +1,26 @@
+<div class="admin-content">
+       <div class="admin-inner">
+              <div class="products-inner">
+                     <h3>პროდუქტების ლისტი</h3>
+                     <div class="product-list">
+                            <div class="product-list-inner" *ngFor="let item of (productList$|async)">
+                                   <div class="product-details">
+                                          <img [src]="item.image">
+                                          <div style="padding:10px">
+                                                 id : <span>{{item.key}}</span>
+                                                 name : <span>{{item.name}}</span>
+                                                        Type <span>{{item.type}}</span>
+                                                        Size <span>{{item.size}}</span>
+                                                        Description <span>{{item.description}}</span>
+                                                        price <span>{{item.price}}</span>
+                                          </div>
+                                   </div>
+                                   <mat-icon style="float:right;cursor:pointer;opacity:0.8;"
+                                          (click)="deleteItem(item.key)">delete</mat-icon>
+                            </div>
+                     </div>
+              </div>
+
+
+       </div>
+</div>

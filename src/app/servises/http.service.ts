@@ -26,7 +26,8 @@ export class HttpService {
   IP: any = environment.IP;
   imageDetailList: AngularFireList<any>
 
-  items:Order[]=[]
+  items:Order[]=[];
+  products:ProductModel[]=[];
 
   sendClickEvent() {
     this.subject.next();
@@ -63,6 +64,7 @@ export class HttpService {
             // romelshic keys setavs da setavs mtlian obieqtshi
             itemArr.push({ ...res[key], key: key })
           }
+          this.products=itemArr
           return itemArr
         } else {
           return []
@@ -101,6 +103,15 @@ export class HttpService {
         const itemIndex=this.items.map((item)=>item.key).indexOf(key);
         this.items.splice(itemIndex,1)
         this.deleteItemEvent.next(of(this.items) )
+      })
+    )
+  };
+  deleteProduct(key: any) {
+    return this.http.delete(`${this.apiUrl}allProductData/${key}.json`).pipe(
+      tap(()=>{
+        const itemIndex=this.products.map((item)=>item.key).indexOf(key);
+        this.products.splice(itemIndex,1)
+        this.deleteItemEvent.next(of(this.products) )
       })
     )
   };

@@ -1,20 +1,8 @@
 <div class="item-content">
 
-  <!-- <mat-slider class="slider"
-  thumbLabel
-  [displayWith]="formatLabel"
-  tickInterval="10"
-  step="10"
-  min="0"
-  max="2000"
-  aria-label="units"
-  (change)="filterByClientAmount($event)">
-  </mat-slider> -->
+
   <div class="bugedSlider">
-    <!-- <div>
-      {{"sliderTitle"|translate}}:
-    </div> -->
-    <ngx-slider  (mouseup)="sliderEvent()" [(ngModel)]="customerBudget" [options]="Options" ></ngx-slider>
+    <ngx-slider (mouseup)="sliderEvent()" [(ngModel)]="customerBudget" [options]="Options"></ngx-slider>
   </div>
 
 
@@ -22,22 +10,19 @@
 
 
 
- <div  class="item-filter-inner" >
-  <mat-spinner *ngIf="loader.isLoading|async" ></mat-spinner>
+  <div class="item-filter-inner">
+    <mat-spinner *ngIf="loader.isLoading|async"></mat-spinner>
     <div style="margin-top: 25px" tabindex="1" #itemList *ngFor="let item of (itemArr$|async);let i =index">
-     <div (click)="viewDetails(item.key)" routerLinkActive="router-link-active" class="item">
-                 {{item.name}}
-                 {{item.type}}
-            <img [src]="item.image">
-         {{"price"|translate}} {{item.price}}  {{"currency"|translate}}
-        </div>
+      <div (click)="viewDetails(item.key)" routerLinkActive="router-link-active" class="item">
+        {{item.name}}
+        {{item.type}}
+        <img [src]="item.image">
+        {{"price"|translate}} {{item.price}} {{"currency"|translate}}
+      </div>
     </div>
     <div *ngIf="loadMoreBtn" class="load-more-container">
-      <button (click)="loadMore()" id="load-more-btn"  class="mat-flat-button">{{"showMore"|translate}}</button>
+      <button (click)="loadMore()" id="load-more-btn" class="mat-flat-button">{{"showMore"|translate}}</button>
     </div>
- </div>
+  </div>
 
 </div>
-
-
-

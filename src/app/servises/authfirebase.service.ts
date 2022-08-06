@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { Observable, of } from 'rxjs';
+import { AdminPermission } from '../shared/classes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthfirebaseService {
 
-  isLoggedIn = false;
+  isLoggedIn: boolean = false;
   constructor(public firebaseAuth: AngularFireAuth) { }
+
 
   async signIn(email: string, password: string) {
     await this.firebaseAuth.signInWithEmailAndPassword(email, password).

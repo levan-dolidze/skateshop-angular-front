@@ -12,4 +12,9 @@ export class SharedService {
     lang = localStorage.getItem('lang');
     lang== 'en' ? translate.setDefaultLang('en') : translate.setDefaultLang('ka');
   };
-}
+
+
+  
+};
+
+

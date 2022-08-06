@@ -14,7 +14,8 @@ import { Observable, of, Subscription } from 'rxjs';
 })
 export class AdminComponent implements OnInit,OnDestroy {
 
-  constructor(private storage: AngularFireStorage, private http: HttpService) { }
+  constructor(private storage: AngularFireStorage, 
+              private http: HttpService) { }
   itemModel: ItemArray;
   orders$: Observable<Order[]>;
   productModel: ProductModel = new ProductModel;
@@ -22,10 +23,10 @@ export class AdminComponent implements OnInit,OnDestroy {
 
   imgURL: any;
   selectedImage: any
+  
   ngOnInit(): void {
     this.http.getImageDetailList();
     this.returnOrders()
-
   }
 
   returnOrders() {
