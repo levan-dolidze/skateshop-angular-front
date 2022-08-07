@@ -1,17 +1,12 @@
 <div class="item-content">
-
+  <mat-spinner class="loader-spinner" *ngIf="loader.isLoading|async"></mat-spinner>
 
   <div class="bugedSlider">
     <ngx-slider (mouseup)="sliderEvent()" [(ngModel)]="customerBudget" [options]="Options"></ngx-slider>
   </div>
 
 
-
-
-
-
   <div class="item-filter-inner">
-    <mat-spinner *ngIf="loader.isLoading|async"></mat-spinner>
     <div style="margin-top: 25px" tabindex="1" #itemList *ngFor="let item of (itemArr$|async);let i =index">
       <div (click)="viewDetails(item.key)" routerLinkActive="router-link-active" class="item">
         {{item.name}}

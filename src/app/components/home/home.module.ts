@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import {MatSliderModule} from '@angular/material/slider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     HomeRoutingModule,
     NgxSliderModule,
-    MatSliderModule,
     MatIconModule,
     FormsModule,
     MatProgressSpinnerModule,

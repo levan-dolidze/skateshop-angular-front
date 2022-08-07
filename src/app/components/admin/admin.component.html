@@ -1,4 +1,5 @@
 <div class="admin-content">
+       <mat-spinner class="loader-spinner" *ngIf="loader.isLoading|async"></mat-spinner>
        <div class="admin-inner">
               <div class="orders-inner">
                      <h3>შეკვეთების ლისტი</h3>
@@ -50,36 +51,5 @@
                             </div>
                      </div>
               </div>
-
-
-              <form class="form-inner" (ngSubmit)="addProduct(productForm)" #productForm="ngForm">
-                     <h3>პროდუქტის დამატება</h3>
-                     <input [(ngModel)]="productModel.type" name="productType" #productType="ngModel" type="text"
-                            placeholder="type" class="form-control">
-
-
-                     <input [(ngModel)]="productModel.name" name="productName" #productName="ngModel" accept="image/*"
-                            placeholder="name" type="text" class="form-control">
-                     <div class="image-content">
-                            <img [src]="imgURL">
-
-                     </div>
-
-                     <input [(ngModel)]="productModel.image" (change)="showPreview($event)" name="productImg"
-                            #productImg="ngModel" type="file" class="form-control">
-
-                     <input [(ngModel)]="productModel.size" name="productSize" #productSize="ngModel" type="text"
-                            placeholder="size" class="form-control">
-                     <textarea [(ngModel)]="productModel.description" name="productDescription" #productDescription="ngModel" type="text"
-                            placeholder="description" class="form-control"></textarea>
-
-                     <input [(ngModel)]="productModel.price" name="productPrice" #productPrice="ngModel" type="text"
-                            placeholder="price" class="form-control">
-             
-
-                     <button type="submit" class="addBTN" mat-raised-button color="primary">add Product</button>
-
-              </form>
-
        </div>
 </div>

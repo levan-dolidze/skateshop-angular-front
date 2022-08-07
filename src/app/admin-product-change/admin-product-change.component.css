@@ -1,20 +1,20 @@
-.admin-content{
+.admin-content {
     width: 100%;
     height: 100%;
     overflow: scroll;
 }
-.admin-inner{
+
+.admin-inner {
     display: flex;
     width: 100%;
 }
 
-.products-inner{
+.products-inner {
     overflow: scroll;
     width: 75%;
 }
 
-
-.product-list-inner{
+.product-list-inner {
     overflow: scroll;
     display: flex;
     width: 100%;
@@ -25,7 +25,7 @@
 }
 
 
-.product-list-inner img{
+.product-list-inner img {
     height: 100%;
     width: 100px;
     object-fit: cover;
@@ -33,13 +33,43 @@
 }
 
 
-.product-details{
-    display:flex;
+.product-details {
+    display: flex;
     width: 100%;
 
 }
-.product-details img{
+
+.product-details img {
     height: 100%;
     object-fit: cover;
 }
 
+.form-inner {
+    margin-left: 30px;
+    width: 20%;
+    position: sticky;
+    top: 0px;
+    height: 300px;
+
+}
+
+.form-inner input,
+textarea {
+    margin-top: 10px;
+}
+
+.addBTN {
+    width: 100%;
+}
+
+.image-content {
+    width: 150px;
+    ;
+    height: 150px;
+}
+
+.image-content img {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+}

@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
   itemArr$: Observable<ProductModel[]>;
   lang: any;
-  itemCount: number = 5;
+  itemCount: number = 10;
   loadMoreBtn: boolean = true;
   @ViewChildren("itemList") itemList: QueryList<ElementRef>;
   changeLanguageEvent$ = new Subscription();

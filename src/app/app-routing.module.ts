@@ -28,7 +28,11 @@ const routes: Routes = [
     path: 'admin-product-change',
     loadChildren: () => import('./admin-product-change/admin-product-change.module').then(m => m.AdminProductChangeModule),
     canActivate: [AdminGuardGuard]
-
+  },
+  { path: 'finance', 
+    loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule),
+    canActivate: [AdminGuardGuard]
+  
   }
 
 

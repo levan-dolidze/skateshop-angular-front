@@ -9,7 +9,7 @@
     "trucks": "Trucks",
     "wheels": "Wheels",
     "complete": "Complete",
-    "title":"SHIPPING - FREE IN BC + AB ON ORDERS OVER $125 AND THE REST OF CANADA OVER $150 / USA FLAT RATE $24.99",
+    "title":"SHIPPING - FREE IN TBILISI AND IN AROUND OF TBILISI NEAREST 30 KM ON ORDERS OVER GEL 50 AND THE REST OF GEORGIA DELIVER RATE IS ACCORDING TO GEORGIAN POST RATES",
     "buy":"Buy",
     "addToCart":"Add to cart",
     "cart":"Cart",
@@ -37,7 +37,8 @@
     "surname":"Surname",
     "personalNumber":"Personal number",
     "phone":"Phone number",
-    "address":"Address"
+    "address":"Address",
+    "finance":"Finance"
 
 }
 
