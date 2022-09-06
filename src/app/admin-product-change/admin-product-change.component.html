@@ -28,15 +28,26 @@
                             placeholder="type" class="form-control">
 
 
-                     <input [(ngModel)]="productModel.name" name="productName" #productName="ngModel" accept="image/*"
-                            placeholder="name" type="text" class="form-control">
-                     <div class="image-content">
+                     <input [(ngModel)]="productModel.name" 
+                            name="productName" 
+                            #productName="ngModel" 
+                            placeholder="name" 
+                            type="text" 
+                            class="form-control">
+
+
+                            <div class="image-content">
                             <img [src]="imgURL">
 
                      </div>
 
-                     <input [(ngModel)]="productModel.image" (change)="showPreview($event)" name="productImg"
-                            #productImg="ngModel" type="file" class="form-control">
+                     <input [(ngModel)]="productModel.image" 
+                            (change)="showPreview($event)" 
+                            accept="image/*"
+                            name="productImg"
+                            #productImg="ngModel" 
+                            type="file" 
+                            class="form-control">
 
                      <input [(ngModel)]="productModel.size" name="productSize" #productSize="ngModel" type="text"
                             placeholder="size" class="form-control">

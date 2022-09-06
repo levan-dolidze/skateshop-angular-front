@@ -26,8 +26,8 @@ export class HttpService {
   IP: any = environment.IP;
   imageDetailList: AngularFireList<any>
 
-  items:Order[]=[];
-  products:ProductModel[]=[];
+  items: Order[] = [];
+  products: ProductModel[] = [];
 
   sendClickEvent() {
     this.subject.next();
@@ -64,7 +64,7 @@ export class HttpService {
             // romelshic keys setavs da setavs mtlian obieqtshi
             itemArr.push({ ...res[key], key: key })
           }
-          this.products=itemArr
+          this.products = itemArr
           return itemArr
         } else {
           return []
@@ -85,7 +85,7 @@ export class HttpService {
           for (const key in res) {
             orderArr.push({ ...res[key], key: key })
           }
-          this.items=orderArr
+          this.items = orderArr
           return orderArr
         } else {
           return [];
@@ -99,19 +99,19 @@ export class HttpService {
 
   deleteDeleveredOrder(key: any) {
     return this.http.delete(`${this.apiUrl}orders/${key}.json`).pipe(
-      tap(()=>{
-        const itemIndex=this.items.map((item)=>item.key).indexOf(key);
-        this.items.splice(itemIndex,1)
-        this.deleteItemEvent.next(of(this.items) )
+      tap(() => {
+        const itemIndex = this.items.map((item) => item.key).indexOf(key);
+        this.items.splice(itemIndex, 1)
+        this.deleteItemEvent.next(of(this.items))
       })
     )
   };
   deleteProduct(key: any) {
     return this.http.delete(`${this.apiUrl}allProductData/${key}.json`).pipe(
-      tap(()=>{
-        const itemIndex=this.products.map((item)=>item.key).indexOf(key);
-        this.products.splice(itemIndex,1)
-        this.deleteItemEvent.next(of(this.products) )
+      tap(() => {
+        const itemIndex = this.products.map((item) => item.key).indexOf(key);
+        this.products.splice(itemIndex, 1)
+        this.deleteItemEvent.next(of(this.products))
       })
     )
   };

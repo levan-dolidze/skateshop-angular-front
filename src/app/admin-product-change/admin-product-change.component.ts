@@ -83,9 +83,10 @@ export class AdminProductChangeComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgURL = e.target.result;
       reader.readAsDataURL(event.target.files[0])
-      this.selectedImage = event.target.files[0]
+      this.selectedImage = event.target.files[0];
     } else {
       this.imgURL = 'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg';
+      this.selectedImage=null;
     }
 
   };
